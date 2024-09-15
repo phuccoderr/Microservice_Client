@@ -1,0 +1,13 @@
+import { Loader2 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { COMMONS_CONST } from "@/constants/commons";
+
+export function ButtonLoading() {
+  return (
+    <Button disabled>
+      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      {COMMONS_CONST.LOADING}
+    </Button>
+  );
+}
