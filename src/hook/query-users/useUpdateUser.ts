@@ -19,7 +19,7 @@ export const useUpdateUser = () => {
       setModalUser(false);
     },
     onError: (error) => {
-      toastError(error.message);
+      toastError(USER_CONST.NOT_EMPTY);
     },
   });
 };

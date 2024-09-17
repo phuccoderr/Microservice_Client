@@ -5,7 +5,26 @@ import { IoMdMenu } from "react-icons/io";
 import { useState } from "react";
 import { HomeIcon } from "@radix-ui/react-icons";
 import { FaUsers } from "react-icons/fa";
+import { BiSolidCategoryAlt } from "react-icons/bi";
 import Link from "next/link";
+
+const menuItems = [
+  {
+    title: "Home",
+    icon: <HomeIcon className="h-5 w-5" />,
+    link: "/admin",
+  },
+  {
+    title: "Users",
+    icon: <FaUsers className="h-5 w-5" />,
+    link: "/admin/users",
+  },
+  {
+    title: "Categories",
+    icon: <BiSolidCategoryAlt className="h-5 w-5" />,
+    link: "/admin/categories",
+  },
+];
 
 const SidebarAdmin = () => {
   const [collapse, setCollapse] = useState<boolean>(false);
@@ -15,7 +34,7 @@ const SidebarAdmin = () => {
   };
 
   return (
-    <div className="flex fixed">
+    <div className="fixed flex">
       <Sidebar
         collapsed={collapse}
         className="h-screen border-r"
@@ -54,19 +73,15 @@ const SidebarAdmin = () => {
             },
           }}
         >
-          <MenuItem
-            icon={<HomeIcon className="h-5 w-5" />}
-            component={<Link href={"/admin"} />}
-          >
-            Home
-          </MenuItem>
-          <MenuItem
-            icon={<FaUsers className="h-5 w-5" />}
-            component={<Link href={"/admin/users"} />}
-          >
-            User
-          </MenuItem>
-          <MenuItem> Calendar </MenuItem>
+          {menuItems.map((item) => (
+            <MenuItem
+              key={item.title}
+              icon={item.icon}
+              component={<Link href={item.link} />}
+            >
+              {item.title}
+            </MenuItem>
+          ))}
         </Menu>
       </Sidebar>
     </div>

@@ -18,8 +18,10 @@ import {
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
+  ExpandedState,
   flexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -42,19 +44,33 @@ export function DataTable<TData, TValue>({
   pagination,
   setPagination,
 }: Readonly<DataTableProps<TData, TValue>>) {
+  const [search, setSearch] = useState<string>("");
+  const debouncedSearch = useDebounce(search, 1000);
+  const [expanded, setExpanded] = useState<ExpandedState>({});
+
   const table = useReactTable({
     data,
     columns,
+    initialState: {
+      columnVisibility: {
+        id: false,
+        _id: false,
+      },
+    },
     defaultColumn: {
       size: 200,
       minSize: 200,
       maxSize: 250,
     },
+    state: {
+      expanded,
+    },
+    getSubRows: (row) => row.children,
+    onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
   });
-  const [search, setSearch] = useState<string>("");
-  const debouncedSearch = useDebounce(search, 1000);
 
   useEffect(() => {
     setPagination((prevState) => ({ ...prevState, keyword: debouncedSearch }));
@@ -150,6 +166,11 @@ export function DataTable<TData, TValue>({
                       )}
                     </TableCell>
                   ))}
+                  {row.getIsExpanded() && (
+                    <tr>
+                      <td colSpan={row.getAllCells().length}></td>
+                    </tr>
+                  )}
                 </TableRow>
               ))
             ) : (

@@ -5,18 +5,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useModalStore from "@/store/useModalStore";
+import useModalCategory from "@/store/useModalCategory";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { FaPencilAlt } from "react-icons/fa";
 
 interface ActionsProps {
-  id: string;
-  name: string;
-  email: string;
+  data: { id: string; [key: string]: any };
+  setModalEdit: any;
+  setModalDelete: any;
 }
 
-export default function Actions({ id, name, email }: Readonly<ActionsProps>) {
-  const { setModalUser, setModalUserDelete } = useModalStore();
+export default function Actions({
+  data,
+  setModalEdit,
+  setModalDelete,
+}: Readonly<ActionsProps>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,14 +28,13 @@ export default function Actions({ id, name, email }: Readonly<ActionsProps>) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem
-          onClick={() => setModalUser(true, { id, name, email })}
-        >
+        <DropdownMenuItem onClick={() => setModalEdit(true, { ...data })}>
           <FaPencilAlt className="mr-2 h-4 w-4" />
           <span>Edit</span>
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => setModalUserDelete(true, { id, name })}
+          disabled={data.disabled}
+          onClick={() => setModalDelete(true, { ...data })}
         >
           <TrashIcon className="mr-2 h-4 w-4" />
           <span>Delete</span>

@@ -2,7 +2,7 @@
 
 import { columns } from "@/app/admin/(dashboard)/users/column";
 import { DataTable } from "@/components/table/data-table";
-import { useGetAllUsers } from "@/hook/useGetAllUsers";
+import { useGetAllUsers } from "@/hook/query-users/useGetAllUsers";
 import LoadingGlobal from "@/components/loading/loading";
 import { useState } from "react";
 import ModalUpdateUser from "@/components/user/modalUpdateUser";
@@ -10,7 +10,7 @@ import useModalStore from "@/store/useModalStore";
 import ModalDelete from "@/components/modal/modalDelete";
 import { ParamPagination } from "@/types/pagination.type";
 import { USER_CONST } from "@/constants/users";
-import { useDeleteUser } from "@/hook/useDeleteUser";
+import { useDeleteUser } from "@/hook/query-users/useDeleteUser";
 
 const Users = () => {
   const [pagination, setPagination] = useState<ParamPagination>({
@@ -25,7 +25,7 @@ const Users = () => {
   return (
     <>
       <div className="flex w-full flex-col gap-4 p-4">
-        <h1 className="text-2xl font-bold">Manage Users</h1>
+        <h1 className="text-2xl font-bold">{USER_CONST.MANAGE_USER}</h1>
 
         {isLoading ? (
           <LoadingGlobal />

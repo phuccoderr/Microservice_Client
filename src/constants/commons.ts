@@ -8,4 +8,5 @@ export const COMMONS_CONST = {
   SAVE: "Lưu",
   DELETE: "Xoá",
   CANCEL: "Huỷ",
+  STATUS: "Trạng thái",
 };

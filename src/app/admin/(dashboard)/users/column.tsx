@@ -3,17 +3,15 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { COMMONS_CONST } from "@/constants/commons";
 import { useToastMessage } from "@/hook/useToastMessage";
-import { useUpdateUserStatus } from "@/hook/useUpdateStatusUser";
+import { useUpdateUserStatus } from "@/hook/query-users/useUpdateStatusUser";
 import { User } from "@/types/users.type";
 import { ColumnDef } from "@tanstack/react-table";
+import useModalStore from "@/store/useModalStore";
 
 export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "_id",
     header: "Id",
-    size: 200,
-    minSize: 100,
-    maxSize: 300,
   },
   {
     accessorKey: "name",
@@ -61,11 +59,13 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "action",
     header: "Thao tác",
     cell: ({ cell, row }) => {
+      const { setModalUser, setModalUserDelete } = useModalStore();
+      const { _id, name, email } = row.original;
       return (
         <Actions
-          id={row.original._id}
-          name={row.original.name}
-          email={row.original.email}
+          data={{ id: _id, name, email }}
+          setModalEdit={setModalUser}
+          setModalDelete={setModalUserDelete}
         />
       );
     },

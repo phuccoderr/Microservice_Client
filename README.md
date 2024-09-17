@@ -8,3 +8,5 @@
 - Cookie
 - React-hot-toast
 - Zustand
+- Zustand Middleware
+- Lodash

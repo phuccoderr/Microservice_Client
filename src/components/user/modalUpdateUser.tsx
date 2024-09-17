@@ -12,15 +12,19 @@ import { Input } from "@/components/ui/input";
 import useModalStore from "@/store/useModalStore";
 import { USER_CONST } from "@/constants/users";
 import { COMMONS_CONST } from "@/constants/commons";
-import { useUpdateUser } from "@/hook/useUpdateUser";
+import { useUpdateUser } from "@/hook/query-users/useUpdateUser";
 import { useToastMessage } from "@/hook/useToastMessage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ModalUpdateUser() {
   const { modalUser, name, id, email, setModalUser } = useModalStore();
   const { toastLoading } = useToastMessage();
   const { mutate } = useUpdateUser();
-  const [updateName, setUpdateName] = useState<string>(name);
+  const [updateName, setUpdateName] = useState<string>("");
+
+  useEffect(() => {
+    if (name) setUpdateName(name);
+  }, []);
 
   const handleUpdateUser = () => {
     toastLoading(COMMONS_CONST.LOADING);
@@ -34,7 +38,7 @@ export default function ModalUpdateUser() {
           <DialogTitle>
             {USER_CONST.UPDATE_PROFILE}: {email}
           </DialogTitle>
-          <DialogDescription>{USER_CONST.CHANGE_NAME}</DialogDescription>
+          <DialogDescription>{USER_CONST.UPDATE_DESCRIPTION}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
