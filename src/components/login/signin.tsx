@@ -15,25 +15,16 @@ import { AUTH_CONST } from "@/constants/login";
 import useFormLogin from "@/hook/useFormLogin";
 import { useLoginMutation } from "@/hook/useLogin";
 import { useToastMessage } from "@/hook/useToastMessage";
-import { CookieUtils } from "@/utils/cookie-utils";
-import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 export default function Signin() {
   const { formSchema, form } = useFormLogin();
   const mutateLogin = useLoginMutation();
   const { toastLoading } = useToastMessage();
-  const router = useRouter();
   const handleLogin = (values: z.infer<typeof formSchema>) => {
     toastLoading(COMMONS_CONST.LOADING);
     mutateLogin.mutate(values);
   };
-
-  const token = CookieUtils.get("access_token");
-
-  if (token) {
-    router.push("/admin");
-  }
 
   return (
     <Form {...form}>

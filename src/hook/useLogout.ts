@@ -1,12 +1,14 @@
 import { usersApi } from "@/api/usersApi";
 import { AUTH_CONST } from "@/constants/login";
 import { useToastMessage } from "@/hook/useToastMessage";
+import { useAuthStore } from "@/store/useAuthStore";
 import { CookieUtils } from "@/utils/cookie-utils";
 import { useMutation } from "@tanstack/react-query";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const useLogoutMutation = () => {
   const { toastSuccess } = useToastMessage();
+  const { setIsAuth } = useAuthStore();
   const router = useRouter();
 
   return useMutation({
@@ -18,6 +20,7 @@ export const useLogoutMutation = () => {
       CookieUtils.remove("access_token");
       localStorage.removeItem("refresh_token");
       toastSuccess(AUTH_CONST.LOG_OUT);
+      setIsAuth(false);
       router.push("/admin/login");
     },
   });

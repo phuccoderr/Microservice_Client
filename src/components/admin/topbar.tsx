@@ -19,9 +19,7 @@ export default function Topbar() {
 
   const handleLogout = () => {
     const rfToken = getLocalRefreshToken();
-    if (rfToken) {
-      mutateLogout.mutate(rfToken);
-    }
+    mutateLogout.mutate(rfToken);
   };
 
   return (

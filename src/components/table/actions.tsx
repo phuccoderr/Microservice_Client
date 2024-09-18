@@ -5,7 +5,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useModalCategory from "@/store/useModalCategory";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { FaPencilAlt } from "react-icons/fa";
 

@@ -12,7 +12,7 @@ export const useGetAllUsers = ({
   return useQuery<PaginationResponse<User>>({
     queryKey: ["users", page, limit, sort, keyword],
     queryFn: async () => {
-      return (await usersApi.get({ page, limit, sort, keyword })).data.data;
+      return (await usersApi.get({ page, limit, sort, keyword })).data;
     },
     refetchOnMount: false,
     refetchOnWindowFocus: false,

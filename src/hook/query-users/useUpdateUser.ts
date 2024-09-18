@@ -1,22 +1,22 @@
 import { usersApi } from "@/api/usersApi";
 import { USER_CONST } from "@/constants/users";
 import { useToastMessage } from "@/hook/useToastMessage";
-import useModalStore from "@/store/useModalStore";
+import { useUserStore } from "@/store/useUserStore";
 import { UpdateUser } from "@/types/users.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useUpdateUser = () => {
   const { toastSuccess, toastError } = useToastMessage();
-  const { setModalUser } = useModalStore();
+  const { setModalUpdate } = useUserStore();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: UpdateUser) => {
-      return (await usersApi.updateUser(data)).data.data;
+      return (await usersApi.updateUser(data)).data;
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.refetchQueries({ queryKey: ["users"] });
       toastSuccess(USER_CONST.UPDATE_USER_SUCESS);
-      setModalUser(false);
+      setModalUpdate(false);
     },
     onError: (error) => {
       toastError(USER_CONST.NOT_EMPTY);

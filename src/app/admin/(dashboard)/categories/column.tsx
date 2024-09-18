@@ -1,6 +1,6 @@
 import Actions from "@/components/table/actions";
 import { Badge } from "@/components/ui/badge";
-import useModalCategory from "@/store/useModalCategory";
+import { useCategoryStore } from "@/store/useCategoryStore";
 import { Category } from "@/types/category.type";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -42,14 +42,14 @@ export const columns: ColumnDef<Category>[] = [
     accessorKey: "action",
     header: "Thao tác",
     cell: ({ cell, row }) => {
-      const { setModalCategory, setModalCategoryDelete } = useModalCategory();
+      const { setModalUpdate, setModalDelete } = useCategoryStore();
       const { id, name, parent_id, status, has_children } = row.original;
 
       return (
         <Actions
           data={{ id, name, parent_id, status, disabled: has_children }}
-          setModalEdit={setModalCategory}
-          setModalDelete={setModalCategoryDelete}
+          setModalEdit={setModalUpdate}
+          setModalDelete={setModalDelete}
         />
       );
     },

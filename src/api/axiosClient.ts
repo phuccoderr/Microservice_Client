@@ -1,4 +1,5 @@
 import { refreshToken } from "@/api/jwtClient";
+import URL_CONST from "@/constants/api";
 import { CookieUtils } from "@/utils/cookie-utils";
 import axios from "axios";
 
@@ -21,7 +22,7 @@ const createAxiosInstance = (baseUrl: string) => {
 
   axiosClient.interceptors.response.use(
     (response) => {
-      return response;
+      return response.data;
     },
     async (error) => {
       const originalRequest = error.config;
@@ -37,13 +38,13 @@ const createAxiosInstance = (baseUrl: string) => {
           return Promise.reject(refreshError);
         }
       }
-      return Promise.reject(error);
+      return Promise.reject(error.response.data);
     },
   );
 
   return axiosClient;
 };
 
-export const usersAxiosClient = createAxiosInstance(
-  "http://localhost:9120/api/v1/users",
-);
+export const authUserAxiosClient = createAxiosInstance(URL_CONST.AUTH);
+export const usersAxiosClient = createAxiosInstance(URL_CONST.USERS);
+export const categoriesAxiosClient = createAxiosInstance(URL_CONST.CATEGORIES);

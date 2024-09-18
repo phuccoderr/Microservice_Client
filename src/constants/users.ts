@@ -1,4 +1,7 @@
 export const USER_CONST = {
+  CREATE_USER: "Tạo người dùng",
+  CREATE_DESCRIPTION: "Vui lòng nhập thông tin người dùng",
+  CREATE_SUCCESS: "Tạo người dùng thành công",
   UPDATE_USER_SUCESS: "Cập nhật thông tin thành công!",
   UPDATE_STATUS_SUCESS: "Cập nhật trạng thái thành công!",
   DELETE_USER_SUCCESS: "Xoá người dùng thành công!",
@@ -9,4 +12,5 @@ export const USER_CONST = {
   DELETE: "Xóa người dùng",
   MANAGE_USER: "Quản lý người dùng",
   NOT_EMPTY: "Không được để trống",
+  EMAIL_ALREADY: "Email đã được sử dụng",
 };

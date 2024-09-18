@@ -1,3 +1,5 @@
+"use client";
+import { getAccessToken } from "@/api/jwtClient";
 import Signin from "@/components/login/signin";
 import {
   Card,
@@ -6,8 +8,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { AUTH_CONST } from "@/constants/login";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function Login() {
+const LoginPage = () => {
+  const token = getAccessToken();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (token) {
+      router.push("/admin/users");
+    }
+  }, []);
   return (
     <div className="flex justify-center">
       <div className="flex min-h-screen w-full items-center justify-center bg-background">
@@ -21,4 +33,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;

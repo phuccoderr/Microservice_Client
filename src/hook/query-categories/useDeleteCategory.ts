@@ -1,20 +1,21 @@
+import categoriesApi from "@/api/categoriesApi";
 import { usersApi } from "@/api/usersApi";
-import { USER_CONST } from "@/constants/users";
+import CATEGORIES_CONST from "@/constants/categories";
 import { useToastMessage } from "@/hook/useToastMessage";
-import { useUserStore } from "@/store/useUserStore";
+import { useCategoryStore } from "@/store/useCategoryStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export const useDeleteUser = () => {
+export const useDeleteCategory = () => {
   const { toastSuccess, toastError } = useToastMessage();
-  const { setModalDelete } = useUserStore();
+  const { setModalDelete } = useCategoryStore();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
-      return (await usersApi.delete(id)).data;
+      return (await categoriesApi.delete(id)).data;
     },
     onSuccess: (data) => {
-      queryClient.refetchQueries({ queryKey: ["users"] });
-      toastSuccess(USER_CONST.DELETE_USER_SUCCESS);
+      queryClient.refetchQueries({ queryKey: ["categories"] });
+      toastSuccess(CATEGORIES_CONST.DELETE_SUCCESS);
       setModalDelete(false);
     },
     onError: (error) => {

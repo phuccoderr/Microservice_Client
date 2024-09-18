@@ -7,3 +7,4 @@ export type User = {
 };
 
 export type UpdateUser = Pick<User, "_id" | "name" | "roles">;
+export type CreateUser = Omit<User, "_id"> & { password: string };

@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import useModalStore from "@/store/useModalStore";
+import { useUserStore } from "@/store/useUserStore";
 import { USER_CONST } from "@/constants/users";
 import { COMMONS_CONST } from "@/constants/commons";
 import { useUpdateUser } from "@/hook/query-users/useUpdateUser";
@@ -17,7 +17,7 @@ import { useToastMessage } from "@/hook/useToastMessage";
 import { useEffect, useState } from "react";
 
 export default function ModalUpdateUser() {
-  const { modalUser, name, id, email, setModalUser } = useModalStore();
+  const { modalUpdate, name, id, email, setModalUpdate } = useUserStore();
   const { toastLoading } = useToastMessage();
   const { mutate } = useUpdateUser();
   const [updateName, setUpdateName] = useState<string>("");
@@ -32,7 +32,7 @@ export default function ModalUpdateUser() {
   };
 
   return (
-    <Dialog open={modalUser} onOpenChange={setModalUser}>
+    <Dialog open={modalUpdate} onOpenChange={setModalUpdate}>
       <DialogContent className="bg-black sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>

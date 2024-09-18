@@ -1,27 +1,32 @@
-import { usersAxiosClient } from "@/api/axiosClient";
+import { authUserAxiosClient, usersAxiosClient } from "@/api/axiosClient";
+import URL_CONST from "@/constants/api";
 import { Login } from "@/types/login.type";
 import { ParamPagination } from "@/types/pagination.type";
-import { UpdateUser } from "@/types/users.type";
+import { CreateUser, UpdateUser } from "@/types/users.type";
 import axios from "axios";
 
 const baseURL = "http://localhost:9120/api/v1/users";
 
 export const usersApi = {
   login(param: Login) {
-    const url = `${baseURL}/auth/login`;
-    return axios.post(url, param);
+    const url = `/login`;
+    return authUserAxiosClient.post(url, param);
   },
   logout(token: string) {
-    const url = `${baseURL}/auth/logout`;
-    return axios.post(url, { token: token });
+    const url = `/logout`;
+    return authUserAxiosClient.get(url, { params: token });
   },
   refreshToken(token: string) {
-    const url = `${baseURL}/auth/refresh`;
-    return axios.post(url, token);
+    const url = `/refresh?token=${token}`;
+    return authUserAxiosClient.get(url);
   },
   get(params: ParamPagination) {
     const url = "";
     return usersAxiosClient.get(url, { params });
+  },
+  create: (params: CreateUser) => {
+    const url = "";
+    return usersAxiosClient.post(url, params);
   },
   updateUser(params: UpdateUser) {
     const { _id, ...data } = params;

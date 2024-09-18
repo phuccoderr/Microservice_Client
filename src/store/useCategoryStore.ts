@@ -2,8 +2,8 @@ import { Category } from "@/types/category.type";
 import { create } from "zustand";
 
 type ModalState = {
-  modalCategory: boolean;
-  modalCategoryDelete: boolean;
+  modalUpdate: boolean;
+  modalDelete: boolean;
   id: string;
   name: string;
   status: boolean;
@@ -17,39 +17,39 @@ type ListCategory = {
 };
 
 interface ModalCategoryStore extends ModalState {
-  setModalCategory: (open: boolean, props?: any) => void;
-  setModalCategoryDelete: (open: boolean, props?: any) => void;
+  setModalUpdate: (open: boolean, props?: any) => void;
+  setModalDelete: (open: boolean, props?: any) => void;
   setListCategory: (listCategory: Category[]) => void;
 }
 
-const useModalCategory = create<ModalCategoryStore>((set) => ({
-  modalCategory: false,
-  modalCategoryDelete: false,
+export const useCategoryStore = create<ModalCategoryStore>((set) => ({
+  modalUpdate: false,
+  modalDelete: false,
   id: "",
   name: "",
   status: false,
   parent_id: "",
   listCategory: [],
-  setModalCategory: (open: boolean, props?: any) => {
+  setModalUpdate: (open: boolean, props?: any) => {
     const { id, name, status, parent_id } = props || {};
     if (open) {
-      return set({ modalCategory: true, id, name, status, parent_id });
+      return set({ modalUpdate: true, id, name, status, parent_id });
     }
     return set({
-      modalCategory: false,
+      modalUpdate: false,
       id: "",
       name: "",
       status: false,
       parent_id: "",
     });
   },
-  setModalCategoryDelete: (open: boolean, props?: any) => {
+  setModalDelete: (open: boolean, props?: any) => {
     const { id, name, status, parent_id } = props || {};
     if (open) {
-      return set({ modalCategoryDelete: true, id, name, status, parent_id });
+      return set({ modalDelete: true, id, name, status, parent_id });
     }
     return set({
-      modalCategoryDelete: false,
+      modalDelete: false,
       id: "",
       name: "",
       status: false,
@@ -79,5 +79,3 @@ const useModalCategory = create<ModalCategoryStore>((set) => ({
     set({ listCategory: newData });
   },
 }));
-
-export default useModalCategory;

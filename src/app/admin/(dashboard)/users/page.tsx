@@ -5,14 +5,14 @@ import { DataTable } from "@/components/table/data-table";
 import { useGetAllUsers } from "@/hook/query-users/useGetAllUsers";
 import LoadingGlobal from "@/components/loading/loading";
 import { useState } from "react";
-import ModalUpdateUser from "@/components/user/modalUpdateUser";
-import useModalStore from "@/store/useModalStore";
+import ModalUpdateUser from "@/components/user/modal-update-user";
+import { useUserStore } from "@/store/useUserStore";
 import ModalDelete from "@/components/modal/modalDelete";
 import { ParamPagination } from "@/types/pagination.type";
 import { USER_CONST } from "@/constants/users";
 import { useDeleteUser } from "@/hook/query-users/useDeleteUser";
 
-const Users = () => {
+const UsersPage = () => {
   const [pagination, setPagination] = useState<ParamPagination>({
     page: 1,
     limit: 100,
@@ -20,7 +20,7 @@ const Users = () => {
     keyword: "",
   });
   const { data, isLoading } = useGetAllUsers(pagination);
-  const { modalUserDelete, setModalUserDelete, id, name } = useModalStore();
+  const { modalDelete, setModalDelete, id, name } = useUserStore();
   const { mutate } = useDeleteUser();
   return (
     <>
@@ -31,6 +31,7 @@ const Users = () => {
           <LoadingGlobal />
         ) : (
           <DataTable
+            routeCreate="/admin/users/create"
             columns={columns}
             data={data?.entities ?? []}
             pagination={pagination}
@@ -44,12 +45,12 @@ const Users = () => {
         name={name}
         title={USER_CONST.DELETE}
         description={USER_CONST.DELETE_USER}
-        openModal={modalUserDelete}
-        setModal={setModalUserDelete}
+        openModal={modalDelete}
+        setModal={setModalDelete}
         mutate={mutate}
       />
     </>
   );
 };
 
-export default Users;
+export default UsersPage;

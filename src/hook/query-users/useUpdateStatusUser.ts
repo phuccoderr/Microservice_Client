@@ -9,11 +9,10 @@ export const useUpdateUserStatus = () => {
 
   return useMutation({
     mutationFn: async ({ id, status }: { id: string; status: boolean }) => {
-      return (await usersApi.updateStatus({ id: id, status: status })).data
-        .data;
+      return (await usersApi.updateStatus({ id: id, status: status })).data;
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.refetchQueries({ queryKey: ["users"] });
       toastSuccess(USER_CONST.UPDATE_STATUS_SUCESS);
     },
     onError: (error) => {

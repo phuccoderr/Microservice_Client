@@ -8,4 +8,5 @@ export const AUTH_CONST = {
   INVALID_EMAIL: "Email không hợp lệ!",
   LOGIN_SUCCESS: "Đăng nhập thành công",
   LOGIN_FAILED: "Đăng nhập thất bại",
+  REGISTER: "Đăng ký",
 };

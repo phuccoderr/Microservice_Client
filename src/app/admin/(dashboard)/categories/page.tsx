@@ -1,16 +1,18 @@
 "use client";
 import { columns } from "@/app/admin/(dashboard)/categories/column";
-import ModalUpdateCategory from "@/components/category/modalUpdateCategory";
+import ModalUpdateCategory from "@/components/category/modal-update-category";
 import LoadingGlobal from "@/components/loading/loading";
 import { DataTable } from "@/components/table/data-table";
 import CATEGORIES_CONST from "@/constants/categories";
 import { useGetAllCategories } from "@/hook/query-categories/useGetAllCategories";
-import useModalCategory from "@/store/useModalCategory";
+import { useCategoryStore } from "@/store/useCategoryStore";
 import { ParamPagination } from "@/types/pagination.type";
 import { useEffect, useState } from "react";
 import _ from "lodash";
+import ModalDelete from "@/components/modal/modalDelete";
+import { useDeleteCategory } from "@/hook/query-categories/useDeleteCategory";
 
-const Categories = () => {
+const CategoriesPage = () => {
   const [pagination, setPagination] = useState<ParamPagination>({
     page: 1,
     limit: 100,
@@ -18,7 +20,9 @@ const Categories = () => {
     keyword: "",
   });
   const { data, isLoading } = useGetAllCategories(pagination);
-  const { setListCategory } = useModalCategory();
+  const { id, name, modalDelete, setModalDelete, setListCategory } =
+    useCategoryStore();
+  const { mutate } = useDeleteCategory();
 
   useEffect(() => {
     setListCategory(data?.entities ?? []);
@@ -35,6 +39,7 @@ const Categories = () => {
           <LoadingGlobal />
         ) : (
           <DataTable
+            routeCreate="/admin/categories/create"
             columns={columns}
             data={data?.entities ?? []}
             pagination={pagination}
@@ -43,7 +48,16 @@ const Categories = () => {
         )}
       </div>
       <ModalUpdateCategory />
+      <ModalDelete
+        id={id}
+        name={name}
+        title={CATEGORIES_CONST.DELETE}
+        description={CATEGORIES_CONST.DELETE_DESCRIPTION}
+        openModal={modalDelete}
+        setModal={setModalDelete}
+        mutate={mutate}
+      />
     </>
   );
 };
-export default Categories;
+export default CategoriesPage;

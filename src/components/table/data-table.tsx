@@ -30,10 +30,12 @@ import { USER_CONST } from "@/constants/users";
 import { COMMONS_CONST } from "@/constants/commons";
 import useDebounce from "@/hook/useDebounce";
 import { ParamPagination } from "@/types/pagination.type";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  routeCreate?: string;
   pagination: ParamPagination;
   setPagination: Dispatch<React.SetStateAction<ParamPagination>>;
 }
@@ -41,12 +43,14 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
+  routeCreate,
   pagination,
   setPagination,
 }: Readonly<DataTableProps<TData, TValue>>) {
   const [search, setSearch] = useState<string>("");
   const debouncedSearch = useDebounce(search, 1000);
   const [expanded, setExpanded] = useState<ExpandedState>({});
+  const router = useRouter();
 
   const table = useReactTable({
     data,
@@ -65,7 +69,7 @@ export function DataTable<TData, TValue>({
     state: {
       expanded,
     },
-    getSubRows: (row) => row.children,
+    getSubRows: (row: any) => row.children,
     onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -79,7 +83,7 @@ export function DataTable<TData, TValue>({
   const handleLimit = (limit: number) => {
     setPagination((prevState) => ({ ...prevState, limit }));
   };
-
+  console.log("table", table);
   return (
     <>
       <div className="flex items-center justify-between">
@@ -90,6 +94,11 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
         <div className="flex items-center gap-2">
+          {routeCreate && (
+            <Button onClick={() => router.push(routeCreate)}>
+              {COMMONS_CONST.CREATE}
+            </Button>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
@@ -189,7 +198,7 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredRowModel().flatRows.length} row(s) selected.
         </div>
         <div className="space-x-2">
           <Button

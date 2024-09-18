@@ -9,3 +9,5 @@ export type Category = {
   updated_at: Date;
   has_children: boolean;
 };
+
+export type CategoryRequest = Pick<Category, "name" | "status" | "parent_id">;

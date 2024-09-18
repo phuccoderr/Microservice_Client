@@ -1,12 +1,23 @@
-import { usersAxiosClient } from "@/api/axiosClient";
+import { categoriesAxiosClient } from "@/api/axiosClient";
+import { CategoryRequest } from "@/types/category.type";
 import { ParamPagination } from "@/types/pagination.type";
-
-const baseURL = "http://localhost:9130/api/v1/categories";
 
 const categoriesApi = {
   get: (params: ParamPagination) => {
-    const url = baseURL;
-    return usersAxiosClient.get(url, { params });
+    const url = "";
+    return categoriesAxiosClient.get(url, { params });
+  },
+  create: (params: CategoryRequest) => {
+    const url = "";
+    return categoriesAxiosClient.post(url, params);
+  },
+  update: (id: string, params: CategoryRequest) => {
+    const url = `/${id}`;
+    return categoriesAxiosClient.patch(url, params);
+  },
+  delete(id: string) {
+    const url = `${id}`;
+    return categoriesAxiosClient.delete(url);
   },
 };
 
