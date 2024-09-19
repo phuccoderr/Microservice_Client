@@ -1,4 +1,5 @@
 "use client";
+import ButtonBack from "@/components/button-back";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -51,15 +52,13 @@ const CreatePage = () => {
 
   return (
     <div className="flex w-full flex-col gap-4 p-4">
-      <h1 className="text-2xl font-bold">Tạo danh mục</h1>
-      <Link href={"/admin/categories"}>
-        <Button className="min-w-[10%] max-w-[10%]">
-          <IoMdArrowRoundBack className="mr-2 h-4 w-4" /> {COMMONS_CONST.BACK}
-        </Button>
-      </Link>
+      <h1 className="text-2xl font-bold">{CATEGORIES_CONST.CREATE}</h1>
+      <ButtonBack url="/admin/categories" />
       <Card className="mx-auto max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Tạo danh mục</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            {CATEGORIES_CONST.CREATE}
+          </CardTitle>
           <CardDescription>Nhập đầy đủ</CardDescription>
         </CardHeader>
         <Form {...form}>
@@ -70,7 +69,7 @@ const CreatePage = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{COMMONS_CONST.NAME}</FormLabel>
                     <FormControl>
                       <Input
                         placeholder={COMMONS_CONST.ENTER_NAME}
@@ -92,7 +91,7 @@ const CreatePage = () => {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel>Trạng thái của danh mục</FormLabel>
+                      <FormLabel>{CATEGORIES_CONST.STATUS}</FormLabel>
                     </div>
                   </FormItem>
                 )}
@@ -102,7 +101,7 @@ const CreatePage = () => {
                 name="parent_id"
                 render={({ field }) => (
                   <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                    <FormLabel>Danh mục cha</FormLabel>
+                    <FormLabel>{CATEGORIES_CONST.CATEGORY_PARENT}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}

@@ -13,6 +13,7 @@ export const COMMONS_CONST = {
   ERROR: "Lỗi không xác định",
   CREATE: "Tạo",
   BACK: "Quay lại",
+  EDIT: "Chỉnh sửa",
   INVALID_EMAIL: "Email không đúng định dạng",
   UPPERCASE_PASSWORD: "Mật khẩu phải có kí tự in hoa",
   LOWERCASE_PASSWORD: "Mật khẩu phải có kí tự thường",

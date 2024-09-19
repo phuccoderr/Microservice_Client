@@ -4,6 +4,7 @@ const CATEGORIES_CONST = {
   UPDATE_CATEGORY: "Chỉnh sửa danh mục",
   UPDATE_DESCRIPTION: "Thay đổi thông tin danh mục",
   UPDATE_SUCCESS: "Cập nhật danh mục thành công",
+  CREATE: "Tạo danh mục",
 
   CREATE_SUCCESS: "Tạo danh mục thành công",
 
@@ -14,6 +15,9 @@ const CATEGORIES_CONST = {
 
   DELETE: "Xoá danh mục",
   DELETE_DESCRIPTION: "Bạn có chắc chắn muốn xóa danh mục này:",
+
+  CATEGORY_PARENT: "Danh mục cha",
+  STATUS: "Trạng thái của danh mục",
 };
 
 export default CATEGORIES_CONST;

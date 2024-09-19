@@ -1,5 +1,5 @@
 "use client";
-import { getAccessToken } from "@/api/jwtClient";
+import { getLocalRefreshToken } from "@/api/jwtClient";
 import Signin from "@/components/login/signin";
 import {
   Card,
@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const LoginPage = () => {
-  const token = getAccessToken();
+  const token = getLocalRefreshToken();
   const router = useRouter();
 
   useEffect(() => {

@@ -2,11 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { IoMdMenu } from "react-icons/io";
-import { useState } from "react";
 import { HomeIcon } from "@radix-ui/react-icons";
 import { FaUsers } from "react-icons/fa";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import Link from "next/link";
+import { useSidebarStore } from "@/store/useSidebarStore";
+import { FaShoppingBag } from "react-icons/fa";
+import { title } from "process";
 
 const menuItems = [
   {
@@ -24,19 +26,20 @@ const menuItems = [
     icon: <BiSolidCategoryAlt className="h-5 w-5" />,
     link: "/admin/categories",
   },
+  {
+    title: "Products",
+    icon: <FaShoppingBag className="h-5 w-5" />,
+    link: "/admin/products",
+  },
 ];
 
 const SidebarAdmin = () => {
-  const [collapse, setCollapse] = useState<boolean>(false);
-
-  const toggleSidebar = () => {
-    setCollapse(!collapse);
-  };
+  const { open, setOpen } = useSidebarStore();
 
   return (
     <div className="fixed flex">
       <Sidebar
-        collapsed={collapse}
+        collapsed={open}
         className="h-screen border-r"
         rootStyles={{
           background: "white",
@@ -44,9 +47,9 @@ const SidebarAdmin = () => {
         }}
       >
         <div className="flex items-center justify-between p-4">
-          {!collapse && <h1 className="text-xl font-semibold">PhucStore</h1>}
+          {!open && <h1 className="text-xl font-semibold">PhucStore</h1>}
           <Button
-            onClick={toggleSidebar}
+            onClick={() => setOpen(!open)}
             variant="outline"
             size="icon"
             className="ml-auto"

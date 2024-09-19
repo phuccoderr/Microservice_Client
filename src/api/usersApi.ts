@@ -1,11 +1,7 @@
 import { authUserAxiosClient, usersAxiosClient } from "@/api/axiosClient";
-import URL_CONST from "@/constants/api";
 import { Login } from "@/types/login.type";
 import { ParamPagination } from "@/types/pagination.type";
 import { CreateUser, UpdateUser } from "@/types/users.type";
-import axios from "axios";
-
-const baseURL = "http://localhost:9120/api/v1/users";
 
 export const usersApi = {
   login(param: Login) {

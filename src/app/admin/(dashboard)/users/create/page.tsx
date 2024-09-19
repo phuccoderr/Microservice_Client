@@ -34,6 +34,7 @@ import { COMMONS_CONST } from "@/constants/commons";
 import { AUTH_CONST } from "@/constants/login";
 import { useCreateUser } from "@/hook/query-users/useCreateUser";
 import Link from "next/link";
+import ButtonBack from "@/components/button-back";
 
 const CreatePage = () => {
   const { formSchema, form } = useFormCreateUser();
@@ -53,11 +54,7 @@ const CreatePage = () => {
     <div className="flex w-full flex-col gap-4 p-4">
       <h1 className="text-2xl font-bold">{USER_CONST.CREATE_USER}</h1>
 
-      <Link href={"/admin/users"}>
-        <Button className="min-w-[10%] max-w-[10%]">
-          <IoMdArrowRoundBack className="mr-2 h-4 w-4" /> {COMMONS_CONST.BACK}
-        </Button>
-      </Link>
+      <ButtonBack url="/admin/users" />
       <Card className="mx-auto max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">

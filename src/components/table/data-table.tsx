@@ -83,7 +83,6 @@ export function DataTable<TData, TValue>({
   const handleLimit = (limit: number) => {
     setPagination((prevState) => ({ ...prevState, limit }));
   };
-  console.log("table", table);
   return (
     <>
       <div className="flex items-center justify-between">
