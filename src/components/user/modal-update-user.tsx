@@ -12,8 +12,8 @@ import { Input } from "@/components/ui/input";
 import { useUserStore } from "@/store/useUserStore";
 import { USER_CONST } from "@/constants/users";
 import { COMMONS_CONST } from "@/constants/commons";
-import { useUpdateUser } from "@/hook/query-users/useUpdateUser";
-import { useToastMessage } from "@/hook/useToastMessage";
+import { useUpdateUser } from "@/hooks/query-users/useUpdateUser";
+import { useToastMessage } from "@/hooks/useToastMessage";
 import { useEffect, useState } from "react";
 
 export default function ModalUpdateUser() {

@@ -26,9 +26,9 @@ import {
 } from "@/components/ui/select";
 import CATEGORIES_CONST from "@/constants/categories";
 import { COMMONS_CONST } from "@/constants/commons";
-import useFormCategory from "@/hook/query-categories/useFormCategory";
-import { useUpdateCategory } from "@/hook/query-categories/useUpdateCategory";
-import { useToastMessage } from "@/hook/useToastMessage";
+import useFormCategory from "@/hooks/query-categories/useFormCategory";
+import { useUpdateCategory } from "@/hooks/query-categories/useUpdateCategory";
+import { useToastMessage } from "@/hooks/useToastMessage";
 import { useCategoryStore } from "@/store/useCategoryStore";
 import { useEffect } from "react";
 import { z } from "zod";

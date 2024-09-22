@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Provider from "@/utils/providers";
 import { Toaster } from "react-hot-toast";
+import { Toaster as ToasterSonner } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Next App",
@@ -28,6 +28,11 @@ export default function RootLayout({
           <Provider>{children}</Provider>
         </ThemeProvider>
         <Toaster />
+        <ToasterSonner
+          richColors
+          expand={false}
+          toastOptions={{ classNames: { loading: "bg-white text-black" } }}
+        />
       </body>
     </html>
   );

@@ -17,7 +17,7 @@ export type Product = {
   review_count: number;
 };
 
-export type CreateProduct = Omit<
+export type InfoProduct = Omit<
   Product,
   | "id"
   | "alias"
@@ -28,3 +28,9 @@ export type CreateProduct = Omit<
   | "average_rating"
   | "review_count"
 >;
+
+export type CreateProduct = {
+  product: InfoProduct;
+  main_image: File | null;
+  extra_images: File[];
+};

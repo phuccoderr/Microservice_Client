@@ -1,16 +1,16 @@
 "use client";
-import { columns } from "@/app/admin/(dashboard)/categories/column";
+import { columns } from "@/components/category/column";
 import ModalUpdateCategory from "@/components/category/modal-update-category";
 import LoadingGlobal from "@/components/loading/loading";
 import { DataTable } from "@/components/table/data-table";
 import CATEGORIES_CONST from "@/constants/categories";
-import { useGetAllCategories } from "@/hook/query-categories/useGetAllCategories";
+import { useGetAllCategories } from "@/hooks/query-categories/useGetAllCategories";
 import { useCategoryStore } from "@/store/useCategoryStore";
 import { ParamPagination } from "@/types/pagination.type";
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import ModalDelete from "@/components/modal/modalDelete";
-import { useDeleteCategory } from "@/hook/query-categories/useDeleteCategory";
+import ModalDelete from "@/components/modal/modal-delete";
+import { useDeleteCategory } from "@/hooks/query-categories/useDeleteCategory";
 
 const CategoriesPage = () => {
   const [pagination, setPagination] = useState<ParamPagination>({

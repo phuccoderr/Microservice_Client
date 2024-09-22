@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import ImageDefault from "@/public/images/product-empty.png";
 import { useProductStore } from "@/store/useProductStore";
+import BadgeStatus from "@/components/badge-status";
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -44,7 +45,7 @@ export const columns: ColumnDef<Product>[] = [
     header: "Trạng thái",
     cell: ({ cell, row }) => {
       const { status } = row.original;
-      return <Badge>{status ? "Hoạt động" : "Không hoạt động"}</Badge>;
+      return <BadgeStatus status={status} />;
     },
   },
   {

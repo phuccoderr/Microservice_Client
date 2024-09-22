@@ -28,7 +28,7 @@ import {
 import { Dispatch, useEffect, useState } from "react";
 import { USER_CONST } from "@/constants/users";
 import { COMMONS_CONST } from "@/constants/commons";
-import useDebounce from "@/hook/useDebounce";
+import useDebounce from "@/hooks/useDebounce";
 import { ParamPagination } from "@/types/pagination.type";
 import { useRouter } from "next/navigation";
 

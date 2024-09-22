@@ -10,14 +10,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLogoutMutation } from "@/hook/useLogout";
+import { COMMONS_CONST } from "@/constants/commons";
+import { useLogoutMutation } from "@/hooks/useLogout";
+import { useToastMessage } from "@/hooks/useToastMessage";
 import { FaUser } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 
 export default function Topbar() {
   const mutateLogout = useLogoutMutation();
+  const { toastLoading } = useToastMessage();
 
   const handleLogout = () => {
+    toastLoading(COMMONS_CONST.LOADING);
     const rfToken = getLocalRefreshToken();
     mutateLogout.mutate(rfToken);
   };

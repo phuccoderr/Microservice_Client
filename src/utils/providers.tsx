@@ -11,7 +11,7 @@ export default function Provider({ children }: ProviderProps) {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
+      <ReactQueryDevtools buttonPosition="bottom-left" />
       {children}
     </QueryClientProvider>
   );

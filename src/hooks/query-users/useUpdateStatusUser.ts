@@ -1,21 +1,19 @@
 import { usersApi } from "@/api/usersApi";
 import { USER_CONST } from "@/constants/users";
-import { useToastMessage } from "@/hook/useToastMessage";
-import { useUserStore } from "@/store/useUserStore";
+import { useToastMessage } from "@/hooks/useToastMessage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export const useDeleteUser = () => {
+export const useUpdateUserStatus = () => {
   const { toastSuccess, toastError } = useToastMessage();
-  const { setModalDelete } = useUserStore();
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async (id: string) => {
-      return (await usersApi.delete(id)).data;
+    mutationFn: async ({ id, status }: { id: string; status: boolean }) => {
+      return (await usersApi.updateStatus({ id: id, status: status })).data;
     },
     onSuccess: (data) => {
       queryClient.refetchQueries({ queryKey: ["users"] });
-      toastSuccess(USER_CONST.DELETE_USER_SUCCESS);
-      setModalDelete(false);
+      toastSuccess(USER_CONST.UPDATE_STATUS_SUCESS);
     },
     onError: (error) => {
       toastError(error.message);

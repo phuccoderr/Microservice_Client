@@ -1,7 +1,7 @@
 import categoriesApi from "@/api/categoriesApi";
 import CATEGORIES_CONST from "@/constants/categories";
 import { COMMONS_CONST } from "@/constants/commons";
-import { useToastMessage } from "@/hook/useToastMessage";
+import { useToastMessage } from "@/hooks/useToastMessage";
 import { CategoryRequest } from "@/types/category.type";
 import { ErrorResponse } from "@/types/error.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

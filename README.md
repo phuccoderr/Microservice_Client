@@ -10,3 +10,5 @@
 - Zustand
 - Zustand Middleware
 - Lodash
+- Socket io
+- Socket io-client

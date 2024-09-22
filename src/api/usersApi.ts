@@ -10,7 +10,7 @@ export const usersApi = {
   },
   logout(token: string) {
     const url = `/logout`;
-    return authUserAxiosClient.get(url, { params: token });
+    return authUserAxiosClient.get(url, { params: { token } });
   },
   refreshToken(token: string) {
     const url = `/refresh?token=${token}`;

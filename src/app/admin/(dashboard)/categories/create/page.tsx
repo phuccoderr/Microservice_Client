@@ -27,9 +27,9 @@ import {
 } from "@/components/ui/select";
 import CATEGORIES_CONST from "@/constants/categories";
 import { COMMONS_CONST } from "@/constants/commons";
-import { useCreateCategory } from "@/hook/query-categories/useCreateCategory";
-import useFormCategory from "@/hook/query-categories/useFormCategory";
-import { useToastMessage } from "@/hook/useToastMessage";
+import { useCreateCategory } from "@/hooks/query-categories/useCreateCategory";
+import useFormCategory from "@/hooks/query-categories/useFormCategory";
+import { useToastMessage } from "@/hooks/useToastMessage";
 import { useCategoryStore } from "@/store/useCategoryStore";
 import Link from "next/link";
 import { IoMdArrowRoundBack } from "react-icons/io";

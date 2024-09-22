@@ -1,6 +1,6 @@
 import { usersApi } from "@/api/usersApi";
 import { USER_CONST } from "@/constants/users";
-import { useToastMessage } from "@/hook/useToastMessage";
+import { useToastMessage } from "@/hooks/useToastMessage";
 import { useUserStore } from "@/store/useUserStore";
 import { UpdateUser } from "@/types/users.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

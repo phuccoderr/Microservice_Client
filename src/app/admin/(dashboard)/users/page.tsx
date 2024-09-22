@@ -1,16 +1,16 @@
 "use client";
 
-import { columns } from "@/app/admin/(dashboard)/users/column";
+import { columns } from "@/components/user/column";
 import { DataTable } from "@/components/table/data-table";
-import { useGetAllUsers } from "@/hook/query-users/useGetAllUsers";
+import { useGetAllUsers } from "@/hooks/query-users/useGetAllUsers";
 import LoadingGlobal from "@/components/loading/loading";
 import { useState } from "react";
 import ModalUpdateUser from "@/components/user/modal-update-user";
 import { useUserStore } from "@/store/useUserStore";
-import ModalDelete from "@/components/modal/modalDelete";
+import ModalDelete from "@/components/modal/modal-delete";
 import { ParamPagination } from "@/types/pagination.type";
 import { USER_CONST } from "@/constants/users";
-import { useDeleteUser } from "@/hook/query-users/useDeleteUser";
+import { useDeleteUser } from "@/hooks/query-users/useDeleteUser";
 
 const UsersPage = () => {
   const [pagination, setPagination] = useState<ParamPagination>({

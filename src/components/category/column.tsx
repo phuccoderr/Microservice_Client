@@ -1,3 +1,4 @@
+import BadgeStatus from "@/components/badge-status";
 import Actions from "@/components/table/actions";
 import { Badge } from "@/components/ui/badge";
 import { useCategoryStore } from "@/store/useCategoryStore";
@@ -35,7 +36,7 @@ export const columns: ColumnDef<Category>[] = [
     header: "Trạng thái",
     cell: ({ cell, row }) => {
       const { status } = row.original;
-      return <Badge>{status ? "Hoạt động" : "Không hoạt động"}</Badge>;
+      return <BadgeStatus status={status} />;
     },
   },
   {

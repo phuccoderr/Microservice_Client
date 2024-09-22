@@ -1,7 +1,7 @@
 import { usersApi } from "@/api/usersApi";
 import { COMMONS_CONST } from "@/constants/commons";
 import { USER_CONST } from "@/constants/users";
-import { useToastMessage } from "@/hook/useToastMessage";
+import { useToastMessage } from "@/hooks/useToastMessage";
 import { ErrorResponse } from "@/types/error.type";
 import { CreateUser } from "@/types/users.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

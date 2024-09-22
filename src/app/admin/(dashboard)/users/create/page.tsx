@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { USER_CONST } from "@/constants/users";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import React from "react";
-import useFormCreateUser from "@/hook/query-users/useFormCreateUser";
+import useFormCreateUser from "@/hooks/query-users/useFormCreateUser";
 import {
   Form,
   FormControl,
@@ -32,8 +32,7 @@ import {
 import { z } from "zod";
 import { COMMONS_CONST } from "@/constants/commons";
 import { AUTH_CONST } from "@/constants/login";
-import { useCreateUser } from "@/hook/query-users/useCreateUser";
-import Link from "next/link";
+import { useCreateUser } from "@/hooks/query-users/useCreateUser";
 import ButtonBack from "@/components/button-back";
 
 const CreatePage = () => {
