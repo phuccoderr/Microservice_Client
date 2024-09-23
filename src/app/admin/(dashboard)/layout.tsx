@@ -1,10 +1,11 @@
 "use client";
-import { ConnectSocket } from "@/api/socket";
+import { socket } from "@/api/socket";
 import SidebarAdmin from "@/components/admin/sidebar";
 import Topbar from "@/components/admin/topbar";
 import URL_CONST from "@/constants/api";
 import { useSidebarStore } from "@/store/useSidebarStore";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
 import { toast } from "sonner";
 
 type DashboardLayoutProps = {
@@ -15,10 +16,17 @@ export default function DashboardLayout({
   children,
 }: Readonly<DashboardLayoutProps>) {
   const { open } = useSidebarStore();
-  const socket = ConnectSocket(URL_CONST.PRODUCT_SOCKET);
-  socket.on("add-image", (data) => {
-    toast.success(data);
-  });
+
+  useEffect(() => {
+    const notifyUpload = (data: any) => {
+      toast.success(data);
+    };
+    socket.on("add-image", notifyUpload);
+
+    return () => {
+      socket.off("add-image", notifyUpload);
+    };
+  }, []);
 
   return (
     <div className="flex">

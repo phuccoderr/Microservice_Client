@@ -1,4 +1,5 @@
 import { productsAxiosClient } from "@/api/axiosClient";
+import { socket } from "@/api/socket";
 import { ParamPagination } from "@/types/pagination.type";
 import { CreateProduct } from "@/types/product.type";
 
@@ -28,6 +29,7 @@ export const productsApi = {
     return productsAxiosClient.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        "Socket-ID": socket.id,
       },
     });
   },
