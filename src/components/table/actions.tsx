@@ -12,16 +12,14 @@ import { FaPencilAlt } from "react-icons/fa";
 
 interface ActionsProps {
   data: { id: string; [key: string]: any };
-  setModalEdit?: any;
+  setModalEdit: any;
   setModalDelete: any;
-  routeEdit?: string;
 }
 
 export default function Actions({
   data,
   setModalEdit,
   setModalDelete,
-  routeEdit,
 }: Readonly<ActionsProps>) {
   const handleEdit = () => {
     setModalEdit(true, { ...data });
@@ -39,19 +37,10 @@ export default function Actions({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        {routeEdit ? (
-          <Link href={routeEdit}>
-            <DropdownMenuItem>
-              <FaPencilAlt className="mr-2 h-4 w-4" />
-              <span>{COMMONS_CONST.EDIT}</span>
-            </DropdownMenuItem>
-          </Link>
-        ) : (
-          <DropdownMenuItem onClick={handleEdit}>
-            <FaPencilAlt className="mr-2 h-4 w-4" />
-            <span>{COMMONS_CONST.EDIT}</span>
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem onClick={handleEdit}>
+          <FaPencilAlt className="mr-2 h-4 w-4" />
+          <span>{COMMONS_CONST.EDIT}</span>
+        </DropdownMenuItem>
         <DropdownMenuItem disabled={data.disabled} onClick={handleDelete}>
           <TrashIcon className="mr-2 h-4 w-4" />
           <span>{COMMONS_CONST.DELETE}</span>

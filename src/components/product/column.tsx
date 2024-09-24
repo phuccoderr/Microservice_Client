@@ -6,6 +6,7 @@ import Image from "next/image";
 import ImageDefault from "@/public/images/product-empty.png";
 import { useProductStore } from "@/store/useProductStore";
 import BadgeStatus from "@/components/badge-status";
+import { GiClick } from "react-icons/gi";
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -15,6 +16,19 @@ export const columns: ColumnDef<Product>[] = [
   {
     accessorKey: "name",
     header: "Tên",
+    cell: ({ cell, row }) => {
+      const { setModalView } = useProductStore();
+      const { name, id } = row.original;
+      return (
+        <h1
+          className="cursor-pointer"
+          onClick={() => setModalView(true, { id, name })}
+        >
+          {name}
+          <GiClick />
+        </h1>
+      );
+    },
   },
   {
     accessorKey: "url",
@@ -52,12 +66,12 @@ export const columns: ColumnDef<Product>[] = [
     accessorKey: "action",
     header: "Thao tác",
     cell: ({ cell, row }) => {
-      const { setModalDelete } = useProductStore();
+      const { setModalDelete, setModalView } = useProductStore();
       const { id, name } = row.original;
       return (
         <Actions
           data={{ id, name }}
-          routeEdit="/admin/products/edit"
+          setModalEdit={setModalView}
           setModalDelete={setModalDelete}
         />
       );

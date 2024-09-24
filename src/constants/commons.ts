@@ -1,4 +1,10 @@
 export const COMMONS_CONST = {
+  CREATE_DATE: "Ngày tạo",
+  STOCK: "Tồn kho",
+  PRICE: "Giá tiền",
+  SALE: "Giảm giá",
+  COST: "Giá gốc",
+  INFORMATION: "Thông tin",
   LOADING: "Vui lòng đợi !",
   PREVIOUS: "Trước",
   NEXT: "Sau",
@@ -22,4 +28,6 @@ export const COMMONS_CONST = {
   ENTER_EMAIL: "Điền email vào đây",
   ENTER_NAME: "Điền tên vào đây",
   ENTER_PASSWORD: "Điền mật khẩu vào đây",
+  MAIN_IMAGE: "Ảnh chính",
+  EXTRA_IMAGES: "Ảnh phụ",
 };

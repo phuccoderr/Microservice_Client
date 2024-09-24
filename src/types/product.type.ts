@@ -11,8 +11,8 @@ export type Product = {
   url: string;
   extra_images: { id: string; url: string }[];
   category_id: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   average_rating: number;
   review_count: number;
 };

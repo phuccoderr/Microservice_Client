@@ -5,6 +5,7 @@ import Topbar from "@/components/admin/topbar";
 import URL_CONST from "@/constants/api";
 import { useSidebarStore } from "@/store/useSidebarStore";
 import { ReactNode, useEffect, useState } from "react";
+import { FaFileImage } from "react-icons/fa";
 import { io, Socket } from "socket.io-client";
 import { toast } from "sonner";
 
@@ -19,7 +20,11 @@ export default function DashboardLayout({
 
   useEffect(() => {
     const notifyUpload = (data: any) => {
-      toast.success(data);
+      toast.success("Upload Image 🚀", {
+        icon: <FaFileImage />,
+        description: data,
+        closeButton: true,
+      });
     };
     socket.on("add-image", notifyUpload);
 

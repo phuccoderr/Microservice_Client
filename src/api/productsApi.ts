@@ -8,6 +8,10 @@ export const productsApi = {
     const url = "";
     return productsAxiosClient.get(url, { params });
   },
+  getOne(id: string) {
+    const url = `${id}`;
+    return productsAxiosClient.get(url);
+  },
   create(params: CreateProduct) {
     const { product, main_image, extra_images } = params;
 
@@ -32,5 +36,9 @@ export const productsApi = {
         "Socket-ID": socket.id,
       },
     });
+  },
+  delete(id: string) {
+    const url = `${id}`;
+    return productsAxiosClient.delete(url);
   },
 };
