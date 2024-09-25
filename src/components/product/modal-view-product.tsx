@@ -15,8 +15,10 @@ import { cn } from "@/lib/utils";
 import { useProductStore } from "@/store/useProductStore";
 import { formatDate } from "@/utils/common";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageDefault from "@/public/images/product-empty.png";
+import { useGetCategories } from "@/hooks/query-categories/useGetCategories";
+import ImageDeleteIcon from "@/components/image-delete-icon";
 
 const tabData = [
   {
@@ -37,8 +39,9 @@ const tabData = [
 
 const ModalViewProduct = () => {
   const [activeTab, setActiveTab] = useState<string>("info");
-  const { modalView, setModalView, id } = useProductStore();
+  const { modalView, setModalView, id, category_id } = useProductStore();
   const { data } = useGetProduct(id);
+  const { data: category } = useGetCategories(category_id);
   return (
     <Dialog open={modalView} onOpenChange={setModalView}>
       <DialogContent className="bg-black">
@@ -90,6 +93,9 @@ const ModalViewProduct = () => {
                 </div>
               </div>
               <h1>
+                {COMMONS_CONST.CATEGORY}: {category?.name}
+              </h1>
+              <h1>
                 {COMMONS_CONST.CREATE_DATE}:{" "}
                 {data?.created_at && formatDate(data.created_at)}
               </h1>
@@ -110,9 +116,9 @@ const ModalViewProduct = () => {
                 <Image
                   alt="Anh san pham"
                   src={data?.url || ImageDefault}
-                  width={200}
-                  height={200}
-                  className="rounded-md"
+                  width={100}
+                  height={100}
+                  className="rounded-md object-cover"
                 />
               </div>
               <div>
@@ -124,8 +130,9 @@ const ModalViewProduct = () => {
                         key={image.id}
                         alt="Anh san pham"
                         src={image.url}
-                        width={200}
-                        height={200}
+                        width={100}
+                        height={100}
+                        className="rounded-md object-cover"
                       />
                     ))}
                   </div>

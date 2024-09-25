@@ -6,14 +6,15 @@ type ModalState = {
   modalDelete: boolean;
   id: string;
   name: string;
-  image_id: string;
+  category_id: string;
 };
 
 type ProductInfo = Pick<ModalState, "id" | "name">;
+type ProductInfoWithCategory = Pick<ModalState, "id" | "name" | "category_id">;
 
 export interface ModalStore extends ModalState {
-  setSheetUpdate: (open: boolean) => void;
-  setModalView: (open: boolean, props?: ProductInfo) => void;
+  setSheetUpdate: (open: boolean, props?: ProductInfoWithCategory) => void;
+  setModalView: (open: boolean, props?: ProductInfoWithCategory) => void;
   setModalDelete: (open: boolean, props?: ProductInfo) => void;
 }
 
@@ -23,22 +24,20 @@ export const useProductStore = create<ModalStore>((set) => ({
   modalDelete: false,
   id: "",
   name: "",
-  image_id: "",
-  setSheetUpdate: (open: boolean) => {
+  category_id: "",
+  setSheetUpdate: (open: boolean, props?: ProductInfoWithCategory) => {
     if (open) {
-      return set({ sheetUpdate: open });
+      return set({ sheetUpdate: open, ...props });
     }
     return set({ sheetUpdate: open });
   },
-  setModalView: (open: boolean, props?: ProductInfo) => {
-    const { id, name } = props || {};
+  setModalView: (open: boolean, props?: ProductInfoWithCategory) => {
+    const { id, name, category_id } = props || {};
     if (open) {
-      return set({ modalView: open, id, name });
+      return set({ modalView: open, id, name, category_id });
     }
     return set({
       modalView: open,
-      id: "",
-      name: "",
     });
   },
   setModalDelete: (open: boolean, props?: ProductInfo) => {
@@ -48,8 +47,6 @@ export const useProductStore = create<ModalStore>((set) => ({
     }
     return set({
       modalDelete: open,
-      id: "",
-      name: "",
     });
   },
 }));

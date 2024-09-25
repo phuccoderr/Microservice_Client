@@ -1,18 +1,19 @@
 import { productsAxiosClient } from "@/api/axiosClient";
 import { socket } from "@/api/socket";
 import { ParamPagination } from "@/types/pagination.type";
-import { CreateProduct } from "@/types/product.type";
+import { CreateProduct, InfoProduct } from "@/types/product.type";
+import { update } from "lodash";
 
 export const productsApi = {
-  get(params: ParamPagination) {
+  get: (params: ParamPagination) => {
     const url = "";
     return productsAxiosClient.get(url, { params });
   },
-  getOne(id: string) {
+  getOne: (id: string) => {
     const url = `${id}`;
     return productsAxiosClient.get(url);
   },
-  create(params: CreateProduct) {
+  create: (params: CreateProduct) => {
     const { product, main_image, extra_images } = params;
 
     const formData = new FormData();
@@ -37,8 +38,22 @@ export const productsApi = {
       },
     });
   },
-  delete(id: string) {
+  update: (id: string, params: InfoProduct) => {
+    const url = `${id}`;
+    return productsAxiosClient.patch(url, params);
+  },
+  delete: (id: string) => {
     const url = `${id}`;
     return productsAxiosClient.delete(url);
+  },
+  addImage: (id: string, file: File) => {
+    const formData = new FormData();
+    formData.append("main_image", file);
+    const url = `add_file/${id}`;
+    return productsAxiosClient.patch(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
 };

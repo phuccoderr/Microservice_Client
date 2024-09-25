@@ -31,8 +31,6 @@ import { useCreateCategory } from "@/hooks/query-categories/useCreateCategory";
 import useFormCategory from "@/hooks/query-categories/useFormCategory";
 import { useToastMessage } from "@/hooks/useToastMessage";
 import { useCategoryStore } from "@/store/useCategoryStore";
-import Link from "next/link";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import { z } from "zod";
 
 const CreatePage = () => {

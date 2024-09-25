@@ -1,7 +1,7 @@
 export type Product = {
   id: string;
   name: string;
-  alias: number;
+  alias: string;
   description: string;
   status: boolean;
   cost: number;

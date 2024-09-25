@@ -2,11 +2,9 @@
 import { socket } from "@/api/socket";
 import SidebarAdmin from "@/components/admin/sidebar";
 import Topbar from "@/components/admin/topbar";
-import URL_CONST from "@/constants/api";
 import { useSidebarStore } from "@/store/useSidebarStore";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
 import { FaFileImage } from "react-icons/fa";
-import { io, Socket } from "socket.io-client";
 import { toast } from "sonner";
 
 type DashboardLayoutProps = {

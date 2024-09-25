@@ -1,4 +1,5 @@
 export const COMMONS_CONST = {
+  CATEGORY: "Danh mục",
   CREATE_DATE: "Ngày tạo",
   STOCK: "Tồn kho",
   PRICE: "Giá tiền",

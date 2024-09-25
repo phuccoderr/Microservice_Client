@@ -18,11 +18,11 @@ export const columns: ColumnDef<Product>[] = [
     header: "Tên",
     cell: ({ cell, row }) => {
       const { setModalView } = useProductStore();
-      const { name, id } = row.original;
+      const { name, id, category_id } = row.original;
       return (
         <h1
           className="cursor-pointer"
-          onClick={() => setModalView(true, { id, name })}
+          onClick={() => setModalView(true, { id, name, category_id })}
         >
           {name}
           <GiClick />
@@ -66,12 +66,12 @@ export const columns: ColumnDef<Product>[] = [
     accessorKey: "action",
     header: "Thao tác",
     cell: ({ cell, row }) => {
-      const { setModalDelete, setModalView } = useProductStore();
-      const { id, name } = row.original;
+      const { setModalDelete, setSheetUpdate } = useProductStore();
+      const { id, name, category_id } = row.original;
       return (
         <Actions
-          data={{ id, name }}
-          setModalEdit={setModalView}
+          data={{ id, name, category_id }}
+          setModalEdit={setSheetUpdate}
           setModalDelete={setModalDelete}
         />
       );

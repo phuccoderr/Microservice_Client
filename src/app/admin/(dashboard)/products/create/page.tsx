@@ -5,13 +5,17 @@ import TabImage from "@/components/product/tab-image";
 import TabInfo from "@/components/product/tab-info";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { COMMONS_CONST } from "@/constants/commons";
 import { PRODUCT_CONST } from "@/constants/products";
+import { useGetAllCategories } from "@/hooks/query-categories/useGetAllCategories";
 import { useCreateProduct } from "@/hooks/query-products/useCreateProduct";
 import useFormProduct from "@/hooks/query-products/useFormProduct";
 import { useToastMessage } from "@/hooks/useToastMessage";
 import { cn } from "@/lib/utils";
+import { useCategoryStore } from "@/store/useCategoryStore";
 import { InfoProduct } from "@/types/product.type";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -36,7 +40,7 @@ const tabData = [
 
 const CreatePage = () => {
   const [activeTab, setActiveTab] = useState<string>("info");
-  const [product, setProduct] = useState<InfoProduct>({
+  const { form, formSchema } = useFormProduct({
     name: "",
     description: "",
     status: true,
@@ -46,11 +50,23 @@ const CreatePage = () => {
     stock: 0,
     category_id: "",
   });
-  const { form, formSchema } = useFormProduct(product);
   const [image, setImage] = useState<File>();
   const [extraImage, setExtraImage] = useState<File[]>([]);
   const { toastError, toastLoading } = useToastMessage();
   const mutate = useCreateProduct();
+
+  const { setListCategory, listCategory } = useCategoryStore();
+  const { data } = useGetAllCategories({
+    page: 1,
+    limit: 100,
+    sort: "asc",
+    keyword: "",
+  });
+  useEffect(() => {
+    if (data) {
+      setListCategory(data.entities ?? []);
+    }
+  }, [data]);
 
   const errorFields = Object.keys(form.formState.errors);
   useEffect(() => {
@@ -72,7 +88,6 @@ const CreatePage = () => {
     <div className="flex w-full flex-col gap-4 p-4">
       <h1 className="text-2xl font-bold">{PRODUCT_CONST.CREATE}</h1>
       <ButtonBack url="/admin/products" />
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleCreate)}>
           <Tabs
@@ -98,7 +113,7 @@ const CreatePage = () => {
               ))}
             </TabsList>
             <div className="h-full flex-1">
-              <TabInfo value="info" form={form} />
+              <TabInfo value="info" form={form} listCategory={listCategory} />
               <TabDescription value="description" form={form} />
               <TabImage
                 value="image"

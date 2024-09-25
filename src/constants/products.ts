@@ -8,4 +8,5 @@ export const PRODUCT_CONST = {
   DELETE_DESCRIPTION: "Bạn có chắc chắn muốn xóa sản phẩm này:",
   DELETE_SUCCESS: "Xoá sản phẩm thành công",
   VIEW_DESCRIPTION: "Thông tin sản phẩm chi tiết",
+  UPDATE_SUCCESS: "Cập nhật thông tin sản phẩm thành công",
 };

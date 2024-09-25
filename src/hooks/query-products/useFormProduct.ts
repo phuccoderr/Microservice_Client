@@ -1,4 +1,4 @@
-import { CreateProduct, InfoProduct } from "@/types/product.type";
+import { InfoProduct } from "@/types/product.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

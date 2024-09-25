@@ -6,7 +6,16 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { TabsContent } from "@/components/ui/tabs";
+import CATEGORIES_CONST from "@/constants/categories";
+import { COMMONS_CONST } from "@/constants/commons";
 import { UseFormReturn } from "react-hook-form";
 
 interface TabInfoProps {
@@ -26,9 +35,10 @@ interface TabInfoProps {
     any,
     undefined
   >;
+  listCategory: any;
 }
 
-const TabInfo = ({ value, form }: TabInfoProps) => {
+const TabInfo = ({ value, form, listCategory }: TabInfoProps) => {
   return (
     <TabsContent value={value}>
       <h2 className="mb-4 text-2xl font-bold">Nhập thông tin sản phẩm</h2>
@@ -114,6 +124,29 @@ const TabInfo = ({ value, form }: TabInfoProps) => {
             )}
           />
         </div>
+        <FormField
+          control={form.control}
+          name="category_id"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+              <FormLabel>{COMMONS_CONST.CATEGORY}</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder={CATEGORIES_CONST.SELECT_PARENT} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {listCategory.map((item: any) => (
+                    <SelectItem key={item.id} value={item.id}>
+                      {item.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="status"
