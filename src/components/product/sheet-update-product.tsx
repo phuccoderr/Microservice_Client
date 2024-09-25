@@ -9,7 +9,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { FaPlus } from "react-icons/fa";
 import {
   Select,
   SelectContent,
@@ -20,7 +22,6 @@ import {
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -32,6 +33,7 @@ import { Textarea } from "@/components/ui/textarea";
 import CATEGORIES_CONST from "@/constants/categories";
 import { COMMONS_CONST } from "@/constants/commons";
 import { useGetAllCategories } from "@/hooks/query-categories/useGetAllCategories";
+import { useAddExtraImages } from "@/hooks/query-products/useAddExtraImages";
 import { useAddImage } from "@/hooks/query-products/useAddImage";
 import useFormProduct from "@/hooks/query-products/useFormProduct";
 import { useGetProduct } from "@/hooks/query-products/useGetProduct";
@@ -68,12 +70,34 @@ const SheetUpdateProduct = () => {
   const { sheetUpdate, setSheetUpdate, id } = useProductStore();
   const { setListCategory, listCategory } = useCategoryStore();
   const { toastLoading } = useToastMessage();
+  const [progress, setProgress] = useState<number>(0);
 
   const mutateImage = useAddImage();
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     toastLoading(COMMONS_CONST.LOADING);
     file && mutateImage.mutate({ id, data: file });
+  };
+
+  const mutateExtraImages = useAddExtraImages();
+  const handleChangeExtraImages = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    setProgress(70);
+    files &&
+      mutateExtraImages.mutate(
+        { id, data: Array.from(files) },
+        {
+          onSuccess: () => {
+            setProgress(100);
+            setTimeout(() => {
+              setProgress(0);
+            }, 1000);
+          },
+          onError: () => {
+            setProgress(0);
+          },
+        },
+      );
   };
 
   const { form, formSchema } = useFormProduct({
@@ -137,205 +161,216 @@ const SheetUpdateProduct = () => {
           <form onSubmit={form.handleSubmit(handleUpdate)}>
             <SheetHeader>
               <SheetTitle>Cập nhật sản phẩm</SheetTitle>
-              <SheetDescription>
-                <Tabs value={activeTab} onValueChange={setActiveTab}>
-                  <TabsList className="flex h-auto items-start gap-2 !bg-transparent pr-4">
-                    {tabData.map((tab) => (
-                      <TabsTrigger
-                        key={tab.value}
-                        value={tab.value}
-                        className={cn(
-                          activeTab === tab.value
-                            ? "!bg-green-800 !text-white"
-                            : "hover:bg-green-500",
-                        )}
-                      >
-                        {tab.title}
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                  <TabsContent value="info">
-                    <div className="flex flex-col gap-2 font-mono">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{COMMONS_CONST.NAME}</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Tên" {...field} />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="cost"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{COMMONS_CONST.COST}</FormLabel>
-                            <FormControl>
-                              <Input {...field} />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="price"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{COMMONS_CONST.PRICE}</FormLabel>
-                            <FormControl>
-                              <Input {...field} />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="sale"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{COMMONS_CONST.SALE}</FormLabel>
-                            <FormControl>
-                              <Input {...field} />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="stock"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{COMMONS_CONST.STOCK}</FormLabel>
-                            <FormControl>
-                              <Input {...field} />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={form.control}
-                        name="category_id"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                            <FormLabel>{COMMONS_CONST.CATEGORY}</FormLabel>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}
-                            >
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue
-                                    placeholder={CATEGORIES_CONST.SELECT_PARENT}
-                                  />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {listCategory.map((item) => (
-                                  <SelectItem key={item.id} value={item.id}>
-                                    {item.name}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="status"
-                        render={({ field }) => (
-                          <FormItem className="flex items-center gap-2">
-                            <FormLabel>{COMMONS_CONST.STATUS}</FormLabel>
-                            <FormControl>
-                              <Switch
-                                checkedIcon={<FaCheck />}
-                                unCheckedIcon={<RxCross2 />}
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </TabsContent>
-                  <TabsContent value="description">
+              <Tabs value={activeTab} onValueChange={setActiveTab}>
+                <TabsList className="flex h-auto items-start gap-2 !bg-transparent pr-4">
+                  {tabData.map((tab) => (
+                    <TabsTrigger
+                      key={tab.value}
+                      value={tab.value}
+                      className={cn(
+                        activeTab === tab.value
+                          ? "!bg-green-800 !text-white"
+                          : "hover:bg-green-500",
+                      )}
+                    >
+                      {tab.title}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+                <TabsContent value="info">
+                  <div className="flex flex-col gap-2 font-mono">
                     <FormField
                       control={form.control}
-                      name="description"
+                      name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Mô tả sản phẩm</FormLabel>
+                          <FormLabel>{COMMONS_CONST.NAME}</FormLabel>
                           <FormControl>
-                            <Textarea
-                              rows={25}
-                              placeholder="Mô tả"
-                              {...field}
+                            <Input placeholder="Tên" {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="cost"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{COMMONS_CONST.COST}</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="price"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{COMMONS_CONST.PRICE}</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="sale"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{COMMONS_CONST.SALE}</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="stock"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{COMMONS_CONST.STOCK}</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="category_id"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormLabel>{COMMONS_CONST.CATEGORY}</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue
+                                  placeholder={CATEGORIES_CONST.SELECT_PARENT}
+                                />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {listCategory.map((item) => (
+                                <SelectItem key={item.id} value={item.id}>
+                                  {item.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="status"
+                      render={({ field }) => (
+                        <FormItem className="flex items-center gap-2">
+                          <FormLabel>{COMMONS_CONST.STATUS}</FormLabel>
+                          <FormControl>
+                            <Switch
+                              checkedIcon={<FaCheck />}
+                              unCheckedIcon={<RxCross2 />}
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
                             />
                           </FormControl>
                         </FormItem>
                       )}
                     />
-                  </TabsContent>
-                  <TabsContent value="image">
-                    <div className="flex items-center gap-2">
-                      <div>
-                        <h1>{COMMONS_CONST.MAIN_IMAGE}</h1>
-                        <div className="grid w-full max-w-sm items-center gap-1.5">
-                          <Label htmlFor="picture">Picture</Label>
-                          <Button
-                            disabled={mutateImage.isPending}
-                            type="button"
-                            onClick={() =>
-                              document
-                                .getElementById("hiddenFileInput")
-                                ?.click()
-                            }
-                          >
-                            Thay đổi ảnh
-                          </Button>
-                          <Input
-                            onChange={handleChangeImage}
-                            id="hiddenFileInput"
-                            type="file"
-                            className="hidden"
-                          />
-                        </div>
-                      </div>
-                      {product?.url && (
-                        <Image
-                          src={product?.url}
-                          alt=""
-                          width={100}
-                          height={100}
-                          className="rounded-lg object-cover"
+                  </div>
+                </TabsContent>
+                <TabsContent value="description">
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mô tả sản phẩm</FormLabel>
+                        <FormControl>
+                          <Textarea rows={25} placeholder="Mô tả" {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </TabsContent>
+                <TabsContent value="image">
+                  <div className="flex items-center gap-2">
+                    <div>
+                      <h1>{COMMONS_CONST.MAIN_IMAGE}</h1>
+                      <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <Label htmlFor="picture">Picture</Label>
+                        <Button
+                          disabled={mutateImage.isPending}
+                          type="button"
+                          onClick={() =>
+                            document.getElementById("hiddenFileInput")?.click()
+                          }
+                        >
+                          Thay đổi ảnh
+                        </Button>
+                        <Input
+                          onChange={handleChangeImage}
+                          id="hiddenFileInput"
+                          type="file"
+                          className="hidden"
                         />
-                      )}
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <div className="">
-                        <h1>{COMMONS_CONST.EXTRA_IMAGES}</h1>
-                        <div className="grid w-full max-w-sm items-center gap-1.5">
-                          <Label htmlFor="picture">Picture</Label>
-                          <Input id="picture" type="file" />
-                        </div>
                       </div>
-                      <ScrollArea className="h-[300px] w-full border">
-                        <div className="flex flex-wrap items-center justify-between gap-2 p-2">
-                          {product?.extra_images?.map((image) => (
-                            <ImageDeleteIcon key={image.id} image={image} />
-                          ))}
-                        </div>
-                      </ScrollArea>
                     </div>
-                  </TabsContent>
-                </Tabs>
-              </SheetDescription>
+                    {product?.url && (
+                      <Image
+                        src={product?.url}
+                        alt=""
+                        width={100}
+                        height={100}
+                        className="rounded-lg object-cover"
+                      />
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="">
+                      <h1>{COMMONS_CONST.EXTRA_IMAGES}</h1>
+                      <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <Label htmlFor="picture">Picture</Label>
+                        <Button
+                          disabled={mutateExtraImages.isPending}
+                          type="button"
+                          onClick={() =>
+                            document
+                              .getElementById("hiddenExtraFilesInput")
+                              ?.click()
+                          }
+                          className="w-20"
+                        >
+                          <FaPlus />
+                        </Button>
+                        <Input
+                          multiple
+                          onChange={handleChangeExtraImages}
+                          id="hiddenExtraFilesInput"
+                          type="file"
+                          className="hidden"
+                        />
+                      </div>
+                    </div>
+                    <Progress value={progress} />
+                    <ScrollArea className="h-[300px] w-full border">
+                      <div className="flex flex-wrap items-center justify-between gap-2 p-2">
+                        {product?.extra_images?.map((image) => (
+                          <ImageDeleteIcon key={image.id} image={image} />
+                        ))}
+                      </div>
+                    </ScrollArea>
+                  </div>
+                </TabsContent>
+              </Tabs>
               <SheetFooter>
                 <Button
                   className={`${activeTab === "image" && "hidden"}`}

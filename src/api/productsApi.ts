@@ -46,10 +46,22 @@ export const productsApi = {
     const url = `${id}`;
     return productsAxiosClient.delete(url);
   },
-  addImage: (id: string, file: File) => {
+  addImage: (id: string, file: File, config: any) => {
     const formData = new FormData();
     formData.append("main_image", file);
     const url = `add_file/${id}`;
+    return productsAxiosClient.patch(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+  addExtraImages: (id: string, files: File[]) => {
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append("extra_images", file);
+    });
+    const url = `add_files/${id}`;
     return productsAxiosClient.patch(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
