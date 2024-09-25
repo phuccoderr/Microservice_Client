@@ -7,7 +7,7 @@ import LoadingGlobal from "@/components/loading/loading";
 import { useState } from "react";
 import ModalUpdateUser from "@/components/user/modal-update-user";
 import { useUserStore } from "@/store/useUserStore";
-import ModalDelete from "@/components/modal/modal-delete";
+import ModalDelete from "@/components/modal-delete";
 import { ParamPagination } from "@/types/pagination.type";
 import { USER_CONST } from "@/constants/users";
 import { useDeleteUser } from "@/hooks/query-users/useDeleteUser";

@@ -3,12 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { IoMdMenu } from "react-icons/io";
 import { HomeIcon } from "@radix-ui/react-icons";
-import { FaUsers } from "react-icons/fa";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import Link from "next/link";
 import { useSidebarStore } from "@/store/useSidebarStore";
-import { FaShoppingBag } from "react-icons/fa";
-import { title } from "process";
+import { FaShoppingBag, FaUsers } from "react-icons/fa";
+import { MdManageAccounts } from "react-icons/md";
 
 const menuItems = [
   {
@@ -18,7 +17,7 @@ const menuItems = [
   },
   {
     title: "Users",
-    icon: <FaUsers className="h-5 w-5" />,
+    icon: <MdManageAccounts className="h-5 w-5" />,
     link: "/admin/users",
   },
   {
@@ -30,6 +29,11 @@ const menuItems = [
     title: "Products",
     icon: <FaShoppingBag className="h-5 w-5" />,
     link: "/admin/products",
+  },
+  {
+    title: "Customers",
+    icon: <FaUsers className="h-5 w-5" />,
+    link: "/admin/customers",
   },
 ];
 

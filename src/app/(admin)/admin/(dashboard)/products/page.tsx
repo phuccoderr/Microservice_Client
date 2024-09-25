@@ -1,12 +1,10 @@
 "use client";
 import LoadingGlobal from "@/components/loading/loading";
-import ModalDelete from "@/components/modal/modal-delete";
+import ModalDelete from "@/components/modal-delete";
 import { columns } from "@/components/product/column";
 import ModalViewProduct from "@/components/product/modal-view-product";
 import SheetUpdateProduct from "@/components/product/sheet-update-product";
 import { DataTable } from "@/components/table/data-table";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { PRODUCT_CONST } from "@/constants/products";
 import { useDeleteProduct } from "@/hooks/query-products/useDeleteProduct";
 import { useGetAllProducts } from "@/hooks/query-products/useGetAllProducts";

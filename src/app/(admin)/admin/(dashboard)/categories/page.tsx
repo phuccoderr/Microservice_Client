@@ -9,7 +9,7 @@ import { useCategoryStore } from "@/store/useCategoryStore";
 import { ParamPagination } from "@/types/pagination.type";
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import ModalDelete from "@/components/modal/modal-delete";
+import ModalDelete from "@/components/modal-delete";
 import { useDeleteCategory } from "@/hooks/query-categories/useDeleteCategory";
 
 const CategoriesPage = () => {

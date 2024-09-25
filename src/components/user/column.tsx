@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { COMMONS_CONST } from "@/constants/commons";
 import { useToastMessage } from "@/hooks/useToastMessage";
-import { useUpdateUserStatus } from "@/hooks/query-users/useUpdateStatusUser";
+import { useUpdateStatusUser } from "@/hooks/query-users/useUpdateStatusUser";
 import { User } from "@/types/users.type";
 import { ColumnDef } from "@tanstack/react-table";
 import { useUserStore } from "@/store/useUserStore";
@@ -26,7 +26,7 @@ export const columns: ColumnDef<User>[] = [
     header: "Trạng thái",
     cell: ({ cell, row }) => {
       const { status, _id } = row.original;
-      const updateUserStatusMutation = useUpdateUserStatus();
+      const updateUserStatusMutation = useUpdateStatusUser();
       const { toastLoading } = useToastMessage();
 
       const handleChange = () => {

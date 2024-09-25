@@ -33,27 +33,19 @@ export const useCategoryStore = create<ModalCategoryStore>((set) => ({
   setModalUpdate: (open: boolean, props?: any) => {
     const { id, name, status, parent_id } = props || {};
     if (open) {
-      return set({ modalUpdate: true, id, name, status, parent_id });
+      return set({ modalUpdate: open, id, name, status, parent_id });
     }
     return set({
-      modalUpdate: false,
-      id: "",
-      name: "",
-      status: false,
-      parent_id: "",
+      modalUpdate: open,
     });
   },
   setModalDelete: (open: boolean, props?: any) => {
     const { id, name, status, parent_id } = props || {};
     if (open) {
-      return set({ modalDelete: true, id, name, status, parent_id });
+      return set({ modalDelete: open, id, name, status, parent_id });
     }
     return set({
-      modalDelete: false,
-      id: "",
-      name: "",
-      status: false,
-      parent_id: "",
+      modalDelete: open,
     });
   },
   setListCategory: (category: Category[]) => {

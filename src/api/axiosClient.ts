@@ -49,3 +49,4 @@ export const authUserAxiosClient = createAxiosInstance(URL_CONST.AUTH);
 export const usersAxiosClient = createAxiosInstance(URL_CONST.USERS);
 export const categoriesAxiosClient = createAxiosInstance(URL_CONST.CATEGORIES);
 export const productsAxiosClient = createAxiosInstance(URL_CONST.PRODUCTS);
+export const customersAxiosClient = createAxiosInstance(URL_CONST.CUSTOMER);

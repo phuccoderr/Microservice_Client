@@ -1,6 +1,6 @@
 "use client";
 import { getLocalRefreshToken } from "@/api/jwtClient";
-import Signin from "@/components/login/signin";
+import Signin from "@/components/admin/signin";
 import {
   Card,
   CardDescription,
