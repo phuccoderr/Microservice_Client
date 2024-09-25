@@ -68,4 +68,8 @@ export const productsApi = {
       },
     });
   },
+  deleteExtraImages: (id: string, files: string[]) => {
+    const url = `delete_files/${id}`;
+    return productsAxiosClient.delete(url, { data: files });
+  },
 };

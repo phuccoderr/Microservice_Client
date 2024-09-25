@@ -47,6 +47,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { z } from "zod";
+import { useDeleteExtraImages } from "@/hooks/query-products/useDeleteExtraImages";
 
 const tabData = [
   {
@@ -98,6 +99,12 @@ const SheetUpdateProduct = () => {
           },
         },
       );
+  };
+
+  const mutateDeleteExtraImages = useDeleteExtraImages();
+  const handleDeleteExtraImages = (productId: string, imageId: string) => {
+    toastLoading(COMMONS_CONST.LOADING);
+    mutateDeleteExtraImages.mutate({ id: productId, data: [imageId] });
   };
 
   const { form, formSchema } = useFormProduct({
@@ -154,8 +161,6 @@ const SheetUpdateProduct = () => {
 
   return (
     <Sheet open={sheetUpdate} onOpenChange={setSheetUpdate}>
-      <SheetTrigger>OPEN</SheetTrigger>
-
       <SheetContent className="bg-black">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleUpdate)}>
@@ -364,7 +369,12 @@ const SheetUpdateProduct = () => {
                     <ScrollArea className="h-[300px] w-full border">
                       <div className="flex flex-wrap items-center justify-between gap-2 p-2">
                         {product?.extra_images?.map((image) => (
-                          <ImageDeleteIcon key={image.id} image={image} />
+                          <ImageDeleteIcon
+                            key={image.id}
+                            id={id}
+                            image={image}
+                            onDelete={handleDeleteExtraImages}
+                          />
                         ))}
                       </div>
                     </ScrollArea>
