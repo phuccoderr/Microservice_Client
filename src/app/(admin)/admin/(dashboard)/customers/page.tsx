@@ -1,7 +1,7 @@
 "use client";
 import { columns } from "@/components/cutomer/column";
 import ModalViewCustomer from "@/components/cutomer/modal-view-customer";
-import LoadingGlobal from "@/components/loading/loading";
+import LoadingGlobal from "@/components/admin/loading";
 import { DataTable } from "@/components/table/data-table";
 import { CUSTOMER_CONST } from "@/constants/customers";
 import { useGetAllCustomers } from "@/hooks/query-customers/useGetAllCustomers";

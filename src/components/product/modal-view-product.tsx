@@ -15,10 +15,9 @@ import { cn } from "@/lib/utils";
 import { useProductStore } from "@/store/useProductStore";
 import { formatDate } from "@/utils/common";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ImageDefault from "@/public/images/product-empty.png";
 import { useGetCategories } from "@/hooks/query-categories/useGetCategories";
-import ImageDeleteIcon from "@/components/image-delete-icon";
 
 const tabData = [
   {

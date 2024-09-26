@@ -9,7 +9,7 @@ export const getAccessToken = (): string | undefined => {
 
 export const getLocalRefreshToken = (): string => {
   const token = localStorage.getItem("refresh_token");
-  return token || "";
+  return token ?? "";
 };
 
 export const refreshToken = async () => {

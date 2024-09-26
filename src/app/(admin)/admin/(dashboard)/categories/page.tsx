@@ -1,7 +1,7 @@
 "use client";
 import { columns } from "@/components/category/column";
 import ModalUpdateCategory from "@/components/category/modal-update-category";
-import LoadingGlobal from "@/components/loading/loading";
+import LoadingGlobal from "@/components/admin/loading";
 import { DataTable } from "@/components/table/data-table";
 import CATEGORIES_CONST from "@/constants/categories";
 import { useGetAllCategories } from "@/hooks/query-categories/useGetAllCategories";

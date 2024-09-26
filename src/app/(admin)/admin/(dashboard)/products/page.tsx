@@ -1,5 +1,5 @@
 "use client";
-import LoadingGlobal from "@/components/loading/loading";
+import LoadingGlobal from "@/components/admin/loading";
 import ModalDelete from "@/components/modal-delete";
 import { columns } from "@/components/product/column";
 import ModalViewProduct from "@/components/product/modal-view-product";

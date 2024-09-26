@@ -3,7 +3,7 @@
 import { columns } from "@/components/user/column";
 import { DataTable } from "@/components/table/data-table";
 import { useGetAllUsers } from "@/hooks/query-users/useGetAllUsers";
-import LoadingGlobal from "@/components/loading/loading";
+import LoadingGlobal from "@/components/admin/loading";
 import { useState } from "react";
 import ModalUpdateUser from "@/components/user/modal-update-user";
 import { useUserStore } from "@/store/useUserStore";

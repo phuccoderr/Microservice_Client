@@ -13,6 +13,7 @@ export const useCustomerStore = create<ModalAction>((set) => ({
   id: "",
   modalView: false,
   setModalView: (open, id) => {
-    set({ modalView: open, id });
+    if (open) return set({ modalView: open, id });
+    return set({ modalView: open });
   },
 }));

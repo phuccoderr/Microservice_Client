@@ -6,6 +6,8 @@ export const COMMONS_CONST = {
   SALE: "Giảm giá",
   COST: "Giá gốc",
   INFORMATION: "Thông tin",
+  ADDRESS: "Địa chỉ",
+  PHONE_NUMBER: "Số điện thoại",
   LOADING: "Vui lòng đợi !",
   PREVIOUS: "Trước",
   NEXT: "Sau",
