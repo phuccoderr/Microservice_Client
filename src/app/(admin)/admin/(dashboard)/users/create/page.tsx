@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/select";
 import { z } from "zod";
 import { COMMONS_CONST } from "@/constants/commons";
-import { AUTH_CONST } from "@/constants/login";
+import { AUTH_CONST } from "@/constants/auth";
 import { useCreateUser } from "@/hooks/query-users/useCreateUser";
 import ButtonBack from "@/components/button-back";
 

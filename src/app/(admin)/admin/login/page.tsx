@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AUTH_CONST } from "@/constants/login";
+import { AUTH_CONST } from "@/constants/auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 

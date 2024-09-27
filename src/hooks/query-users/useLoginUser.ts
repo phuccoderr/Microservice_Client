@@ -1,5 +1,5 @@
 import { usersApi } from "@/api/usersApi";
-import { AUTH_CONST } from "@/constants/login";
+import { AUTH_CONST } from "@/constants/auth";
 import { useToastMessage } from "@/hooks/useToastMessage";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Login } from "@/types/login.type";
@@ -7,7 +7,7 @@ import { CookieUtils } from "@/utils/cookie-utils";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-export const useLoginMutation = () => {
+export const useLoginUser = () => {
   const { toastSuccess, toastError } = useToastMessage();
   const router = useRouter();
   const { setIsAuth } = useAuthStore();

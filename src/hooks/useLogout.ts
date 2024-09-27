@@ -1,5 +1,5 @@
 import { usersApi } from "@/api/usersApi";
-import { AUTH_CONST } from "@/constants/login";
+import { AUTH_CONST } from "@/constants/auth";
 import { useToastMessage } from "@/hooks/useToastMessage";
 import { useAuthStore } from "@/store/useAuthStore";
 import { CookieUtils } from "@/utils/cookie-utils";

@@ -1,5 +1,6 @@
 import { refreshToken } from "@/api/jwtClient";
 import URL_CONST from "@/constants/api";
+import { ErrorResponse } from "@/types/error.type";
 import { CookieUtils } from "@/utils/cookie-utils";
 import axios from "axios";
 
@@ -24,11 +25,17 @@ const createAxiosInstance = (baseUrl: string) => {
     (response) => {
       return response.data;
     },
-    async (error) => {
+    async (error): Promise<ErrorResponse> => {
       const originalRequest = error.config;
 
-      if (error.response.status === 401) {
+      if (!originalRequest._retryCount) {
+        originalRequest._retryCount = 0;
+      }
+
+      if (error.response.status === 401 && originalRequest._retryCount < 2) {
         originalRequest._retry = true;
+        originalRequest._retryCount += 1;
+
         try {
           const newAccessToken = await refreshToken();
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
