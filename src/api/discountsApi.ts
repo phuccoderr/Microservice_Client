@@ -1,4 +1,5 @@
 import { discountsAxiosClient } from "@/api/axiosClient";
+import { CreateDiscount } from "@/types/discount.type";
 import { ParamPagination } from "@/types/pagination.type";
 
 export const discountsApi = {
@@ -9,5 +10,9 @@ export const discountsApi = {
   delete(id: string) {
     const url = `${id}`;
     return discountsAxiosClient.delete(url);
+  },
+  create(body: CreateDiscount) {
+    const url = "";
+    return discountsAxiosClient.post(url, body);
   },
 };

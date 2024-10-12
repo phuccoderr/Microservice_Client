@@ -7,9 +7,7 @@ export default function useFormDiscount(props: CreateDiscount) {
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
     code: z.string().min(1, { message: "Code is required" }),
-    expiry_date: z.date().refine((date) => date >= new Date(), {
-      message: "Expiry date phải từ ngày hiện tại trở lên",
-    }),
+    expiry_date: z.date().optional(),
     sale: z.number().min(0, { message: "Sale must be greater than 0" }),
     quantity: z.number(),
   });

@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
+import ImageEmpty from "@/public/images/product-empty.png";
 
 const ProductPage = () => {
   const { data: categories } = useGetAllCategoriesHome();
@@ -68,7 +69,7 @@ const ProductPage = () => {
                   <CardContent className="flex flex-col gap-2 p-4">
                     <div className="min-h-[150px] self-center">
                       <Image
-                        src={item.url}
+                        src={item.url ?? ImageEmpty}
                         width={150}
                         height={100}
                         alt={item.name}
