@@ -10,7 +10,7 @@ export const useGetAllProducts = ({
   keyword = "",
 }: ParamPagination) => {
   return useQuery<PaginationResponse<Product>>({
-    queryKey: ["products", page, limit, sort, keyword],
+    queryKey: ["products", keyword],
     queryFn: async () => {
       return (await productsApi.get({ page, limit, sort, keyword })).data;
     },

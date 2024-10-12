@@ -18,7 +18,7 @@ export const useLoginUser = () => {
     },
     onSuccess: (data) => {
       CookieUtils.set("access_token", data.access_token);
-      localStorage.setItem("refresh_token", data.refresh_token);
+      CookieUtils.set("refresh_token", data.refresh_token);
       toastSuccess(AUTH_CONST.LOGIN_SUCCESS);
       setIsAuth(true);
       router.push("/admin");

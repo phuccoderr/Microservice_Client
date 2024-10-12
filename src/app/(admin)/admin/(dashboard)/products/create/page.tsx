@@ -38,7 +38,7 @@ const tabData = [
   },
 ];
 
-const CreatePage = () => {
+const CreateProductPage = () => {
   const [activeTab, setActiveTab] = useState<string>("info");
   const { form, formSchema } = useFormProduct({
     name: "",
@@ -131,4 +131,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default CreateProductPage;

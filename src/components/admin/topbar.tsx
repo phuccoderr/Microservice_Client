@@ -1,5 +1,5 @@
 "use client";
-import { getLocalRefreshToken } from "@/api/jwtClient";
+import { getRefreshToken } from "@/api/jwtClient";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,18 +11,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { COMMONS_CONST } from "@/constants/commons";
-import { useLogoutMutation } from "@/hooks/useLogout";
+import { useLogoutUser } from "@/hooks/useLogout";
 import { useToastMessage } from "@/hooks/useToastMessage";
 import { FaUser } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 
 export default function Topbar() {
-  const mutateLogout = useLogoutMutation();
+  const mutateLogout = useLogoutUser();
   const { toastLoading } = useToastMessage();
 
   const handleLogout = () => {
     toastLoading(COMMONS_CONST.LOADING);
-    const rfToken = getLocalRefreshToken();
+    const rfToken = getRefreshToken();
     mutateLogout.mutate(rfToken);
   };
 

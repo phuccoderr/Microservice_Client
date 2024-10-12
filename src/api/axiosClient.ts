@@ -4,7 +4,11 @@ import { ErrorResponse } from "@/types/error.type";
 import { CookieUtils } from "@/utils/cookie-utils";
 import axios from "axios";
 
-const createAxiosInstance = (baseUrl: string) => {
+const createAxiosInstance = (
+  baseUrl: string,
+  urlLogin: string,
+  isRedirect: boolean,
+) => {
   const axiosClient = axios.create({
     headers: {
       "Content-Type": "application/json",
@@ -37,23 +41,55 @@ const createAxiosInstance = (baseUrl: string) => {
         originalRequest._retryCount += 1;
 
         try {
-          const newAccessToken = await refreshToken();
+          const newAccessToken = await refreshToken(isRedirect, urlLogin);
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
 
           return axiosClient(originalRequest);
         } catch (refreshError) {
-          return Promise.reject(refreshError);
+          throw refreshError;
         }
       }
-      return Promise.reject(error.response.data);
+      return error.response.data;
     },
   );
 
   return axiosClient;
 };
 
-export const authUserAxiosClient = createAxiosInstance(URL_CONST.AUTH);
-export const usersAxiosClient = createAxiosInstance(URL_CONST.USERS);
-export const categoriesAxiosClient = createAxiosInstance(URL_CONST.CATEGORIES);
-export const productsAxiosClient = createAxiosInstance(URL_CONST.PRODUCTS);
-export const customersAxiosClient = createAxiosInstance(URL_CONST.CUSTOMER);
+export const authUserAxiosClient = createAxiosInstance(
+  URL_CONST.AUTH,
+  "/admin/login",
+  true,
+);
+export const usersAxiosClient = createAxiosInstance(
+  URL_CONST.USERS,
+  "/admin/login",
+  true,
+);
+export const categoriesAxiosClient = createAxiosInstance(
+  URL_CONST.CATEGORIES,
+  "/admin/login",
+  true,
+);
+export const productsAxiosClient = createAxiosInstance(
+  URL_CONST.PRODUCTS,
+  "/admin/login",
+  true,
+);
+export const discountsAxiosClient = createAxiosInstance(
+  URL_CONST.DISCOUNTS,
+  "/admin/login",
+  true,
+);
+
+export const customersAxiosClient = createAxiosInstance(
+  URL_CONST.CUSTOMER,
+  "/login",
+  false,
+);
+
+export const cartsAxiosClient = createAxiosInstance(
+  URL_CONST.CART,
+  "/login",
+  true,
+);

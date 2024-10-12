@@ -69,7 +69,7 @@ const ModalViewProduct = () => {
             ))}
           </TabsList>
           <TabsContent value="info">
-            <div className="flex flex-col gap-2 font-mono">
+            <div className="flex flex-col gap-2">
               <h1>
                 {COMMONS_CONST.NAME}: {data?.name}
               </h1>

@@ -8,6 +8,10 @@ const customersApi = {
     const url = `auth/login`;
     return customersAxiosClient.post(url, data);
   },
+  logout: (token: string) => {
+    const url = `auth/logout`;
+    return customersAxiosClient.get(url, { params: { token } });
+  },
   register: (data: Register) => {
     const url = `auth/register`;
     return customersAxiosClient.post(url, data);
@@ -30,6 +34,10 @@ const customersApi = {
   },
   getOne: (id: string) => {
     const url = `${id}`;
+    return customersAxiosClient.get(url);
+  },
+  me: () => {
+    const url = "account";
     return customersAxiosClient.get(url);
   },
   updateStatus: (id: string, status: boolean) => {

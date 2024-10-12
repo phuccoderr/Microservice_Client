@@ -33,7 +33,7 @@ import { useToastMessage } from "@/hooks/useToastMessage";
 import { useCategoryStore } from "@/store/useCategoryStore";
 import { z } from "zod";
 
-const CreatePage = () => {
+const CreateCategoryPage = () => {
   const { listCategory } = useCategoryStore();
   const { toastLoading } = useToastMessage();
   const mutate = useCreateCategory();
@@ -138,4 +138,4 @@ const CreatePage = () => {
     </div>
   );
 };
-export default CreatePage;
+export default CreateCategoryPage;

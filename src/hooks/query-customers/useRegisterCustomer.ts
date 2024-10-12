@@ -16,7 +16,7 @@ export const useRegisterCustomer = () => {
       return (await customersApi.register(param)).data;
     },
     onSuccess: (data) => {
-      toastSuccess(AUTH_CONST.LOGIN_SUCCESS);
+      toastSuccess(AUTH_CONST.REGISTER_SUCCESS);
       router.push("/verify");
     },
     onError: (error: ErrorResponse) => {

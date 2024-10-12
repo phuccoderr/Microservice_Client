@@ -1,6 +1,9 @@
 import { productsAxiosClient } from "@/api/axiosClient";
 import { socket } from "@/api/socket";
-import { ParamPagination } from "@/types/pagination.type";
+import {
+  ParamPagination,
+  ParamPaginationProduct,
+} from "@/types/pagination.type";
 import { CreateProduct, InfoProduct } from "@/types/product.type";
 import { update } from "lodash";
 
@@ -12,6 +15,10 @@ export const productsApi = {
   getOne: (id: string) => {
     const url = `${id}`;
     return productsAxiosClient.get(url);
+  },
+  getAllByCategory: (params: ParamPaginationProduct) => {
+    const url = "category";
+    return productsAxiosClient.get(url, { params });
   },
   create: (params: CreateProduct) => {
     const { product, main_image, extra_images } = params;

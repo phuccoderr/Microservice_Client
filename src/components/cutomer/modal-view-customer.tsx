@@ -21,7 +21,7 @@ const ModalViewCustomer = () => {
 
   return (
     <Dialog open={modalView} onOpenChange={setModalView}>
-      <DialogContent className="bg-black font-mono">
+      <DialogContent className="bg-black">
         <DialogHeader>
           <DialogTitle>{COMMONS_CONST.INFORMATION}</DialogTitle>
           <DialogDescription>

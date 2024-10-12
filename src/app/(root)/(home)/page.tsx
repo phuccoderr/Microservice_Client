@@ -1,43 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="flex h-14 items-center px-4 lg:px-6">
-        <Link className="flex items-center justify-center" href="#">
-          <ShoppingBag className="h-6 w-6" />
-          <span className="sr-only">Shoe Store</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            href="#"
-          >
-            Home
-          </Link>
-          <Link
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            href="#"
-          >
-            Shop
-          </Link>
-          <Link
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            href="#"
-          >
-            About
-          </Link>
-          <Link
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            href="#"
-          >
-            Contact
-          </Link>
-        </nav>
-      </header>
+    <div>
       <main className="flex-1">
         <section className="w-full bg-black py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">

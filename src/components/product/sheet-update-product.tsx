@@ -183,7 +183,7 @@ const SheetUpdateProduct = () => {
                   ))}
                 </TabsList>
                 <TabsContent value="info">
-                  <div className="flex flex-col gap-2 font-mono">
+                  <div className="flex flex-col gap-2">
                     <FormField
                       control={form.control}
                       name="name"

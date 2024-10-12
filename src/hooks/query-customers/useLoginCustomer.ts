@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useLoginCustomer = () => {
-  const { toastSuccess } = useToastMessage();
+  const { toastSuccess, toastError } = useToastMessage();
   const router = useRouter();
 
   return useMutation({
@@ -17,10 +17,15 @@ export const useLoginCustomer = () => {
     },
     onSuccess: (data) => {
       CookieUtils.set("access_token", data.access_token);
-      localStorage.setItem("refresh_token", data.refresh_token);
+      CookieUtils.set("refresh_token", data.refresh_token);
       toastSuccess(AUTH_CONST.LOGIN_SUCCESS);
       router.push("/");
     },
-    onError: (error: ErrorResponse) => error,
+    onError: (error: ErrorResponse) => {
+      if (error.statusCode === 404) {
+        toastError(AUTH_CONST.EMAIL_NOTFOUND);
+      }
+      toastError(AUTH_CONST.LOGIN_FAILED);
+    },
   });
 };

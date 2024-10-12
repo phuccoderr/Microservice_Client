@@ -35,7 +35,7 @@ import { AUTH_CONST } from "@/constants/auth";
 import { useCreateUser } from "@/hooks/query-users/useCreateUser";
 import ButtonBack from "@/components/button-back";
 
-const CreatePage = () => {
+const CreateUserPage = () => {
   const { formSchema, form } = useFormCreateUser();
   const mutate = useCreateUser();
 
@@ -170,4 +170,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default CreateUserPage;

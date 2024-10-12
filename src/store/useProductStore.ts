@@ -4,26 +4,34 @@ type ModalState = {
   sheetUpdate: boolean;
   modalView: boolean;
   modalDelete: boolean;
+  modalAddCart: boolean;
   id: string;
   name: string;
+  url: string;
+  description: string;
   category_id: string;
 };
 
 type ProductInfo = Pick<ModalState, "id" | "name">;
 type ProductInfoWithCategory = Pick<ModalState, "id" | "name" | "category_id">;
+type ProductCart = Pick<ModalState, "id" | "name" | "url" | "description">;
 
 export interface ModalStore extends ModalState {
   setSheetUpdate: (open: boolean, props?: ProductInfoWithCategory) => void;
   setModalView: (open: boolean, props?: ProductInfoWithCategory) => void;
   setModalDelete: (open: boolean, props?: ProductInfo) => void;
+  setModalAddCart: (open: boolean, props?: ProductCart) => void;
 }
 
 export const useProductStore = create<ModalStore>((set) => ({
   sheetUpdate: false,
   modalView: false,
   modalDelete: false,
+  modalAddCart: false,
   id: "",
   name: "",
+  url: "",
+  description: "",
   category_id: "",
   setSheetUpdate: (open: boolean, props?: ProductInfoWithCategory) => {
     if (open) {
@@ -48,5 +56,8 @@ export const useProductStore = create<ModalStore>((set) => ({
     return set({
       modalDelete: open,
     });
+  },
+  setModalAddCart(open, props) {
+    return set({ modalAddCart: open, ...props });
   },
 }));

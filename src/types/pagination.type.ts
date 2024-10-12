@@ -26,3 +26,8 @@ export type PaginationResponse<T> = Omit<
   Pagination<T>,
   "pages" | "limit" | "sort" | "keyword"
 >;
+
+export type ParamPaginationProduct = ParamPagination & {
+  cate_id: string;
+  sort_field: string;
+};

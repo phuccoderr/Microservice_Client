@@ -1,5 +1,4 @@
 "use client";
-import { getLocalRefreshToken } from "@/api/jwtClient";
 import Signin from "@/components/admin/signin";
 import {
   Card,
@@ -8,11 +7,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { AUTH_CONST } from "@/constants/auth";
+import { useGetMeUser } from "@/hooks/query-users/useGetMeUser";
+import { CookieUtils } from "@/utils/cookie-utils";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const LoginPage = () => {
-  const token = getLocalRefreshToken();
+  const token = CookieUtils.get("access_token");
   const router = useRouter();
 
   useEffect(() => {

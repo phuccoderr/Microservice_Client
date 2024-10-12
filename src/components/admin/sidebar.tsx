@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useSidebarStore } from "@/store/useSidebarStore";
 import { FaShoppingBag, FaUsers } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
+import { RiCoupon3Fill } from "react-icons/ri";
 
 const menuItems = [
   {
@@ -29,6 +30,11 @@ const menuItems = [
     title: "Products",
     icon: <FaShoppingBag className="h-5 w-5" />,
     link: "/admin/products",
+  },
+  {
+    title: "Discounts",
+    icon: <RiCoupon3Fill className="h-5 w-5" />,
+    link: "/admin/discounts",
   },
   {
     title: "Customers",

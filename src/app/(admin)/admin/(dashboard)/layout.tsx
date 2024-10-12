@@ -2,7 +2,10 @@
 import { socket } from "@/api/socket";
 import SidebarAdmin from "@/components/admin/sidebar";
 import Topbar from "@/components/admin/topbar";
+import { useGetMe } from "@/hooks/query-customers/useGetMe";
+import { useGetMeUser } from "@/hooks/query-users/useGetMeUser";
 import { useSidebarStore } from "@/store/useSidebarStore";
+import { CookieUtils } from "@/utils/cookie-utils";
 import { ReactNode, useEffect } from "react";
 import { FaFileImage } from "react-icons/fa";
 import { toast } from "sonner";
@@ -15,6 +18,15 @@ export default function DashboardLayout({
   children,
 }: Readonly<DashboardLayoutProps>) {
   const { open } = useSidebarStore();
+  const { isError } = useGetMeUser();
+
+  useEffect(() => {
+    if (isError) {
+      localStorage.removeItem("refresh_token");
+      CookieUtils.remove("access_token");
+      window.location.href = "/admin/login";
+    }
+  }, [isError]);
 
   useEffect(() => {
     const notifyUpload = (data: any) => {

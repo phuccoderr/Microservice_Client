@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -17,16 +17,26 @@ import { AUTH_CONST } from "@/constants/auth";
 import ForgotPasswordForm from "@/components/auth/forgot-password-form";
 import LoginForm from "@/components/auth/login-form";
 import RegisterForm from "@/components/auth/register-form";
+import { useRouter } from "next/navigation";
+import { useGetMe } from "@/hooks/query-customers/useGetMe";
 
 export default function AuthPage() {
   const [activeTab, setActiveTab] = useState("login");
+  const { data } = useGetMe();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (data) {
+      router.push("/");
+    }
+  }, [data]);
 
   const handleSocialLogin = (provider: string) => {
     console.log(`Logging in with ${provider}`);
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-900">
+    <div className="flex min-h-screen items-center justify-center bg-black">
       <Card className="w-[350px] border-gray-700 bg-gray-800 text-gray-200">
         <CardHeader>
           <CardTitle className="text-green-500">

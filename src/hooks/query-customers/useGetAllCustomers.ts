@@ -11,7 +11,7 @@ export const useGetAllCustomers = ({
   keyword = "",
 }: ParamPagination) => {
   return useQuery<PaginationResponse<Customer>>({
-    queryKey: ["customers", page, limit, sort, keyword],
+    queryKey: ["customers", keyword],
     queryFn: async () => {
       return (await customersApi.get({ page, limit, sort, keyword })).data;
     },

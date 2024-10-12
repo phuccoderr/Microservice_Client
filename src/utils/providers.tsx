@@ -12,7 +12,7 @@ export default function Provider({ children }: ProviderProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools buttonPosition="bottom-left" />
-      {children}
+      <div className="font-mono">{children}</div>
     </QueryClientProvider>
   );
 }

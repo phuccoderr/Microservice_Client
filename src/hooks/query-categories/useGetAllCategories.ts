@@ -10,7 +10,7 @@ export const useGetAllCategories = ({
   keyword = "",
 }: ParamPagination) => {
   return useQuery<PaginationResponse<Category>>({
-    queryKey: ["categories", page, limit, sort, keyword],
+    queryKey: ["categories", keyword],
     queryFn: async () => {
       return (await categoriesApi.get({ page, limit, sort, keyword })).data;
     },

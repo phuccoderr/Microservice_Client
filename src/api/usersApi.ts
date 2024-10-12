@@ -16,6 +16,10 @@ export const usersApi = {
     const url = `/refresh?token=${token}`;
     return authUserAxiosClient.get(url);
   },
+  me() {
+    const url = "/me";
+    return usersAxiosClient.get(url);
+  },
   get(params: ParamPagination) {
     const url = "";
     return usersAxiosClient.get(url, { params });

@@ -11,6 +11,10 @@ const categoriesApi = {
     const url = `${id}`;
     return categoriesAxiosClient.get(url);
   },
+  getAll: () => {
+    const url = "all";
+    return categoriesAxiosClient.get(url);
+  },
   create: (params: CategoryRequest) => {
     const url = "";
     return categoriesAxiosClient.post(url, params);
