@@ -37,12 +37,10 @@ export default function AuthPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-black">
-      <Card className="w-[350px] border-gray-700 bg-gray-800 text-gray-200">
+      <Card className="w-[350px] border-gray-700 bg-slate-300 text-black">
         <CardHeader>
-          <CardTitle className="text-green-500">
-            {COMMONS_CONST.WELCOME}
-          </CardTitle>
-          <CardDescription className="text-gray-400">
+          <CardTitle>{COMMONS_CONST.WELCOME}</CardTitle>
+          <CardDescription className="text-gray-600">
             {AUTH_CONST.SIGN_IN_DES}
           </CardDescription>
         </CardHeader>
@@ -55,13 +53,13 @@ export default function AuthPage() {
             <TabsList className="grid w-full grid-cols-2 bg-gray-700">
               <TabsTrigger
                 value="login"
-                className="data-[state=active]:bg-green-600 data-[state=active]:text-white"
+                className="data-[state=active]:bg-gray-600 data-[state=active]:text-white"
               >
                 {AUTH_CONST.SIGN_IN}
               </TabsTrigger>
               <TabsTrigger
                 value="register"
-                className="data-[state=active]:bg-green-600 data-[state=active]:text-white"
+                className="data-[state=active]:bg-gray-600 data-[state=active]:text-white"
               >
                 {AUTH_CONST.SIGN_UP}
               </TabsTrigger>
@@ -76,7 +74,7 @@ export default function AuthPage() {
           {activeTab === "login" && (
             <Button
               variant="link"
-              className="mt-2 p-0 text-green-400 hover:text-green-300"
+              className="mt-2 p-0 text-black"
               onClick={() => setActiveTab("forgot-password")}
             >
               {AUTH_CONST.FORGOT_PASSWORD}

@@ -22,7 +22,7 @@ const CategoryItem = ({
     <div>
       <Button
         variant="ghost"
-        className={`w-full justify-start ${depth > 0 && "pl-4"} ${categoryId === category.id && "bg-green-800"}`}
+        className={`w-full justify-start font-bold text-gray-500 hover:bg-transparent hover:text-gray-950 ${depth > 0 && "pl-4"} ${categoryId === category.id && "text-gray-950"}`}
         onClick={() => {
           setIsOpen(!isOpen);
           setCategoryId(category.id);

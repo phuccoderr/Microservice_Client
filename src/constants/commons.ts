@@ -41,4 +41,5 @@ export const COMMONS_CONST = {
   EXTRA_IMAGES: "Ảnh phụ",
   RESET_PASSWORD: "Đặt lại mật khẩu",
   NEW_PASSWORD: "Mật khẩu mới",
+  PROFILE: "Thông tin của bạn",
 };

@@ -4,6 +4,7 @@ export type Cart = {
   name: string;
   cost: number;
   price: number;
+  sale: number;
   quantity: number;
   total: number;
 };

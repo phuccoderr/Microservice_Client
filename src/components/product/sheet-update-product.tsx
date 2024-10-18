@@ -6,6 +6,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -203,7 +204,12 @@ const SheetUpdateProduct = () => {
                         <FormItem>
                           <FormLabel>{COMMONS_CONST.COST}</FormLabel>
                           <FormControl>
-                            <Input {...field} />
+                            <Input
+                              {...field}
+                              onChange={(event) =>
+                                field.onChange(+event.target.value)
+                              }
+                            />
                           </FormControl>
                         </FormItem>
                       )}
@@ -215,7 +221,12 @@ const SheetUpdateProduct = () => {
                         <FormItem>
                           <FormLabel>{COMMONS_CONST.PRICE}</FormLabel>
                           <FormControl>
-                            <Input {...field} />
+                            <Input
+                              {...field}
+                              onChange={(event) =>
+                                field.onChange(+event.target.value)
+                              }
+                            />
                           </FormControl>
                         </FormItem>
                       )}
@@ -227,8 +238,14 @@ const SheetUpdateProduct = () => {
                         <FormItem>
                           <FormLabel>{COMMONS_CONST.SALE}</FormLabel>
                           <FormControl>
-                            <Input {...field} />
+                            <Input
+                              {...field}
+                              onChange={(event) =>
+                                field.onChange(+event.target.value)
+                              }
+                            />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -239,7 +256,12 @@ const SheetUpdateProduct = () => {
                         <FormItem>
                           <FormLabel>{COMMONS_CONST.STOCK}</FormLabel>
                           <FormControl>
-                            <Input {...field} />
+                            <Input
+                              {...field}
+                              onChange={(event) =>
+                                field.onChange(+event.target.value)
+                              }
+                            />
                           </FormControl>
                         </FormItem>
                       )}

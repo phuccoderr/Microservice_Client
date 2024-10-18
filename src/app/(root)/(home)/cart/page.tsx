@@ -4,7 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useDeleteCart } from "@/hooks/query-cart/useDeleteCart";
 import { useGetCart } from "@/hooks/query-cart/useGetCart";
-import { formatVnd, getTotal } from "@/utils/common";
+import { calSale, formatVnd, getTotal } from "@/utils/common";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -49,7 +49,7 @@ const CartPage = () => {
       </div>
       <div className="mx-8 flex gap-4">
         <div className="h-[400px] w-full">
-          <ScrollArea className="flex flex-col gap-4">
+          <ScrollArea className="flex h-[300px] flex-col gap-4 overflow-y-auto">
             <div className="flex flex-col gap-4">
               {carts?.map((item, id) => (
                 <div key={id} className="flex gap-8">
@@ -62,7 +62,7 @@ const CartPage = () => {
                   />
                   <div className="flex flex-col gap-2">
                     <h1>{item.name}</h1>
-                    <h1>{item.price}đ</h1>
+                    <h1>{formatVnd(calSale(item.price, item.sale))}</h1>
                     <div className="flex items-center gap-4">
                       <Button
                         onClick={() => handleAddToCart(item.product_id, -1)}
@@ -89,13 +89,13 @@ const CartPage = () => {
                     >
                       X
                     </Button>
-                    <h1>{item.quantity * item.price}đ</h1>
+                    <h1>{formatVnd(item.total)}</h1>
                   </div>
                 </div>
               ))}
             </div>
           </ScrollArea>
-          <div className="mt-[25%] flex gap-4">
+          <div className="flex gap-4">
             <div className="w-1/4">
               <h1>Ghi chú đơn hàng</h1>
               <Textarea className="bg-gray-400 text-black" rows={8} />

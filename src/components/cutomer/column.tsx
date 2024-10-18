@@ -1,4 +1,3 @@
-import BadgeStatus from "@/components/badge-status";
 import { Customer } from "@/types/customer.type";
 import { ColumnDef } from "@tanstack/react-table";
 import ImageDefault from "@/public/images/product-empty.png";

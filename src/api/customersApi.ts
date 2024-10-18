@@ -1,4 +1,5 @@
 import { customersAxiosClient } from "@/api/axiosClient";
+import { UpdateCustomer } from "@/types/customer.type";
 import { Login } from "@/types/login.type";
 import { ParamPagination } from "@/types/pagination.type";
 import { Register } from "@/types/register.type";
@@ -43,6 +44,10 @@ const customersApi = {
   updateStatus: (id: string, status: boolean) => {
     const url = `${id}/status/${status}`;
     return customersAxiosClient.patch(url);
+  },
+  update: (body: UpdateCustomer) => {
+    const url = "account";
+    return customersAxiosClient.patch(url, body);
   },
 };
 

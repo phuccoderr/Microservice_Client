@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import ImageEmpty from "@/public/images/product-empty.png";
+import { calSale, formatVnd } from "@/utils/common";
 
 const ProductPage = () => {
   const { data: categories } = useGetAllCategoriesHome();
@@ -42,7 +43,7 @@ const ProductPage = () => {
 
   return (
     <>
-      <div className="container mx-auto flex flex-col gap-8 p-4 md:flex-row">
+      <div className="container flex gap-8 p-4">
         <div className="flex flex-col gap-2 p-2">
           {categories?.map((category) => (
             <CategoryItem
@@ -65,7 +66,10 @@ const ProductPage = () => {
           <div className="flex flex-wrap gap-4">
             {products !== undefined ? (
               products.entities.map((item) => (
-                <Card key={item.id} className="w-[200px]">
+                <Card
+                  key={item.id}
+                  className="w-[200px] bg-transparent text-black"
+                >
                   <CardContent className="flex flex-col gap-2 p-4">
                     <div className="min-h-[150px] self-center">
                       <Image
@@ -78,13 +82,22 @@ const ProductPage = () => {
                     </div>
 
                     <h1
-                      className="cursor-pointer"
+                      className="cursor-pointer font-bold hover:text-teal-700"
                       onClick={() => router.push(`/product/${item.id}`)}
                     >
                       {item.name}
                     </h1>
-                    <h2>{item.description}</h2>
-                    <h1 className="">{item.price} đ</h1>
+                    <h1 className="text-xs">{item.description}</h1>
+                    {item.sale > 0 ? (
+                      <div className="flex gap-2">
+                        <h1 className="font-bold line-through">
+                          {formatVnd(item.price)}
+                        </h1>
+                        <h1>{formatVnd(calSale(item.price, item.sale))} </h1>
+                      </div>
+                    ) : (
+                      <h1 className="font-bold">{formatVnd(item.price)}</h1>
+                    )}
                     <div
                       onClick={() =>
                         handleModalAddCart(
@@ -96,11 +109,11 @@ const ProductPage = () => {
                       }
                       className="group relative flex cursor-pointer items-center gap-4 overflow-hidden rounded-full"
                     >
-                      <div className="absolute inset-0 translate-x-[-100%] transform bg-green-600 transition-transform duration-300 group-hover:translate-x-0"></div>
+                      <div className="absolute inset-0 translate-x-[-100%] transform bg-black transition-transform duration-300 group-hover:translate-x-0"></div>
                       <Button className="relative rounded-full" size={"icon"}>
                         <TiShoppingCart />
                       </Button>
-                      <h1 className="relative z-10">Đặt mua</h1>
+                      <h1 className="relative z-10 text-black">Đặt mua</h1>
                     </div>
                   </CardContent>
                 </Card>

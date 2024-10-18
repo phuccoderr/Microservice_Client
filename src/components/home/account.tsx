@@ -52,10 +52,12 @@ const Account = () => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <FaUser className="mr-2 h-4 w-4" />
-          <span>Profile</span>
-        </DropdownMenuItem>
+        <Link href={"/profile"}>
+          <DropdownMenuItem>
+            <FaUser className="mr-2 h-4 w-4" />
+            <span>Profile</span>
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
           <IoLogOutOutline className="mr-2 h-4 w-4" />
@@ -65,10 +67,12 @@ const Account = () => {
     </DropdownMenu>
   ) : (
     <Link
-      className="text-sm font-medium underline-offset-4 hover:underline"
+      className="font-medium underline-offset-4 hover:underline"
       href="/login"
     >
-      <Button variant="ghost">Đăng nhập</Button>
+      <Button className="text-lg" variant="ghost">
+        Đăng nhập
+      </Button>
     </Link>
   );
 };

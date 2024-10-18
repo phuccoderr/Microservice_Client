@@ -17,7 +17,7 @@ const ImageDeleteIcon = ({ id, image, onDelete }: ImageDeleteIconProps) => {
         alt={"Image"}
         width={100}
         height={100}
-        className="rounded-lg object-cover"
+        className="h-[100px] rounded-lg object-cover"
       />
       <Button
         type="button"

@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAddToCart } from "@/hooks/query-cart/useAddToCart";
 import { useGetProduct } from "@/hooks/query-products/useGetProduct";
+import { formatVnd } from "@/utils/common";
 import { Minus, Plus, ShoppingCart, Star } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -64,7 +65,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         {/* Product Info */}
         <div className="md:w-1/2">
           <h1 className="mb-4 text-3xl font-bold">{product?.name}</h1>
-          <div className="mb-4 flex items-center">
+          {/* <div className="mb-4 flex items-center">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
                 <Star
@@ -76,8 +77,10 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
             <span className="ml-2 text-sm text-gray-500">
               ({product?.review_count})
             </span>
-          </div>
-          <p className="mb-4 text-2xl font-bold">₫{product?.price}</p>
+          </div> */}
+          <p className="mb-4 text-2xl font-bold">
+            {formatVnd(product?.price ?? 0)}
+          </p>
           <p className="mb-4">
             Mỳ Hải Sản Hàm Cay Lớn - Sản phẩm mới của Omega Noodles
           </p>
@@ -93,7 +96,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
               <Minus className="h-4 w-4" />
             </Button>
             <Input
-              readOnly
+              onChange={(e) => handleQuantity(Number(e.target.value))}
               className="mx-2 w-16 text-center"
               value={quantity}
             />
@@ -107,17 +110,16 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
           </div>
 
           {/* Add to Cart Button */}
-          <Button onClick={handleAddToCart} className="mb-4 w-full">
+          <Button
+            onClick={handleAddToCart}
+            className="mb-4 w-[200px] bg-blue-400 hover:bg-blue-500"
+          >
             <ShoppingCart className="mr-2 h-4 w-4" /> Thêm vào giỏ hàng
           </Button>
 
           {/* Product Details */}
-          <div className="border-t pt-4">
-            <h2 className="mb-2 text-xl font-semibold">Mô tả</h2>
-            <p className="text-sm italic text-zinc-300">
-              {product?.description}
-            </p>
-          </div>
+          <h2 className="mb-2 text-xl font-semibold">Mô tả</h2>
+          <p className="text-sm italic text-zinc-400">{product?.description}</p>
         </div>
       </div>
     </div>

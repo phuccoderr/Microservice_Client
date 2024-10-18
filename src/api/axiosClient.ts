@@ -93,3 +93,9 @@ export const cartsAxiosClient = createAxiosInstance(
   "/login",
   true,
 );
+
+export const ordersAxiosClient = createAxiosInstance(
+  URL_CONST.ORDERS,
+  "/login",
+  true,
+);
