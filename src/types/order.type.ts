@@ -1,3 +1,5 @@
+import { Product } from "@/types/product.type";
+
 export type Order = {
   id: string;
   customer_id: string;
@@ -17,7 +19,7 @@ export type Order = {
 export type OrderDetail = {
   id: string;
   product_cost: number;
-  product_id: string;
+  product_id: Product;
   order_id: string;
   quantity: number;
   total: number;

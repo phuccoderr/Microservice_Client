@@ -14,4 +14,14 @@ export const cartsApi = {
     const url = `product/${product_id}`;
     return cartsAxiosClient.delete(url);
   },
+  placeOrder(body: {
+    payment_method: string;
+    address: string;
+    phone_number: string;
+    note: string;
+    sale: number;
+  }) {
+    const url = "/place_order";
+    return cartsAxiosClient.post(url, body);
+  },
 };

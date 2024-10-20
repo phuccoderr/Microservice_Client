@@ -1,10 +1,8 @@
+import { Customer } from "@/types/customer.type";
+import { Product } from "@/types/product.type";
+
 export type Cart = {
-  product_id: string;
-  product_image: string;
-  name: string;
-  cost: number;
-  price: number;
-  sale: number;
+  product_id: Product;
+  customer_id: Pick<Customer, "_id" | "email"> & { name: string };
   quantity: number;
-  total: number;
 };

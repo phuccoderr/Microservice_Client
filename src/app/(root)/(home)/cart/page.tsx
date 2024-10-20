@@ -54,18 +54,22 @@ const CartPage = () => {
               {carts?.map((item, id) => (
                 <div key={id} className="flex gap-8">
                   <Image
-                    src={item.product_image}
+                    src={item.product_id.url}
                     alt="Product Image"
                     width={100}
                     height={100}
                     className="h-[100px] rounded-lg"
                   />
                   <div className="flex flex-col gap-2">
-                    <h1>{item.name}</h1>
-                    <h1>{formatVnd(calSale(item.price, item.sale))}</h1>
+                    <h1>{item.product_id.name}</h1>
+                    <h1>
+                      {formatVnd(
+                        calSale(item.product_id.price, item.product_id.sale),
+                      )}
+                    </h1>
                     <div className="flex items-center gap-4">
                       <Button
-                        onClick={() => handleAddToCart(item.product_id, -1)}
+                        onClick={() => handleAddToCart(item.product_id.id, -1)}
                         size={"icon"}
                         variant={"outline"}
                       >
@@ -73,7 +77,7 @@ const CartPage = () => {
                       </Button>
                       {item.quantity}
                       <Button
-                        onClick={() => handleAddToCart(item.product_id, 1)}
+                        onClick={() => handleAddToCart(item.product_id.id, 1)}
                         size={"icon"}
                         variant={"outline"}
                       >
@@ -83,31 +87,30 @@ const CartPage = () => {
                   </div>
                   <div className="ml-auto flex flex-col gap-2">
                     <Button
-                      onClick={() => handleDeleteCart(item.product_id)}
+                      onClick={() => handleDeleteCart(item.product_id.id)}
                       size={"icon"}
                       variant={"ghost"}
                     >
                       X
                     </Button>
-                    <h1>{formatVnd(item.total)}</h1>
+                    <h1>
+                      {formatVnd(
+                        calSale(item.product_id.price, item.product_id.sale) *
+                          item.quantity,
+                      )}
+                    </h1>
                   </div>
                 </div>
               ))}
             </div>
           </ScrollArea>
-          <div className="flex gap-4">
-            <div className="w-1/4">
-              <h1>Ghi chú đơn hàng</h1>
-              <Textarea className="bg-gray-400 text-black" rows={8} />
-            </div>
-            <div>
-              <h1>Chính sách giao hàng</h1>
-              <p>
-                {" "}
-                Phí vận chuyển 5k/km. Omega sẽ liên hệ báo phí vận chuyển cho
-                bạn ngay khi bạn đặt đơn nhé!
-              </p>
-            </div>
+          <div>
+            <h1>Chính sách giao hàng</h1>
+            <p>
+              {" "}
+              Phí vận chuyển 5k/km. Omega sẽ liên hệ báo phí vận chuyển cho bạn
+              ngay khi bạn đặt đơn nhé!
+            </p>
           </div>
         </div>
         <div className="flex w-1/3 flex-col gap-4 rounded-lg border p-6">

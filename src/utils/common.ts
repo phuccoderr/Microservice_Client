@@ -11,7 +11,7 @@ export const getFullName = (firstName: string, lastName: string) => {
 export const getTotal = (carts: Cart[]) => {
   let total = 0;
   carts.forEach((cart) => {
-    let sale = calSale(cart.price, cart.sale);
+    let sale = calSale(cart.product_id.price, cart.product_id.sale);
     total += sale * cart.quantity;
   });
   return total;
