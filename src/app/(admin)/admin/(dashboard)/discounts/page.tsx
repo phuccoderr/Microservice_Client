@@ -6,18 +6,21 @@ import { DataTable } from "@/components/table/data-table";
 import { DISCOUNT_CONST } from "@/constants/discounts";
 import { useDeleteDiscount } from "@/hooks/query-discounts/useDeleteDiscount";
 import { useGetAllDiscounts } from "@/hooks/query-discounts/useGetAllDiscounts";
+import useDebounce from "@/hooks/useDebounce";
 import { useDiscountStore } from "@/store/useDiscountStore";
 import { ParamPagination } from "@/types/pagination.type";
 import React, { useState } from "react";
 
 const DiscountsPage = () => {
-  const [pagination, setPagination] = useState<ParamPagination>({
+  const [keyword, setKeyword] = useState("");
+  const [limit, setLimit] = useState(100);
+  const debounced = useDebounce(keyword, 2000);
+  const { data, isLoading } = useGetAllDiscounts({
     page: 1,
-    limit: 100,
+    limit: limit,
     sort: "asc",
-    keyword: "",
+    keyword: debounced,
   });
-  const { data, isLoading } = useGetAllDiscounts(pagination);
   const { id, name, modalDelete, setModalDelete } = useDiscountStore();
   const { mutate } = useDeleteDiscount();
 
@@ -31,8 +34,10 @@ const DiscountsPage = () => {
           <DataTable
             columns={columns}
             data={data?.entities ?? []}
-            pagination={pagination}
-            setPagination={setPagination}
+            keyword={keyword}
+            setKeyword={setKeyword}
+            limit={limit}
+            setLimit={setLimit}
             routeCreate="/admin/discounts/create"
           />
         )}

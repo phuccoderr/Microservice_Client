@@ -38,8 +38,6 @@ const CheckOutPage = () => {
   const mutationPlaceOrder = usePlaceOrder();
   const mutationApplyCode = useApplyCode();
 
-  const router = useRouter();
-
   const handleCheckout = () => {
     mutationCheckDiscount.mutate(discount, {
       onSuccess: (data) => {
@@ -50,16 +48,14 @@ const CheckOutPage = () => {
   };
 
   useEffect(() => {
-    if (carts == null) {
-      router.push("/");
-    }
-  }, [carts]);
-
-  useEffect(() => {
     form.setValue("address", me?.address ?? "");
     form.setValue("phone_number", me?.phone_number ?? "");
     form.setValue("sale", sale ?? 0);
-  }, [me, sale]);
+  }, [me]);
+
+  useEffect(() => {
+    form.setValue("sale", sale ?? 0);
+  }, [sale]);
 
   const handleApplyDiscount = (values: z.infer<typeof formSchema>) => {
     toastLoading(COMMONS_CONST.LOADING);

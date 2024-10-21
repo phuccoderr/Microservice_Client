@@ -32,9 +32,11 @@ const Header = () => {
           <Button className="text-lg" variant="ghost">
             About
           </Button>
-          <Button className="text-lg" variant="ghost">
-            Contact
-          </Button>
+          <Link href="/contact">
+            <Button className="text-lg" variant="ghost">
+              Contact
+            </Button>
+          </Link>
         </div>
         <div className="flex items-center space-x-4">
           <Link href={"/cart"}>

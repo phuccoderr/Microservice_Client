@@ -66,10 +66,10 @@ const TabImage = ({
                 <Image
                   key={image.name}
                   src={URL.createObjectURL(image)}
-                  width={120}
-                  height={120}
+                  width={100}
+                  height={100}
                   alt="Picture of the author"
-                  className="rounded-xl object-cover"
+                  className="h-[100px] rounded-xl object-cover"
                 />
               ))}
             </div>

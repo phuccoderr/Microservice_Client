@@ -36,19 +36,21 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   routeCreate?: string;
-  pagination: ParamPagination;
-  setPagination: Dispatch<React.SetStateAction<ParamPagination>>;
+  keyword: string;
+  setKeyword: Dispatch<React.SetStateAction<string>>;
+  limit: number;
+  setLimit: Dispatch<React.SetStateAction<number>>;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   routeCreate,
-  pagination,
-  setPagination,
+  keyword,
+  setKeyword,
+  limit,
+  setLimit,
 }: Readonly<DataTableProps<TData, TValue>>) {
-  const [search, setSearch] = useState<string>("");
-  const debouncedSearch = useDebounce(search, 1000);
   const [expanded, setExpanded] = useState<ExpandedState>({});
   const router = useRouter();
 
@@ -75,21 +77,16 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
   });
-
-  useEffect(() => {
-    setPagination((prevState) => ({ ...prevState, keyword: debouncedSearch }));
-  }, [debouncedSearch]);
-
   const handleLimit = (limit: number) => {
-    setPagination((prevState) => ({ ...prevState, limit }));
+    setLimit(limit);
   };
   return (
     <>
       <div className="flex items-center justify-between">
         <Input
           placeholder={USER_CONST.FILTER}
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
+          onChange={(e) => setKeyword(e.target.value)}
+          value={keyword}
           className="max-w-sm"
         />
         <div className="flex items-center gap-2">
@@ -101,7 +98,7 @@ export function DataTable<TData, TValue>({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
-                {pagination.limit} <ChevronDownIcon className="ml-2 h-4 w-4" />
+                {limit} <ChevronDownIcon className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

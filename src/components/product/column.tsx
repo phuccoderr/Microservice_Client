@@ -38,9 +38,9 @@ export const columns: ColumnDef<Product>[] = [
       return (
         <Image
           src={url || ImageDefault}
-          className="rounded-xl"
+          className="h-[50px] rounded-xl"
           width={50}
-          height={120}
+          height={50}
           alt="Picture of the author"
         />
       );

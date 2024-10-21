@@ -43,16 +43,25 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
       <div className="flex gap-8">
         {/* Product Images */}
         <div className="flex justify-center md:w-1/2">
-          <Carousel className="w-[300px] rounded-xl bg-white">
+          <Carousel className="w-[300px] rounded-xl border bg-white">
             <CarouselContent>
+              <CarouselItem>
+                <Image
+                  src={product?.url ?? ""}
+                  alt="Product Image"
+                  width={300}
+                  height={300}
+                  className="h-[300px] rounded-xl"
+                />
+              </CarouselItem>
               {product?.extra_images?.map((image) => (
                 <CarouselItem key={image.id}>
                   <Image
                     src={image.url}
                     alt="Product Image"
-                    width={500}
-                    height={500}
-                    className="rounded-xl"
+                    width={300}
+                    height={300}
+                    className="h-[300px] rounded-xl"
                   />
                 </CarouselItem>
               ))}
@@ -65,19 +74,6 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         {/* Product Info */}
         <div className="md:w-1/2">
           <h1 className="mb-4 text-3xl font-bold">{product?.name}</h1>
-          {/* <div className="mb-4 flex items-center">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="h-5 w-5 fill-yellow-400 text-yellow-400"
-                />
-              ))}
-            </div>
-            <span className="ml-2 text-sm text-gray-500">
-              ({product?.review_count})
-            </span>
-          </div> */}
           <p className="mb-4 text-2xl font-bold">
             {formatVnd(product?.price ?? 0)}
           </p>

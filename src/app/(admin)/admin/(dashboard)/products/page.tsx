@@ -8,18 +8,21 @@ import { DataTable } from "@/components/table/data-table";
 import { PRODUCT_CONST } from "@/constants/products";
 import { useDeleteProduct } from "@/hooks/query-products/useDeleteProduct";
 import { useGetAllProducts } from "@/hooks/query-products/useGetAllProducts";
+import useDebounce from "@/hooks/useDebounce";
 import { useProductStore } from "@/store/useProductStore";
 import { ParamPagination } from "@/types/pagination.type";
 import { useState } from "react";
 
 const ProductPage = () => {
-  const [pagination, setPagination] = useState<ParamPagination>({
+  const [keyword, setKeyword] = useState("");
+  const [limit, setLimit] = useState(100);
+  const debounced = useDebounce(keyword, 2000);
+  const { data, isLoading } = useGetAllProducts({
     page: 1,
-    limit: 100,
+    limit: limit,
     sort: "asc",
-    keyword: "",
+    keyword: debounced,
   });
-  const { data, isLoading } = useGetAllProducts(pagination);
   const { modalDelete, setModalDelete, id, name } = useProductStore();
   const { mutate } = useDeleteProduct();
 
@@ -34,8 +37,10 @@ const ProductPage = () => {
             routeCreate="/admin/products/create"
             columns={columns}
             data={data?.entities ?? []}
-            pagination={pagination}
-            setPagination={setPagination}
+            keyword={keyword}
+            setKeyword={setKeyword}
+            limit={limit}
+            setLimit={setLimit}
           />
         )}
       </div>

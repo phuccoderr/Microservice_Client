@@ -10,6 +10,7 @@ import { useToastMessage } from "@/hooks/useToastMessage";
 import { COMMONS_CONST } from "@/constants/commons";
 import { useCustomerStore } from "@/store/useCustomerStore";
 import { GiClick } from "react-icons/gi";
+import { Label } from "@/components/ui/label";
 
 export const columns: ColumnDef<Customer>[] = [
   {
@@ -23,10 +24,13 @@ export const columns: ColumnDef<Customer>[] = [
       const { setModalView } = useCustomerStore();
       const { _id, email } = row.original;
       return (
-        <h1 className="cursor-pointer" onClick={() => setModalView(true, _id)}>
+        <Label
+          className="flex cursor-pointer gap-2 hover:text-sky-600"
+          onClick={() => setModalView(true, _id)}
+        >
           {email}
           <GiClick />
-        </h1>
+        </Label>
       );
     },
   },

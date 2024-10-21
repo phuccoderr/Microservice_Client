@@ -104,8 +104,8 @@ const CreateProductPage = () => {
                   className={cn(
                     "w-full justify-start",
                     activeTab === tab.value
-                      ? "!bg-green-800 !text-white"
-                      : "hover:bg-green-500",
+                      ? "!bg-sky-800 !text-white"
+                      : "hover:bg-sky-800",
                   )}
                 >
                   {tab.title}

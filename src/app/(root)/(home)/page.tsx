@@ -1,3 +1,4 @@
+import SectionIndex from "@/components/home/section-index";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,45 +20,14 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button className="bg-white text-black hover:bg-gray-200">
-                  Shop Now
-                </Button>
+                <Link href="/product">
+                  <Button className="bg-white text-black">Shop Now</Button>
+                </Link>
               </div>
             </div>
           </div>
         </section>
-        <section className="w-full bg-gray-100 py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <h2 className="mb-12 text-center text-3xl font-bold tracking-tighter sm:text-5xl">
-              Featured Products
-            </h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="overflow-hidden rounded-lg bg-white shadow-lg"
-                >
-                  <Image
-                    src={`/placeholder.svg?height=300&width=400`}
-                    width={400}
-                    height={300}
-                    alt={`Featured Shoe ${i}`}
-                    className="h-[200px] w-full object-cover"
-                  />
-                  <div className="p-4">
-                    <h3 className="mb-2 text-lg font-semibold">
-                      Stylish Shoe {i}
-                    </h3>
-                    <p className="mb-4 text-gray-600">
-                      Perfect for any occasion
-                    </p>
-                    <Button className="w-full">Add to Cart</Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <SectionIndex />
         <section className="w-full bg-black py-12 text-white md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">

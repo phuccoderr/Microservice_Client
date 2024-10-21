@@ -24,9 +24,9 @@ const VerifySuccess = ({ handleGoToLogin }: VerifySuccessProps) => {
   }, []);
 
   return (
-    <Card className="w-[350px] border-gray-700 bg-gray-800 text-gray-200">
+    <Card className="w-[350px] border-gray-700 bg-black text-gray-200">
       <CardHeader>
-        <CardTitle className="flex items-center justify-center text-center text-2xl font-bold text-green-500">
+        <CardTitle className="flex items-center justify-center text-center text-2xl font-bold">
           <CheckCircle className="mr-2" />
           {AUTH_CONST.EMAIL_VERIFY_SUCCESS}
         </CardTitle>
@@ -34,7 +34,7 @@ const VerifySuccess = ({ handleGoToLogin }: VerifySuccessProps) => {
       <CardContent className="space-y-4">
         <Progress value={progress} className="w-full bg-gray-700">
           <div
-            className="h-full bg-green-500 transition-all duration-500 ease-in-out"
+            className="h-full bg-black transition-all duration-500 ease-in-out"
             style={{ width: `${progress}%` }}
           />
         </Progress>
@@ -45,7 +45,7 @@ const VerifySuccess = ({ handleGoToLogin }: VerifySuccessProps) => {
       <CardFooter className="flex flex-col space-y-2">
         <Button
           onClick={handleGoToLogin}
-          className="w-full bg-green-600 text-white hover:bg-green-700"
+          className="w-full bg-sky-600 text-white hover:bg-sky-700"
         >
           {AUTH_CONST.GO_TO_LOGIN}
         </Button>

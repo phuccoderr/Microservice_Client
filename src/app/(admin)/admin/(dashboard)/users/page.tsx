@@ -11,15 +11,18 @@ import ModalDelete from "@/components/modal-delete";
 import { ParamPagination } from "@/types/pagination.type";
 import { USER_CONST } from "@/constants/users";
 import { useDeleteUser } from "@/hooks/query-users/useDeleteUser";
+import useDebounce from "@/hooks/useDebounce";
 
 const UsersPage = () => {
-  const [pagination, setPagination] = useState<ParamPagination>({
+  const [keyword, setKeyword] = useState("");
+  const [limit, setLimit] = useState(100);
+  const debounced = useDebounce(keyword, 2000);
+  const { data, isLoading } = useGetAllUsers({
     page: 1,
-    limit: 100,
+    limit: limit,
     sort: "asc",
-    keyword: "",
+    keyword: debounced,
   });
-  const { data, isLoading } = useGetAllUsers(pagination);
   const { modalDelete, setModalDelete, id, name } = useUserStore();
   const { mutate } = useDeleteUser();
   return (
@@ -34,8 +37,10 @@ const UsersPage = () => {
             routeCreate="/admin/users/create"
             columns={columns}
             data={data?.entities ?? []}
-            pagination={pagination}
-            setPagination={setPagination}
+            keyword={keyword}
+            setKeyword={setKeyword}
+            limit={limit}
+            setLimit={setLimit}
           />
         )}
       </div>

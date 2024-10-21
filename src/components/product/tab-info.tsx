@@ -64,7 +64,6 @@ const TabInfo = ({ value, form, listCategory }: TabInfoProps) => {
                 <FormLabel>Giá gốc ( VND )</FormLabel>
                 <FormControl>
                   <Input
-                    type="number"
                     {...field}
                     onChange={(event) => field.onChange(+event.target.value)}
                   />
@@ -80,7 +79,6 @@ const TabInfo = ({ value, form, listCategory }: TabInfoProps) => {
                 <FormLabel>Giá bán ( VND )</FormLabel>
                 <FormControl>
                   <Input
-                    type="number"
                     {...field}
                     onChange={(event) => field.onChange(+event.target.value)}
                   />
@@ -98,7 +96,6 @@ const TabInfo = ({ value, form, listCategory }: TabInfoProps) => {
                 <FormLabel>Giảm giá ( % VND )</FormLabel>
                 <FormControl>
                   <Input
-                    type="number"
                     max={100}
                     {...field}
                     onChange={(event) => field.onChange(+event.target.value)}
@@ -115,7 +112,6 @@ const TabInfo = ({ value, form, listCategory }: TabInfoProps) => {
                 <FormLabel>Tồn kho </FormLabel>
                 <FormControl>
                   <Input
-                    type="number"
                     {...field}
                     onChange={(event) => field.onChange(+event.target.value)}
                   />

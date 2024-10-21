@@ -42,4 +42,6 @@ export const COMMONS_CONST = {
   RESET_PASSWORD: "Đặt lại mật khẩu",
   NEW_PASSWORD: "Mật khẩu mới",
   PROFILE: "Thông tin của bạn",
+  ADD_TO_CART: "Thêm giỏ hàng thành công",
+  ADD_TO_ERROR: "Them giỏ hàng thất bại",
 };

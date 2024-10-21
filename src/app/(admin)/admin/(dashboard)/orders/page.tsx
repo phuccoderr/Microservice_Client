@@ -1,19 +1,17 @@
 "use client";
-import { columns } from "@/components/cutomer/column";
-import ModalViewCustomer from "@/components/cutomer/modal-view-customer";
 import LoadingGlobal from "@/components/admin/loading";
+import { columns } from "@/components/orders/column";
+import ModalOrderDetail from "@/components/profile/modal-order-detail";
 import { DataTable } from "@/components/table/data-table";
-import { CUSTOMER_CONST } from "@/constants/customers";
-import { useGetAllCustomers } from "@/hooks/query-customers/useGetAllCustomers";
-import { ParamPagination } from "@/types/pagination.type";
-import { useState } from "react";
+import { useGetAllOrders } from "@/hooks/query-orders/useGetAllOrders";
 import useDebounce from "@/hooks/useDebounce";
+import React, { useState } from "react";
 
-const CustomersPage = () => {
+const OrdersPage = () => {
   const [keyword, setKeyword] = useState("");
   const [limit, setLimit] = useState(100);
   const debounced = useDebounce(keyword, 2000);
-  const { data, isLoading } = useGetAllCustomers({
+  const { data, isLoading } = useGetAllOrders({
     page: 1,
     limit: limit,
     sort: "asc",
@@ -21,8 +19,8 @@ const CustomersPage = () => {
   });
   return (
     <>
-      <div className="flex w-full flex-col gap-4 p-4">
-        <h1 className="text-2xl font-bold">{CUSTOMER_CONST.MANAGE_CUSTOMER}</h1>
+      <div className="flex flex-col gap-4">
+        <h1 className="text-2xl font-bold">Manager Orders</h1>
         {isLoading ? (
           <LoadingGlobal />
         ) : (
@@ -36,9 +34,9 @@ const CustomersPage = () => {
           />
         )}
       </div>
-      <ModalViewCustomer />
+      <ModalOrderDetail />
     </>
   );
 };
 
-export default CustomersPage;
+export default OrdersPage;

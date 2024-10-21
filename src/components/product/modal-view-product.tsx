@@ -60,8 +60,8 @@ const ModalViewProduct = () => {
                 value={tab.value}
                 className={cn(
                   activeTab === tab.value
-                    ? "!bg-green-800 !text-white"
-                    : "hover:bg-green-500",
+                    ? "!bg-sky-800 !text-white"
+                    : "hover:bg-sky-800",
                 )}
               >
                 {tab.title}
@@ -114,7 +114,7 @@ const ModalViewProduct = () => {
                 <h1>{COMMONS_CONST.MAIN_IMAGE}</h1>
                 <Image
                   alt="Anh san pham"
-                  src={data?.url || ImageDefault}
+                  src={data?.url ?? ImageDefault}
                   width={100}
                   height={100}
                   className="rounded-md object-cover"
@@ -131,7 +131,7 @@ const ModalViewProduct = () => {
                         src={image.url}
                         width={100}
                         height={100}
-                        className="rounded-md object-cover"
+                        className="h-[100px] rounded-md object-cover"
                       />
                     ))}
                   </div>

@@ -11,15 +11,18 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 import ModalDelete from "@/components/modal-delete";
 import { useDeleteCategory } from "@/hooks/query-categories/useDeleteCategory";
+import useDebounce from "@/hooks/useDebounce";
 
 const CategoriesPage = () => {
-  const [pagination, setPagination] = useState<ParamPagination>({
+  const [keyword, setKeyword] = useState("");
+  const [limit, setLimit] = useState(100);
+  const debounced = useDebounce(keyword, 2000);
+  const { data, isLoading } = useGetAllCategories({
     page: 1,
-    limit: 100,
+    limit: limit,
     sort: "asc",
-    keyword: "",
+    keyword: debounced,
   });
-  const { data, isLoading } = useGetAllCategories(pagination);
   const { id, name, modalDelete, setModalDelete, setListCategory } =
     useCategoryStore();
   const { mutate } = useDeleteCategory();
@@ -42,8 +45,10 @@ const CategoriesPage = () => {
             routeCreate="/admin/categories/create"
             columns={columns}
             data={data?.entities ?? []}
-            pagination={pagination}
-            setPagination={setPagination}
+            keyword={keyword}
+            setKeyword={setKeyword}
+            limit={limit}
+            setLimit={setLimit}
           />
         )}
       </div>

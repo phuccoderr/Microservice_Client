@@ -9,6 +9,7 @@ import { useSidebarStore } from "@/store/useSidebarStore";
 import { FaShoppingBag, FaUsers } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
 import { RiCoupon3Fill } from "react-icons/ri";
+import { BsFillCartFill } from "react-icons/bs";
 
 const menuItems = [
   {
@@ -40,6 +41,11 @@ const menuItems = [
     title: "Customers",
     icon: <FaUsers className="h-5 w-5" />,
     link: "/admin/customers",
+  },
+  {
+    title: "Orders",
+    icon: <BsFillCartFill className="h-5 w-5" />,
+    link: "/admin/orders",
   },
 ];
 
