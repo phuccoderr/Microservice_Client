@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { IoBagRemoveSharp } from "react-icons/io5";
 import { useAddToCart } from "@/hooks/query-cart/useAddToCart";
 import { Textarea } from "@/components/ui/textarea";
+import Link from "next/link";
 
 const CartPage = () => {
   const { data: carts } = useGetCart();
@@ -129,9 +130,11 @@ const CartPage = () => {
             Phí vận chuyển sẽ được tính ở trang thanh toán. Bạn cũng có thể nhập
             mã giảm giá ở trang thanh toán.
           </p>
-          <Button className="float-right" variant={"destructive"}>
-            Thanh toan
-          </Button>
+          <Link href={"/cart/checkout"}>
+            <Button className="float-right" variant={"destructive"}>
+              Thanh toan
+            </Button>
+          </Link>
           <Button
             variant={"ghost"}
             onClick={() => router.push("/product")}

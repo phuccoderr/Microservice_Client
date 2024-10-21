@@ -37,7 +37,7 @@ export default function AuthPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-black">
-      <Card className="w-[350px] border-gray-700 bg-slate-300 text-black">
+      <Card className="w-[350px] border-gray-700 bg-slate-100 text-black">
         <CardHeader>
           <CardTitle>{COMMONS_CONST.WELCOME}</CardTitle>
           <CardDescription className="text-gray-600">

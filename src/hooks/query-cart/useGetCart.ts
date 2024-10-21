@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 export const useGetCart = () => {
   return useQuery<Cart[]>({
     queryKey: ["cart"],
+
     queryFn: async () => {
       return (await cartsApi.get()).data;
     },
