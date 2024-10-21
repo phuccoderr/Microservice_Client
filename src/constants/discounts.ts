@@ -7,4 +7,6 @@ export const DISCOUNT_CONST = {
   DELETE_DESCRIPTION: "Bạn có chắc muốn xoá mã giảm giá ",
   DELETE_SUCCESS: "Xoá mã giảm giá thành công!",
   DELETE_FAIL: "Xoá mã giảm giá thất bại!",
+  CHECK_SUCCESS: "Kiểm tra mã thành công",
+  CHECK_FAIL: "Kiểm tra mã thất bại",
 };

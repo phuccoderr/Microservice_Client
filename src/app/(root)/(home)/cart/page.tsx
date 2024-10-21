@@ -130,11 +130,14 @@ const CartPage = () => {
             Phí vận chuyển sẽ được tính ở trang thanh toán. Bạn cũng có thể nhập
             mã giảm giá ở trang thanh toán.
           </p>
-          <Link href={"/cart/checkout"}>
-            <Button className="float-right" variant={"destructive"}>
-              Thanh toan
-            </Button>
-          </Link>
+          <Button
+            disabled={carts == null}
+            className="float-right"
+            variant={"destructive"}
+            onClick={() => router.push("/cart/checkout")}
+          >
+            Thanh toan
+          </Button>
           <Button
             variant={"ghost"}
             onClick={() => router.push("/product")}

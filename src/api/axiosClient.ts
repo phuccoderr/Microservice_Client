@@ -49,7 +49,7 @@ const createAxiosInstance = (
           throw refreshError;
         }
       }
-      return error.response.data;
+      throw error.response.data;
     },
   );
 

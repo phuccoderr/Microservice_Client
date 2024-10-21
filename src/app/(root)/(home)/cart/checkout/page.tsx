@@ -12,27 +12,67 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
+import { COMMONS_CONST } from "@/constants/commons";
 import useFormCheckout from "@/hooks/query-cart/useFormCheckOut";
 import { useGetCart } from "@/hooks/query-cart/useGetCart";
+import { usePlaceOrder } from "@/hooks/query-cart/usePlaceOrder";
 import { useGetMe } from "@/hooks/query-customers/useGetMe";
+import { useApplyCode } from "@/hooks/query-discounts/useApplyCode";
+import { useCheckDiscount } from "@/hooks/query-discounts/useCheckDiscount";
+import { useToastMessage } from "@/hooks/useToastMessage";
 import { calSale, formatVnd, getTotal } from "@/utils/common";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { z } from "zod";
 
 const CheckOutPage = () => {
   const [discount, setDiscount] = useState("");
+  const [code, setCode] = useState("");
+  const [sale, setSale] = useState(0);
   const { form, formSchema } = useFormCheckout();
   const { data: carts } = useGetCart();
   const total = getTotal(carts ?? []);
   const { data: me } = useGetMe();
+  const { toastLoading } = useToastMessage();
+  const mutationCheckDiscount = useCheckDiscount();
+  const mutationPlaceOrder = usePlaceOrder();
+  const mutationApplyCode = useApplyCode();
+
+  const router = useRouter();
+
+  const handleCheckout = () => {
+    mutationCheckDiscount.mutate(discount, {
+      onSuccess: (data) => {
+        setSale(data.sale);
+        setCode(data.code);
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (carts == null) {
+      router.push("/");
+    }
+  }, [carts]);
 
   useEffect(() => {
     form.setValue("address", me?.address ?? "");
     form.setValue("phone_number", me?.phone_number ?? "");
-  }, [me]);
+    form.setValue("sale", sale ?? 0);
+  }, [me, sale]);
+
+  const handleApplyDiscount = (values: z.infer<typeof formSchema>) => {
+    toastLoading(COMMONS_CONST.LOADING);
+    mutationPlaceOrder.mutate(values);
+    code && mutationApplyCode.mutate(code);
+  };
 
   return (
     <Form {...form}>
-      <form className="container my-8 flex">
+      <form
+        onSubmit={form.handleSubmit(handleApplyDiscount)}
+        className="container my-8 flex"
+      >
         <div className="mx-24 flex w-full">
           <div className="flex w-1/2 flex-col gap-4 self-end">
             <h1 className="text-lg">Thông tin giao hàng</h1>
@@ -122,8 +162,10 @@ const CheckOutPage = () => {
                 onChange={(e) => setDiscount(e.target.value)}
               />
               <Button
-                disabled={!discount}
-                className={` ${discount ? "bg-sky-600 text-white" : "bg-black bg-opacity-15"}`}
+                type="button"
+                onClick={handleCheckout}
+                disabled={!discount || mutationCheckDiscount.isPending}
+                className={` ${discount ? "bg-sky-600 text-white hover:bg-sky-800" : "bg-black bg-opacity-15"}`}
               >
                 Sử dụng
               </Button>
@@ -135,13 +177,23 @@ const CheckOutPage = () => {
             </div>
             <div className="mx-4 flex justify-between">
               <h1>Mã giảm giá</h1>
-              <h1>-</h1>
+              {sale <= 0 ? <h1>-</h1> : <h1>{sale}%</h1>}
             </div>
             <Separator className="mx-4 bg-black bg-opacity-20" />
             <div className="mx-4 flex justify-between">
               <h1>Tổng cộng</h1>
-              <h1>{formatVnd(total + 30000)}</h1>
+              {sale <= 0 ? (
+                <h1>{formatVnd(total + 30000)}</h1>
+              ) : (
+                <h1>{formatVnd(calSale(total, sale) + 30000)}</h1>
+              )}
             </div>
+            <Button
+              disabled={mutationPlaceOrder.isPending}
+              variant={"destructive"}
+            >
+              Thanh toán
+            </Button>
           </div>
         </div>
       </form>

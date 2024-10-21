@@ -15,7 +15,7 @@ interface VerifyErrorProps {
 
 const VerifyError = ({ handleGoToLogin }: VerifyErrorProps) => {
   return (
-    <Card className="w-[350px] border-gray-700 bg-gray-800 text-gray-200">
+    <Card className="w-[500px] border-gray-700 bg-black text-gray-200">
       <CardHeader>
         <CardTitle className="flex items-center justify-center text-center text-2xl font-bold text-yellow-500">
           <IoIosWarning className="mr-2" />
@@ -30,7 +30,7 @@ const VerifyError = ({ handleGoToLogin }: VerifyErrorProps) => {
       <CardFooter className="flex flex-col space-y-2">
         <Button
           onClick={handleGoToLogin}
-          className="w-full bg-green-600 text-white hover:bg-green-700"
+          className="w-full bg-sky-600 text-white hover:bg-sky-800"
         >
           {AUTH_CONST.GO_TO_LOGIN}
         </Button>

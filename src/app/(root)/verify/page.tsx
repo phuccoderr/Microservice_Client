@@ -19,10 +19,10 @@ export default function RegistrationSuccess() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-900">
-      <Card className="w-[350px] border-gray-700 bg-gray-800 text-gray-200">
+    <div className="flex min-h-screen items-center justify-center bg-white">
+      <Card className="w-[350px] border-gray-700 bg-black text-white">
         <CardHeader>
-          <CardTitle className="flex items-center justify-center text-center text-2xl font-bold text-green-500">
+          <CardTitle className="flex items-center justify-center text-center text-2xl font-bold">
             <Mail className="mr-2" />
             {AUTH_CONST.REGISTER_SUCCESS}
           </CardTitle>

@@ -15,4 +15,12 @@ export const discountsApi = {
     const url = "";
     return discountsAxiosClient.post(url, body);
   },
+  checkCode(code: string) {
+    const url = `${code}`;
+    return discountsAxiosClient.post(url);
+  },
+  applyCode(code: string) {
+    const url = `apply/${code}`;
+    return discountsAxiosClient.post(url);
+  },
 };
