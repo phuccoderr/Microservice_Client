@@ -9,6 +9,7 @@ const URL_CONST = {
   ORDERS: "http://localhost:9170/api/v1/orders",
 
   PRODUCT_SOCKET: "http://localhost:7000",
+  ORDER_SOCKET: "http://localhost:9170",
 };
 
 export default URL_CONST;

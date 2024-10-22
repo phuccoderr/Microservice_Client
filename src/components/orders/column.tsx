@@ -2,7 +2,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Order } from "@/types/order.type";
 import { useOrderStore } from "@/store/useOrderStore";
 import { formatDate, formatVnd } from "@/utils/common";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Label } from "@/components/ui/label";
 import { GiClick } from "react-icons/gi";
 import {
@@ -10,12 +9,12 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { ORDERS_CONST } from "@/constants/orders";
 import { useUpdateStatusOrder } from "@/hooks/query-orders/useUpdateStatusOrder";
+import { productSocket } from "@/api/socket";
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -66,6 +65,7 @@ export const columns: ColumnDef<Order>[] = [
       const mutation = useUpdateStatusOrder();
       const handleSelect = (value: string) => {
         mutation.mutate({ id, status: value });
+        productSocket.emit("order-status", row.original.email);
       };
       return (
         <Select onValueChange={handleSelect} value={status}>

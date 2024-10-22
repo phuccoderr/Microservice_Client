@@ -1,5 +1,6 @@
 import BadgeOrder from "@/components/badge-order";
 import ModalOrderDetail from "@/components/profile/modal-order-detail";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -14,6 +15,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import { useGetOrderMe } from "@/hooks/query-orders/useGetOrderMe";
 import { useOrderStore } from "@/store/useOrderStore";
 import { formatVnd } from "@/utils/common";
+import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 
 interface TabOrderProps {
@@ -23,6 +25,7 @@ interface TabOrderProps {
 const TabOrder = (props: TabOrderProps) => {
   const { data: orders } = useGetOrderMe();
   const { setModalDetail } = useOrderStore();
+  const queryClient = useQueryClient();
 
   let total = 0;
   orders?.forEach((item) => {
@@ -39,6 +42,21 @@ const TabOrder = (props: TabOrderProps) => {
         value={props.value}
         className="flex w-full flex-col items-center gap-2"
       >
+        <Button
+          onClick={() => {
+            queryClient
+              .refetchQueries({ queryKey: ["orders-me"] })
+              .then((data) => {
+                console.log("Refetch successful", data);
+              })
+              .catch((error) => {
+                console.error("Refetch failed:", error);
+              });
+          }}
+        >
+          {" "}
+          Refersh
+        </Button>
         <Table>
           <TableCaption>Danh sách sản phẩm bạn đã mua.</TableCaption>
           <TableHeader>

@@ -1,5 +1,6 @@
 "use client";
-import { socket } from "@/api/socket";
+
+import { productSocket } from "@/api/socket";
 import SidebarAdmin from "@/components/admin/sidebar";
 import Topbar from "@/components/admin/topbar";
 import { useGetMe } from "@/hooks/query-customers/useGetMe";
@@ -36,10 +37,10 @@ export default function DashboardLayout({
         closeButton: true,
       });
     };
-    socket.on("add-image", notifyUpload);
+    productSocket.on("add-image", notifyUpload);
 
     return () => {
-      socket.off("add-image", notifyUpload);
+      productSocket.off("add-image", notifyUpload);
     };
   }, []);
 
