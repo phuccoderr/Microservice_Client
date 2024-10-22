@@ -1,3 +1,4 @@
+import BadgeOrder from "@/components/badge-order";
 import ModalOrderDetail from "@/components/profile/modal-order-detail";
 import {
   Table,
@@ -65,7 +66,7 @@ const TabOrder = (props: TabOrderProps) => {
                   {new Date(item.created_at).toLocaleDateString()}
                 </TableCell>
                 <TableCell>
-                  {item.status === "Pending" ? "Đang xuất bán" : "Hoàn thành"}
+                  <BadgeOrder status={item.status} />
                 </TableCell>
                 <TableCell className="text-right">
                   {formatVnd(item.total)}

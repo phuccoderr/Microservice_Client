@@ -10,8 +10,12 @@ export const ordersApi = {
     const url = "details";
     return ordersAxiosClient.get(url);
   },
-  getOne(_id: string) {
-    const url = `${_id}`;
+  getOne(id: string) {
+    const url = `${id}`;
+    return ordersAxiosClient.get(url);
+  },
+  updateStatus(id: string, status: string) {
+    const url = `${id}/status/${status}`;
     return ordersAxiosClient.get(url);
   },
 };

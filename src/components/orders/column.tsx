@@ -2,10 +2,20 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Order } from "@/types/order.type";
 import { useOrderStore } from "@/store/useOrderStore";
 import { formatDate, formatVnd } from "@/utils/common";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Label } from "@/components/ui/label";
 import { GiClick } from "react-icons/gi";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ORDERS_CONST } from "@/constants/orders";
+import { useUpdateStatusOrder } from "@/hooks/query-orders/useUpdateStatusOrder";
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -52,8 +62,25 @@ export const columns: ColumnDef<Order>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const { status } = row.original;
-      return <Badge>{status}</Badge>;
+      const { id, status } = row.original;
+      const mutation = useUpdateStatusOrder();
+      const handleSelect = (value: string) => {
+        mutation.mutate({ id, status: value });
+      };
+      return (
+        <Select onValueChange={handleSelect} value={status}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Chọn quá trình đơn hàng" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="pending">{ORDERS_CONST.PENDING}</SelectItem>
+              <SelectItem value="complete">{ORDERS_CONST.COMPLETE}</SelectItem>
+              <SelectItem value="cancel">{ORDERS_CONST.CANCEL}</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      );
     },
   },
   {
