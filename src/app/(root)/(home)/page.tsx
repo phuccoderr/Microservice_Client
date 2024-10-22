@@ -1,11 +1,11 @@
 import SectionIndex from "@/components/home/section-index";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
   return (
     <div>
+      <div className="star-rating-container"></div>
       <main className="flex-1">
         <section className="w-full bg-black py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">

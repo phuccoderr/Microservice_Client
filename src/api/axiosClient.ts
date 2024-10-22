@@ -99,3 +99,9 @@ export const ordersAxiosClient = createAxiosInstance(
   "/login",
   true,
 );
+
+export const reviewsAxiosClient = createAxiosInstance(
+  URL_CONST.REVIEWS,
+  "/login",
+  true,
+);

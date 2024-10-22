@@ -15,8 +15,10 @@ import { COMMONS_CONST } from "@/constants/commons";
 import { useGetMe } from "@/hooks/query-customers/useGetMe";
 import { useLogoutCustomer } from "@/hooks/query-customers/useLogoutCustomer";
 import { useToastMessage } from "@/hooks/useToastMessage";
+import { useAuthStore } from "@/store/useAuthStore";
 import { getFullName } from "@/utils/common";
 import Link from "next/link";
+import { useEffect } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 
@@ -24,6 +26,11 @@ const Account = () => {
   const { data } = useGetMe();
   const { toastLoading } = useToastMessage();
   const mutate = useLogoutCustomer();
+
+  const { setCustomerId } = useAuthStore();
+  useEffect(() => {
+    setCustomerId(data?._id ?? "");
+  }, [data]);
 
   const handleLogout = () => {
     toastLoading(COMMONS_CONST.LOADING);

@@ -7,6 +7,7 @@ const URL_CONST = {
   CUSTOMER: "http://localhost:9150/api/v1/customers",
   CART: "http://localhost:9160/api/v1/cart",
   ORDERS: "http://localhost:9170/api/v1/orders",
+  REVIEWS: "http://localhost:9180/api/v1/reviews",
 
   PRODUCT_SOCKET: "http://localhost:7000",
   ORDER_SOCKET: "http://localhost:9170",

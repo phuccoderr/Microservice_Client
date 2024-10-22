@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { AUTH_CONST } from "@/constants/auth";
-import { useGetMeUser } from "@/hooks/query-users/useGetMeUser";
 import { CookieUtils } from "@/utils/cookie-utils";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

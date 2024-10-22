@@ -1,14 +1,14 @@
 import { create } from "zustand";
 
 type ModalState = {
-  isAuth: boolean;
+  customerId: string;
 };
 
 interface ModalAction extends ModalState {
-  setIsAuth: (isAuth: boolean) => void;
+  setCustomerId: (customerId: string) => void;
 }
 
 export const useAuthStore = create<ModalAction>((set) => ({
-  isAuth: false,
-  setIsAuth: (isAuth: boolean) => set({ isAuth }),
+  customerId: "",
+  setCustomerId: (customerId: string) => set({ customerId }),
 }));

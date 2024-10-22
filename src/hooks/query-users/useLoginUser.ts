@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 export const useLoginUser = () => {
   const { toastSuccess, toastError } = useToastMessage();
   const router = useRouter();
-  const { setIsAuth } = useAuthStore();
 
   return useMutation({
     mutationFn: async (param: Login) => {
@@ -20,7 +19,6 @@ export const useLoginUser = () => {
       CookieUtils.set("access_token", data.access_token);
       CookieUtils.set("refresh_token", data.refresh_token);
       toastSuccess(AUTH_CONST.LOGIN_SUCCESS);
-      setIsAuth(true);
       router.push("/admin");
     },
     onError: (error) => {

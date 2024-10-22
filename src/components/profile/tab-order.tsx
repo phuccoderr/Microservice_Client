@@ -15,7 +15,6 @@ import { TabsContent } from "@/components/ui/tabs";
 import { useGetOrderMe } from "@/hooks/query-orders/useGetOrderMe";
 import { useOrderStore } from "@/store/useOrderStore";
 import { formatVnd } from "@/utils/common";
-import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 
 interface TabOrderProps {
@@ -25,7 +24,6 @@ interface TabOrderProps {
 const TabOrder = (props: TabOrderProps) => {
   const { data: orders } = useGetOrderMe();
   const { setModalDetail } = useOrderStore();
-  const queryClient = useQueryClient();
 
   let total = 0;
   orders?.forEach((item) => {
@@ -37,71 +35,53 @@ const TabOrder = (props: TabOrderProps) => {
   };
 
   return (
-    <>
-      <TabsContent
-        value={props.value}
-        className="flex w-full flex-col items-center gap-2"
-      >
-        <Button
-          onClick={() => {
-            queryClient
-              .refetchQueries({ queryKey: ["orders-me"] })
-              .then((data) => {
-                console.log("Refetch successful", data);
-              })
-              .catch((error) => {
-                console.error("Refetch failed:", error);
-              });
-          }}
-        >
-          {" "}
-          Refersh
-        </Button>
-        <Table>
-          <TableCaption>Danh sách sản phẩm bạn đã mua.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Mã hoá đơn</TableHead>
-              <TableHead>Địa chỉ</TableHead>
-              <TableHead>Số điện thoại</TableHead>
-              <TableHead>Ngày thanh toán</TableHead>
-              <TableHead>Trạng thái đơn hàng</TableHead>
-              <TableHead className="text-right">Tổng tiền</TableHead>
+    <TabsContent
+      value={props.value}
+      className="flex w-full flex-col items-center gap-2"
+    >
+      <Table>
+        <TableCaption>Danh sách sản phẩm bạn đã mua.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Mã hoá đơn</TableHead>
+            <TableHead>Địa chỉ</TableHead>
+            <TableHead>Số điện thoại</TableHead>
+            <TableHead>Ngày thanh toán</TableHead>
+            <TableHead>Trạng thái đơn hàng</TableHead>
+            <TableHead className="text-right">Tổng tiền</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {orders?.map((item) => (
+            <TableRow key={item.id}>
+              <TableCell
+                onClick={() => handleModalDetail(item.id)}
+                className="cursor-pointer font-medium hover:text-sky-400"
+              >
+                {item.id}
+              </TableCell>
+              <TableCell>{item.address}</TableCell>
+              <TableCell>{item.phone_number}</TableCell>
+              <TableCell>
+                {new Date(item.created_at).toLocaleDateString()}
+              </TableCell>
+              <TableCell>
+                <BadgeOrder status={item.status} />
+              </TableCell>
+              <TableCell className="text-right">
+                {formatVnd(item.total)}
+              </TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {orders?.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell
-                  onClick={() => handleModalDetail(item.id)}
-                  className="cursor-pointer font-medium hover:text-sky-400"
-                >
-                  {item.id}
-                </TableCell>
-                <TableCell>{item.address}</TableCell>
-                <TableCell>{item.phone_number}</TableCell>
-                <TableCell>
-                  {new Date(item.created_at).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  <BadgeOrder status={item.status} />
-                </TableCell>
-                <TableCell className="text-right">
-                  {formatVnd(item.total)}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={5}>Tổng tiền đã thanh toán</TableCell>
-              <TableCell className="text-right">{formatVnd(total)}</TableCell>
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TabsContent>
-      <ModalOrderDetail />
-    </>
+          ))}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={5}>Tổng tiền đã thanh toán</TableCell>
+            <TableCell className="text-right">{formatVnd(total)}</TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </TabsContent>
   );
 };
 

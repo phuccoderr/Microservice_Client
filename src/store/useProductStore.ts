@@ -5,6 +5,7 @@ type ModalState = {
   modalView: boolean;
   modalDelete: boolean;
   modalAddCart: boolean;
+  modalReview: boolean;
   id: string;
   name: string;
   url: string;
@@ -21,6 +22,7 @@ export interface ModalStore extends ModalState {
   setModalView: (open: boolean, props?: ProductInfoWithCategory) => void;
   setModalDelete: (open: boolean, props?: ProductInfo) => void;
   setModalAddCart: (open: boolean, props?: ProductCart) => void;
+  setModalReview: (open: boolean, id?: string) => void;
 }
 
 export const useProductStore = create<ModalStore>((set) => ({
@@ -28,6 +30,7 @@ export const useProductStore = create<ModalStore>((set) => ({
   modalView: false,
   modalDelete: false,
   modalAddCart: false,
+  modalReview: false,
   id: "",
   name: "",
   url: "",
@@ -59,5 +62,8 @@ export const useProductStore = create<ModalStore>((set) => ({
   },
   setModalAddCart(open, props) {
     return set({ modalAddCart: open, ...props });
+  },
+  setModalReview(open, id) {
+    return set({ modalReview: open, id });
   },
 }));

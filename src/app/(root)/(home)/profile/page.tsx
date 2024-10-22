@@ -1,6 +1,9 @@
 "use client";
+import ModalOrderDetail from "@/components/profile/modal-order-detail";
+import ModalPostReview from "@/components/profile/modal-post-review";
 import TabInfo from "@/components/profile/tab-info";
 import TabOrder from "@/components/profile/tab-order";
+import TabProduct from "@/components/profile/tab-product";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { useState } from "react";
 
@@ -14,14 +17,20 @@ const ProfilePage = () => {
             Account
           </TabsTrigger>
           <TabsTrigger className="w-full" value="order">
-            Order History
+            Lịch sử hoá đơn
+          </TabsTrigger>
+          <TabsTrigger className="w-full" value="product">
+            Lịch sử sản phẩm
           </TabsTrigger>
         </TabsList>
         <div className="flex w-full flex-col items-center">
           <TabInfo value="account" />
           <TabOrder value="order" />
+          <TabProduct value="product" />
         </div>
       </Tabs>
+      <ModalOrderDetail />
+      <ModalPostReview />
     </div>
   );
 };
