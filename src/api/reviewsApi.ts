@@ -10,4 +10,8 @@ export const reviewsApi = {
     const url = `/can_review`;
     return reviewsAxiosClient.get(url, { params: { customer_id, product_id } });
   },
+  getRating(proId: string) {
+    const url = `/ratings/${proId}`;
+    return reviewsAxiosClient.get(url);
+  },
 };

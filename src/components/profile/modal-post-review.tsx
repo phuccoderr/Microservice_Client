@@ -1,3 +1,4 @@
+import RatingReview from "@/components/rating-review";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,12 +9,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useGetMe } from "@/hooks/query-customers/useGetMe";
 import { useCanReview } from "@/hooks/query-reviews/useCanReview";
 import { usePostReviews } from "@/hooks/query-reviews/usePostReviews";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useProductStore } from "@/store/useProductStore";
-import { Star } from "lucide-react";
 import React, { useState } from "react";
 
 const ModalPostReview = () => {
@@ -43,19 +42,12 @@ const ModalPostReview = () => {
         </DialogHeader>
         {!canReview ? (
           <>
-            <div className="flex">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star
-                  key={star}
-                  className={`h-6 w-6 cursor-pointer ${
-                    star <= rating
-                      ? "fill-yellow-400 text-yellow-400"
-                      : "text-gray-300"
-                  }`}
-                  onClick={() => setRating(star)}
-                />
-              ))}
-            </div>
+            <RatingReview
+              initialValue={rating}
+              onClick={(value) => setRating(value)}
+              showTooltip
+              transition
+            />
             <div className="grid gap-2">
               <Label htmlFor="title">Tiêu đề đánh giá</Label>
               <Input

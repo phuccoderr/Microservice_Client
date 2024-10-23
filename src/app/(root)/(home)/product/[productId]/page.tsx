@@ -1,5 +1,6 @@
 "use client";
-import ModalAddCart from "@/components/home/modal-add-cart";
+import RatingReview from "@/components/rating-review";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -9,10 +10,12 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { useAddToCart } from "@/hooks/query-cart/useAddToCart";
 import { useGetProduct } from "@/hooks/query-products/useGetProduct";
-import { formatVnd } from "@/utils/common";
-import { Minus, Plus, ShoppingCart, Star } from "lucide-react";
+import { useGetRatings } from "@/hooks/query-reviews/useGetRatings";
+import { formatDate, formatVnd } from "@/utils/common";
+import { Minus, Plus, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -26,6 +29,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const productId = params.productId;
   const { data: product } = useGetProduct(productId);
   const [quantity, setQuantity] = useState(1);
+  const { data: ratings } = useGetRatings(productId);
   const mutation = useAddToCart();
 
   const handleQuantity = (quantity: number) => {
@@ -41,18 +45,19 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex gap-8">
-        {/* Product Images */}
         <div className="flex justify-center md:w-1/2">
           <Carousel className="w-[300px] rounded-xl border bg-white">
             <CarouselContent>
               <CarouselItem>
-                <Image
-                  src={product?.url ?? ""}
-                  alt="Product Image"
-                  width={300}
-                  height={300}
-                  className="h-[300px] rounded-xl"
-                />
+                {product?.url && (
+                  <Image
+                    src={product.url}
+                    alt="Product Image"
+                    width={300}
+                    height={300}
+                    className="h-[300px] rounded-xl"
+                  />
+                )}
               </CarouselItem>
               {product?.extra_images?.map((image) => (
                 <CarouselItem key={image.id}>
@@ -71,14 +76,16 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
           </Carousel>
         </div>
 
-        {/* Product Info */}
         <div className="md:w-1/2">
           <h1 className="mb-4 text-3xl font-bold">{product?.name}</h1>
+          <p className="mb-4">
+            <RatingReview readonly initialValue={product?.average_rating} />
+            <span className="ml-2 text-gray-400">
+              ({product?.review_count} đánh giá)
+            </span>
+          </p>
           <p className="mb-4 text-2xl font-bold">
             {formatVnd(product?.price ?? 0)}
-          </p>
-          <p className="mb-4">
-            Mỳ Hải Sản Hàm Cay Lớn - Sản phẩm mới của Omega Noodles
           </p>
 
           {/* Quantity Selector */}
@@ -116,6 +123,43 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
           {/* Product Details */}
           <h2 className="mb-2 text-xl font-semibold">Mô tả</h2>
           <p className="text-sm italic text-zinc-400">{product?.description}</p>
+        </div>
+      </div>
+      <div className="mx-8 mt-8 flex flex-col gap-4">
+        <h2 className="text-2xl font-bold">Đánh giá khách hàng</h2>
+        <div className="flex flex-col rounded-lg border border-b-0 border-stone-300">
+          {ratings?.entities?.map((item) => (
+            <>
+              <div key={item.id} className="mx-4 flex p-2">
+                <div className="flex items-center gap-2">
+                  <Avatar className="m-2">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="font-semibold">{item.customer_id}</h3>
+                    <RatingReview
+                      readonly
+                      initialValue={item.rating}
+                      size={25}
+                    />
+                    <p className="text-sm text-muted-foreground">
+                      {item.headline}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="ml-auto flex">
+                  <h1>{formatDate(item.created_at)}</h1>
+                </div>
+              </div>
+              <p className="ml-20 font-medium text-stone-500">{item.comment}</p>
+              <Separator className="mx-auto my-2 w-[98%] bg-stone-300" />
+            </>
+          ))}
         </div>
       </div>
     </div>
