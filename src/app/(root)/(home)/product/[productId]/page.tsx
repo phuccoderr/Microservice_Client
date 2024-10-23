@@ -1,22 +1,15 @@
 "use client";
+import EmblaCarousel from "@/components/embla-carousel";
 import RatingReview from "@/components/rating-review";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useAddToCart } from "@/hooks/query-cart/useAddToCart";
 import { useGetProduct } from "@/hooks/query-products/useGetProduct";
 import { useGetRatings } from "@/hooks/query-reviews/useGetRatings";
-import { formatDate, formatVnd } from "@/utils/common";
+import { calSale, formatDate, formatVnd } from "@/utils/common";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 
 interface ProductDetailPageProps {
@@ -32,6 +25,8 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const { data: ratings } = useGetRatings(productId);
   const mutation = useAddToCart();
 
+  //carousel
+
   const handleQuantity = (quantity: number) => {
     if (quantity > 0) {
       setQuantity(quantity);
@@ -46,34 +41,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
     <div className="container mx-auto px-4 py-8">
       <div className="flex gap-8">
         <div className="flex justify-center md:w-1/2">
-          <Carousel className="w-[300px] rounded-xl border bg-white">
-            <CarouselContent>
-              <CarouselItem>
-                {product?.url && (
-                  <Image
-                    src={product.url}
-                    alt="Product Image"
-                    width={300}
-                    height={300}
-                    className="h-[300px] rounded-xl"
-                  />
-                )}
-              </CarouselItem>
-              {product?.extra_images?.map((image) => (
-                <CarouselItem key={image.id}>
-                  <Image
-                    src={image.url}
-                    alt="Product Image"
-                    width={300}
-                    height={300}
-                    className="h-[300px] rounded-xl"
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          {product && <EmblaCarousel product={product} />}
         </div>
 
         <div className="md:w-1/2">
@@ -84,9 +52,18 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
               ({product?.review_count} đánh giá)
             </span>
           </p>
-          <p className="mb-4 text-2xl font-bold">
-            {formatVnd(product?.price ?? 0)}
-          </p>
+          {product?.sale && product?.sale > 0 ? (
+            <div className="flex gap-2 text-2xl">
+              <h1 className="font-bold line-through">
+                {formatVnd(product.price)}
+              </h1>
+              <h1>{formatVnd(calSale(product.price, product.sale))} </h1>
+            </div>
+          ) : (
+            <h1 className="text-2xl font-bold">
+              {formatVnd(product?.price ?? 0)}
+            </h1>
+          )}
 
           {/* Quantity Selector */}
           <div className="mb-4 flex items-center">
