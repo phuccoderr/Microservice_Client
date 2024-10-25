@@ -44,4 +44,7 @@ export const COMMONS_CONST = {
   PROFILE: "Thông tin của bạn",
   ADD_TO_CART: "Thêm giỏ hàng thành công",
   ADD_TO_ERROR: "Them giỏ hàng thất bại",
+  ID_ADMIN: "671b443c057207432cac183a",
+  EMAIL_ADMIN: "phuc@gmail.com",
+  NAME_ADMIN: "phuc",
 };

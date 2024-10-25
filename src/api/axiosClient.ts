@@ -105,3 +105,9 @@ export const reviewsAxiosClient = createAxiosInstance(
   "/login",
   true,
 );
+
+export const chatsAxiosClient = createAxiosInstance(
+  URL_CONST.CHATS,
+  "/login",
+  false,
+);

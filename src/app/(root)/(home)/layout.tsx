@@ -1,5 +1,6 @@
 "use client";
 import { productSocket } from "@/api/socket";
+import ChatSupport from "@/components/chat-support";
 import BreadCrumbMe from "@/components/home/bread-crumb";
 import Footer from "@/components/home/footer";
 import Header from "@/components/home/header";
@@ -40,6 +41,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       <BreadCrumbMe />
       {children}
       <Footer />
+      <ChatSupport />
     </div>
   );
 };

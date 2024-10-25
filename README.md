@@ -12,3 +12,5 @@
 - Lodash
 - Socket io
 - Socket io-client
+- React embla
+- Shadcn chat
