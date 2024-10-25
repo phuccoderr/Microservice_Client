@@ -19,7 +19,7 @@ export default function RegistrationSuccess() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white">
+    <div className="flex min-h-screen items-center justify-center bg-black">
       <Card className="w-[350px] border-gray-700 bg-black text-white">
         <CardHeader>
           <CardTitle className="flex items-center justify-center text-center text-2xl font-bold">

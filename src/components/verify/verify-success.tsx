@@ -34,7 +34,7 @@ const VerifySuccess = ({ handleGoToLogin }: VerifySuccessProps) => {
       <CardContent className="space-y-4">
         <Progress value={progress} className="w-full bg-gray-700">
           <div
-            className="h-full bg-black transition-all duration-500 ease-in-out"
+            className="h-full bg-sky-500 transition-all duration-500 ease-in-out"
             style={{ width: `${progress}%` }}
           />
         </Progress>

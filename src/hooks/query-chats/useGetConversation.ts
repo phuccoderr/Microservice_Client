@@ -1,11 +1,12 @@
 import { chatsApi } from "@/api/chatsApi";
+import { Conversation } from "@/types/conversation.type";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetConversation = (id: string) => {
-  return useQuery({
+  return useQuery<Conversation[]>({
     queryKey: ["conversation", id],
     queryFn: async () => {
-      return await chatsApi.getConversation(id);
+      return (await chatsApi.getConversation(id)).data;
     },
     refetchOnMount: false,
     refetchOnWindowFocus: false,

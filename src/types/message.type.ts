@@ -1,4 +1,4 @@
-type InfoMes = {
+export type InfoMes = {
   id: string;
   email: string;
   name: string;

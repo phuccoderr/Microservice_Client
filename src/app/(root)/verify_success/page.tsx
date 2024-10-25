@@ -19,7 +19,7 @@ export default function EmailAuthSuccess() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white">
+    <div className="flex min-h-screen items-center justify-center bg-black">
       {isSuccess ? (
         <VerifySuccess handleGoToLogin={handleGoToLogin} />
       ) : (

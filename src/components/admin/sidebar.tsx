@@ -10,6 +10,7 @@ import { FaShoppingBag, FaUsers } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
 import { RiCoupon3Fill } from "react-icons/ri";
 import { BsFillCartFill } from "react-icons/bs";
+import { MdOutlineSupportAgent } from "react-icons/md";
 
 const menuItems = [
   {
@@ -46,6 +47,11 @@ const menuItems = [
     title: "Orders",
     icon: <BsFillCartFill className="h-5 w-5" />,
     link: "/admin/orders",
+  },
+  {
+    title: "Support",
+    icon: <MdOutlineSupportAgent className="h-5 w-5" />,
+    link: "/admin/supports",
   },
 ];
 

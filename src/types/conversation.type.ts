@@ -1,8 +1,8 @@
-import { Message } from "@/types/message.type";
+import { InfoMes, Message } from "@/types/message.type";
 
 export type Conversation = {
   _id: string;
-  participants: string[];
+  participants: InfoMes[];
   messages: Message[];
   created_at: string;
 };

@@ -18,15 +18,15 @@ import { RiAdminFill } from "react-icons/ri";
 import { useGetMe } from "@/hooks/query-customers/useGetMe";
 import { useGetMessages } from "@/hooks/query-chats/useGetMessages";
 import { COMMONS_CONST } from "@/constants/commons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { chatSocket } from "@/api/socket";
 import { Message } from "@/types/message.type";
 import { useQueryClient } from "@tanstack/react-query";
 import MessageLoading from "@/components/ui/chat/message-loading";
+import { extractTime } from "@/utils/common";
 
 export default function ChatSupport() {
   const [value, setValue] = useState("");
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const { data: me } = useGetMe();
   const { data: messages } = useGetMessages(
     me?._id ?? "",
@@ -57,7 +57,6 @@ export default function ChatSupport() {
       messages?.messages.push(data);
       setValue("");
       queryClient.refetchQueries({ queryKey: ["messages"] });
-      messagesEndRef.current?.scrollIntoView();
     };
     chatSocket.on("receive-messages", refetchChat);
 
@@ -66,7 +65,7 @@ export default function ChatSupport() {
     };
   }, []);
 
-  return (
+  return me ? (
     <ExpandableChat
       size="sm"
       position="bottom-right"
@@ -99,6 +98,9 @@ export default function ChatSupport() {
                     : COMMONS_CONST.EMAIL_ADMIN}
                 </h1>
                 <p className="text-xs">{message.message}</p>
+                <p className="ml-auto text-xs">
+                  {extractTime(message.created_at)}
+                </p>
               </ChatBubbleMessage>
             </ChatBubble>
           ))}
@@ -127,5 +129,5 @@ export default function ChatSupport() {
         </Button>
       </ExpandableChatFooter>
     </ExpandableChat>
-  );
+  ) : null;
 }
