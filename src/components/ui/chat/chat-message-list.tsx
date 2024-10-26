@@ -5,12 +5,11 @@ interface ChatMessageListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const ChatMessageList = React.forwardRef<HTMLDivElement, ChatMessageListProps>(
   ({ className, children, ...props }, ref) => {
-    const messagesEndRef = React.useRef<HTMLDivElement | null>(null);
     React.useEffect(() => {
-      setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }, []);
+      if (ref) {
+        ref?.current?.scrollTo({ top: ref.current.scrollHeight });
+      }
+    }, [children]);
     return (
       <div
         className={cn(
@@ -21,7 +20,6 @@ const ChatMessageList = React.forwardRef<HTMLDivElement, ChatMessageListProps>(
         {...props}
       >
         {children}
-        <div ref={messagesEndRef} />
       </div>
     );
   },

@@ -18,7 +18,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { useGetMe } from "@/hooks/query-customers/useGetMe";
 import { useGetMessages } from "@/hooks/query-chats/useGetMessages";
 import { COMMONS_CONST } from "@/constants/commons";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { chatSocket } from "@/api/socket";
 import { Message } from "@/types/message.type";
 import { useQueryClient } from "@tanstack/react-query";
@@ -33,6 +33,15 @@ export default function ChatSupport() {
     COMMONS_CONST.ID_ADMIN,
   );
   const queryClient = useQueryClient();
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  const handleSetValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(e.target.value);
+    if (me) {
+      chatSocket.emit("typing", me._id);
+    }
+  };
 
   const handleChat = () => {
     if (me) {
@@ -49,21 +58,32 @@ export default function ChatSupport() {
         },
         message: value,
       });
+      setValue("");
     }
+    queryClient.refetchQueries({ queryKey: ["messages"] });
   };
 
   useEffect(() => {
     const refetchChat = (data: Message) => {
-      messages?.messages.push(data);
-      setValue("");
-      queryClient.refetchQueries({ queryKey: ["messages"] });
+      if (data.receiver.id == me?._id) {
+        queryClient.refetchQueries({ queryKey: ["messages"] });
+        setIsTyping(false);
+      }
     };
+    const typingChat = (id: string) => {
+      if (id == COMMONS_CONST.ID_ADMIN) {
+        setIsTyping(true);
+      }
+    };
+
     chatSocket.on("receive-messages", refetchChat);
+    chatSocket.on("typing", typingChat);
 
     return () => {
       chatSocket.off("receive-messages", refetchChat);
+      chatSocket.off("typing", typingChat);
     };
-  }, []);
+  }, [me]);
 
   return me ? (
     <ExpandableChat
@@ -81,7 +101,7 @@ export default function ChatSupport() {
         </p>
       </ExpandableChatHeader>
       <ExpandableChatBody>
-        <ChatMessageList>
+        <ChatMessageList ref={messagesEndRef}>
           {messages?.messages.map((message) => (
             <ChatBubble
               variant={message.sender.id === me?._id ? "sent" : "received"}
@@ -104,23 +124,23 @@ export default function ChatSupport() {
               </ChatBubbleMessage>
             </ChatBubble>
           ))}
-          <ChatBubble>
-            <ChatBubbleAvatar
-              className="bg-transparent"
-              fallback="👨‍💻"
-            ></ChatBubbleAvatar>
-            <ChatBubbleMessage>
-              <MessageLoading />
-            </ChatBubbleMessage>
-          </ChatBubble>
+          {isTyping && (
+            <ChatBubble>
+              <ChatBubbleAvatar
+                className="bg-transparent"
+                fallback="🧔‍♀️"
+              ></ChatBubbleAvatar>
+              <ChatBubbleMessage>
+                <MessageLoading />
+              </ChatBubbleMessage>
+            </ChatBubble>
+          )}
         </ChatMessageList>
       </ExpandableChatBody>
       <ExpandableChatFooter className="flex items-center gap-2">
         <ChatInput
           value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
+          onChange={handleSetValue}
           placeholder="viết tin nhắn ở đây"
           className="p-2"
         />
