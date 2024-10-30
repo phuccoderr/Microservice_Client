@@ -8,10 +8,10 @@ import { useState } from "react";
 import ModalUpdateUser from "@/components/user/modal-update-user";
 import { useUserStore } from "@/store/useUserStore";
 import ModalDelete from "@/components/modal-delete";
-import { ParamPagination } from "@/types/pagination.type";
 import { USER_CONST } from "@/constants/users";
 import { useDeleteUser } from "@/hooks/query-users/useDeleteUser";
 import useDebounce from "@/hooks/useDebounce";
+import PageContainer from "@/components/admin/page-container";
 
 const UsersPage = () => {
   const [keyword, setKeyword] = useState("");
@@ -26,7 +26,7 @@ const UsersPage = () => {
   const { modalDelete, setModalDelete, id, name } = useUserStore();
   const { mutate } = useDeleteUser();
   return (
-    <>
+    <PageContainer>
       <div className="flex w-full flex-col gap-4 p-4">
         <h1 className="text-2xl font-bold">{USER_CONST.MANAGE_USER}</h1>
 
@@ -54,7 +54,7 @@ const UsersPage = () => {
         setModal={setModalDelete}
         mutate={mutate}
       />
-    </>
+    </PageContainer>
   );
 };
 

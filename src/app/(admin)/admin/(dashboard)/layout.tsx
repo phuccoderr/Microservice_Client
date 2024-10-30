@@ -1,9 +1,8 @@
 "use client";
 
 import { productSocket } from "@/api/socket";
-import SidebarAdmin from "@/components/admin/sidebar";
-import Topbar from "@/components/admin/topbar";
-import { useGetMe } from "@/hooks/query-customers/useGetMe";
+import { AppSidebar } from "@/components/admin/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useGetMeUser } from "@/hooks/query-users/useGetMeUser";
 import { useSidebarStore } from "@/store/useSidebarStore";
 import { CookieUtils } from "@/utils/cookie-utils";
@@ -45,14 +44,8 @@ export default function DashboardLayout({
   }, []);
 
   return (
-    <div className="flex">
-      <SidebarAdmin />
-      <div
-        className={`${!open ? "ml-[250px]" : "ml-[100px]"} w-full flex-col p-4`}
-      >
-        <Topbar />
-        {children}
-      </div>
-    </div>
+    <AppSidebar>
+      <main className="w-full">{children}</main>
+    </AppSidebar>
   );
 }
