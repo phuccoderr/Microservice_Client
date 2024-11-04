@@ -18,4 +18,8 @@ export const ordersApi = {
     const url = `${id}/status/${status}`;
     return ordersAxiosClient.get(url);
   },
+  reports(period: string) {
+    const url = `reports/${period}`;
+    return ordersAxiosClient.get(url);
+  },
 };

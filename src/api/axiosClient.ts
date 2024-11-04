@@ -111,3 +111,9 @@ export const chatsAxiosClient = createAxiosInstance(
   "/login",
   false,
 );
+
+export const mailsAxiosClient = createAxiosInstance(
+  URL_CONST.MAILS,
+  "/login",
+  false,
+);
