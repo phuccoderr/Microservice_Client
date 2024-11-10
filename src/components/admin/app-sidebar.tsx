@@ -22,6 +22,7 @@ import { RiCoupon3Fill } from "react-icons/ri";
 import { Separator } from "@/components/ui/separator";
 import { Breadcrumbs } from "@/components/bread-crums";
 import { UserNav } from "@/components/admin/user-nav";
+import { MdReviews } from "react-icons/md";
 
 const menuItems = [
   {
@@ -63,6 +64,11 @@ const menuItems = [
     title: "Support",
     icon: <MdOutlineSupportAgent className="h-5 w-5" />,
     link: "/admin/supports",
+  },
+  {
+    title: "Reviews",
+    icon: <MdReviews className="h-5 w-5" />,
+    link: "/admin/reviews",
   },
 ];
 

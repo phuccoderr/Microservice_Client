@@ -1,9 +1,9 @@
 import BadgeStatus from "@/components/badge-status";
 import Actions from "@/components/table/actions";
-import { Badge } from "@/components/ui/badge";
 import { useCategoryStore } from "@/store/useCategoryStore";
 import { Category } from "@/types/category.type";
 import { ColumnDef } from "@tanstack/react-table";
+import { TiArrowDownThick, TiArrowRightThick } from "react-icons/ti";
 
 export const columns: ColumnDef<Category>[] = [
   {
@@ -22,10 +22,10 @@ export const columns: ColumnDef<Category>[] = [
               style: { cursor: "pointer" },
             }}
           >
-            {row.getIsExpanded() ? "👇" : "👉"}
+            {row.getIsExpanded() ? <TiArrowDownThick /> : <TiArrowRightThick />}
           </button>
         ) : (
-          "🔵"
+          ""
         )}{" "}
         {getValue<boolean>()}
       </div>

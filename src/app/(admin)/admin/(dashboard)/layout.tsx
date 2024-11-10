@@ -17,7 +17,6 @@ type DashboardLayoutProps = {
 export default function DashboardLayout({
   children,
 }: Readonly<DashboardLayoutProps>) {
-  const { open } = useSidebarStore();
   const { isError } = useGetMeUser();
 
   useEffect(() => {
@@ -43,9 +42,5 @@ export default function DashboardLayout({
     };
   }, []);
 
-  return (
-    <AppSidebar>
-      <main className="w-full">{children}</main>
-    </AppSidebar>
-  );
+  return <AppSidebar>{children}</AppSidebar>;
 }

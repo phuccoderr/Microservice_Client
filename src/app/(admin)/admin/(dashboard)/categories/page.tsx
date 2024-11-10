@@ -12,6 +12,7 @@ import _ from "lodash";
 import ModalDelete from "@/components/modal-delete";
 import { useDeleteCategory } from "@/hooks/query-categories/useDeleteCategory";
 import useDebounce from "@/hooks/useDebounce";
+import PageContainer from "@/components/admin/page-container";
 
 const CategoriesPage = () => {
   const [keyword, setKeyword] = useState("");
@@ -32,8 +33,8 @@ const CategoriesPage = () => {
   }, [data]);
 
   return (
-    <>
-      <div className="flex w-full flex-col gap-4 p-4">
+    <PageContainer>
+      <div className="flex w-full flex-col gap-4">
         <h1 className="text-2xl font-bold">
           {CATEGORIES_CONST.MANAGE_CATEGORY}
         </h1>
@@ -62,7 +63,7 @@ const CategoriesPage = () => {
         setModal={setModalDelete}
         mutate={mutate}
       />
-    </>
+    </PageContainer>
   );
 };
 export default CategoriesPage;

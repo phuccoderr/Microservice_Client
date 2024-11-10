@@ -1,5 +1,6 @@
 "use client";
 import { chatSocket } from "@/api/socket";
+import PageContainer from "@/components/admin/page-container";
 import ChatSupport from "@/components/chat-support";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,15 +39,19 @@ const SupportsPage = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  const emitTyping = debounce(() => {
+  const emitTyping = debounce((value) => {
     if (user) {
-      chatSocket.emit("typing", user._id);
+      if (value !== "") {
+        chatSocket.emit("typing", user._id);
+      } else {
+        chatSocket.emit("notyping", user._id);
+      }
     }
   }, 300);
 
   const handleSetValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
-    emitTyping();
+    emitTyping(e.target.value);
   };
 
   const handleChat = () => {
@@ -62,9 +67,10 @@ const SupportsPage = () => {
         },
         message: value,
       });
+      setValue("");
+      console.log("select", select);
+      queryClient.refetchQueries({ queryKey: ["messages", select] });
     }
-    setValue("");
-    queryClient.refetchQueries({ queryKey: ["messages", select] });
   };
 
   const handleSelectMessage = (id: string) => {
@@ -99,6 +105,12 @@ const SupportsPage = () => {
   }, [conversations]);
 
   useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, isTyping]);
+
+  useEffect(() => {
     const refetchChat = (data: Message) => {
       if (data.receiver.id == user?._id) {
         queryClient.refetchQueries({ queryKey: ["messages"] });
@@ -107,28 +119,31 @@ const SupportsPage = () => {
     };
 
     const typingChat = (id: string) => {
-      console.log("select", select);
       if (id == select) {
         setIsTyping(true);
+      }
+    };
+    const noTypingChat = (id: string) => {
+      if (id == select) {
+        setIsTyping(false);
       }
     };
 
     chatSocket.on("receive-messages", refetchChat);
     chatSocket.on("typing", typingChat);
-    messagesEndRef.current?.scrollTo({
-      top: messagesEndRef.current.scrollHeight,
-    });
+    chatSocket.on("notyping", noTypingChat);
 
     return () => {
       chatSocket.off("receive-messages", refetchChat);
       chatSocket.off("typing", typingChat);
+      chatSocket.off("notyping", noTypingChat);
     };
-  }, [user, select]);
+  }, [select]);
 
   return (
-    <>
+    <PageContainer>
       <h1 className="text-2xl font-bold">{COMMONS_CONST.SUPPORT}</h1>
-      <div className="mt-4 flex h-[600px] w-full rounded-lg bg-slate-200">
+      <div className="mt-4 flex h-[580px] w-full rounded-lg bg-slate-200">
         <div className="flex w-1/3 flex-col gap-2 border-r border-r-slate-400">
           <div className="p-2">
             <Input
@@ -137,7 +152,7 @@ const SupportsPage = () => {
               placeholder="tìm kiếm theo email"
             />
           </div>
-          <ScrollArea className="h-[600px]">
+          <ScrollArea className="h-[550px]">
             {initialConversations?.map((item) =>
               item.participants
                 .filter((par) => par.id !== user?._id)
@@ -158,49 +173,55 @@ const SupportsPage = () => {
             )}
           </ScrollArea>
         </div>
-        <ChatMessageList
-          ref={messagesEndRef}
-          className="h-full w-1/2 flex-grow px-0"
-        >
-          {messages?.messages.map((message) => (
-            <ChatBubble
-              variant={message.sender.id === user?._id ? "sent" : "received"}
-              key={message._id}
-            >
-              <ChatBubbleAvatar
-                className="bg-transparent"
-                fallback={message.sender.id === user?._id ? "👨‍💻" : "🧔‍♀️"}
-              />
-              <ChatBubbleMessage className="flex flex-col gap-2">
-                <h1 className="text-sm font-bold">
-                  {message.sender.id === user?._id
-                    ? user?.email
-                    : COMMONS_CONST.EMAIL_ADMIN}
-                </h1>
-                <p className="text-xs">{message.message}</p>
-                <p className="ml-auto text-xs">
-                  {extractTime(message.created_at)}
-                </p>
-              </ChatBubbleMessage>
-            </ChatBubble>
-          ))}
-          {isTyping && (
-            <ChatBubble>
-              <ChatBubbleAvatar
-                className="bg-transparent"
-                fallback="🧔‍♀️"
-              ></ChatBubbleAvatar>
-              <ChatBubbleMessage>
-                <MessageLoading />
-              </ChatBubbleMessage>
-            </ChatBubble>
-          )}
+        <div className="flex w-2/3 flex-col">
+          <ScrollArea className="w-full">
+            {messages?.messages.map((message) => (
+              <div
+                key={message._id}
+                className="flex h-full w-full flex-col gap-6 overflow-y-auto p-4"
+              >
+                <ChatBubble
+                  variant={
+                    message.sender.id === user?._id ? "sent" : "received"
+                  }
+                >
+                  <ChatBubbleAvatar
+                    className="bg-transparent"
+                    fallback={message.sender.id === user?._id ? "👨‍💻" : "🧔‍♀️"}
+                  />
+                  <ChatBubbleMessage className="flex w-full flex-col">
+                    <h1 className="text-sm font-bold">
+                      {message.sender.id === user?._id
+                        ? user?.email
+                        : COMMONS_CONST.EMAIL_ADMIN}
+                    </h1>
+                    <p className="text-xs">{message.message}</p>
+                    <p className="ml-auto text-xs">
+                      {extractTime(message.created_at)}
+                    </p>
+                  </ChatBubbleMessage>
+                </ChatBubble>
+              </div>
+            ))}
+            {isTyping && (
+              <ChatBubble className="p-4">
+                <ChatBubbleAvatar
+                  className="bg-transparent"
+                  fallback="🧔‍♀️"
+                ></ChatBubbleAvatar>
+                <ChatBubbleMessage>
+                  <MessageLoading />
+                </ChatBubbleMessage>
+              </ChatBubble>
+            )}
+            <div ref={messagesEndRef} />
+          </ScrollArea>
           <div className="sticky bottom-0 flex items-center gap-2 bg-slate-200">
             <ChatInput
               value={value}
               onChange={handleSetValue}
               placeholder="viết tin nhắn ở đây"
-              className="bg-slate-50 text-black"
+              className="flex-grow bg-slate-50 text-black"
             />
             <Button
               className="hover:bg-sky-500"
@@ -210,9 +231,9 @@ const SupportsPage = () => {
               <Send className="size-4" />
             </Button>
           </div>
-        </ChatMessageList>
+        </div>
       </div>
-    </>
+    </PageContainer>
   );
 };
 

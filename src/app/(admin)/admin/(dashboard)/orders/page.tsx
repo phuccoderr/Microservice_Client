@@ -1,5 +1,6 @@
 "use client";
 import LoadingGlobal from "@/components/admin/loading";
+import PageContainer from "@/components/admin/page-container";
 import { columns } from "@/components/orders/column";
 import ModalOrderDetail from "@/components/profile/modal-order-detail";
 import { DataTable } from "@/components/table/data-table";
@@ -18,7 +19,7 @@ const OrdersPage = () => {
     keyword: debounced,
   });
   return (
-    <>
+    <PageContainer>
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-bold">Manager Orders</h1>
         {isLoading ? (
@@ -35,7 +36,7 @@ const OrdersPage = () => {
         )}
       </div>
       <ModalOrderDetail />
-    </>
+    </PageContainer>
   );
 };
 

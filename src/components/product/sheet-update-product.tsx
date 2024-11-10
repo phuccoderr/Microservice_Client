@@ -23,6 +23,7 @@ import {
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -167,6 +168,7 @@ const SheetUpdateProduct = () => {
           <form onSubmit={form.handleSubmit(handleUpdate)}>
             <SheetHeader>
               <SheetTitle>Cập nhật sản phẩm</SheetTitle>
+              <SheetDescription>Cập nhật thông tin sản phẩm</SheetDescription>
               <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsList className="flex h-auto items-start gap-2 !bg-transparent pr-4">
                   {tabData.map((tab) => (
@@ -175,8 +177,8 @@ const SheetUpdateProduct = () => {
                       value={tab.value}
                       className={cn(
                         activeTab === tab.value
-                          ? "!bg-green-800 !text-white"
-                          : "hover:bg-green-500",
+                          ? "!bg-sky-800 !text-white"
+                          : "hover:bg-sky-500 hover:text-black",
                       )}
                     >
                       {tab.title}

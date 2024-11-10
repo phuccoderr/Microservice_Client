@@ -39,7 +39,11 @@ export default function ChatSupport() {
   const handleSetValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
     if (me) {
-      chatSocket.emit("typing", me._id);
+      if (e.target.value != "") {
+        chatSocket.emit("typing", me._id);
+      } else {
+        chatSocket.emit("notyping", me._id);
+      }
     }
   };
 
@@ -76,12 +80,19 @@ export default function ChatSupport() {
       }
     };
 
+    const noTypingChat = (id: string) => {
+      if (id == COMMONS_CONST.ID_ADMIN) {
+        setIsTyping(false);
+      }
+    };
+
     chatSocket.on("receive-messages", refetchChat);
     chatSocket.on("typing", typingChat);
-
+    chatSocket.on("notyping", noTypingChat);
     return () => {
       chatSocket.off("receive-messages", refetchChat);
       chatSocket.off("typing", typingChat);
+      chatSocket.off("notyping", noTypingChat);
     };
   }, [me]);
 

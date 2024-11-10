@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { COMMONS_CONST } from "@/constants/commons";
+import { DialogTrigger } from "@radix-ui/react-dialog";
 import { UseMutateFunction } from "@tanstack/react-query";
 import React from "react";
 
