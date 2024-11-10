@@ -21,7 +21,6 @@ import { useApplyCode } from "@/hooks/query-discounts/useApplyCode";
 import { useCheckDiscount } from "@/hooks/query-discounts/useCheckDiscount";
 import { useToastMessage } from "@/hooks/useToastMessage";
 import { calSale, formatVnd, getTotal } from "@/utils/common";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { z } from "zod";
 

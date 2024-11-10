@@ -16,7 +16,6 @@ export const useCheckDiscount = () => {
     },
     onError: (error) => {
       toastError(DISCOUNT_CONST.CHECK_FAIL);
-      console.log(error);
       return error;
     },
   });

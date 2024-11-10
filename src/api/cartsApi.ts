@@ -1,5 +1,4 @@
 import { cartsAxiosClient } from "@/api/axiosClient";
-import { remove } from "lodash";
 
 export const cartsApi = {
   get() {

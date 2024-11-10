@@ -64,8 +64,14 @@ export const columns: ColumnDef<Order>[] = [
       const { id, status } = row.original;
       const mutation = useUpdateStatusOrder();
       const handleSelect = (value: string) => {
-        mutation.mutate({ id, status: value });
-        productSocket.emit("order-status", row.original.email);
+        mutation.mutate(
+          { id, status: value },
+          {
+            onSuccess: () => {
+              productSocket.emit("order-status", row.original.email);
+            },
+          },
+        );
       };
       return (
         <Select onValueChange={handleSelect} value={status}>
