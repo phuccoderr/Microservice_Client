@@ -79,7 +79,7 @@ const Account = () => {
       className="font-medium underline-offset-4 hover:underline"
       href="/login"
     >
-      <Button className="text-lg" variant="ghost">
+      <Button className="text-lg text-black hover:text-sky-300" variant="link">
         Đăng nhập
       </Button>
     </Link>

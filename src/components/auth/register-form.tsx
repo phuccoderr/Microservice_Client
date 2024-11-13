@@ -10,15 +10,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { COMMONS_CONST } from "@/constants/commons";
 import useFormRegister from "@/hooks/query-customers/useFormRegister";
-import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { useState } from "react";
 import { z } from "zod";
 import { useRegisterCustomer } from "@/hooks/query-customers/useRegisterCustomer";
 import { useToastMessage } from "@/hooks/useToastMessage";
-import { AUTH_CONST } from "@/constants/auth";
 import ShowHidePassword from "@/components/show-hide-password";
+import { GiHotSpices } from "react-icons/gi";
+import { AUTH_CONST } from "@/constants/auth";
+import { IoArrowBack } from "react-icons/io5";
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const RegisterForm = ({ setActiveTab }: RegisterFormProps) => {
   const { form, formSchema } = useFormRegister();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -42,16 +47,29 @@ const RegisterForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleRegister)} className="space-y-4">
-        <div className="flex items-center gap-2">
+        <span className="flex items-center gap-2 text-xl font-semibold">
+          <Button
+            type="button"
+            variant={"ghost"}
+            size={"icon"}
+            onClick={() => setActiveTab("login")}
+            className="hover:bg-transparent hover:text-sky-300"
+          >
+            <IoArrowBack size={20} />
+          </Button>
+          {AUTH_CONST.REGISTER} <GiHotSpices />
+        </span>
+
+        <div className="flex items-center justify-between gap-2">
           <FormField
             control={form.control}
             name="first_name"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex-1">
                 <FormLabel>{COMMONS_CONST.FIRST_NAME}</FormLabel>
                 <FormControl>
                   <Input
-                    className="border border-gray-700"
+                    className="rounded-none border border-x-0 border-t-0 border-stone-400 focus:border-t-0 focus-visible:ring-0"
                     placeholder="Nguyen Van"
                     required
                     {...field}
@@ -64,11 +82,11 @@ const RegisterForm = () => {
             control={form.control}
             name="last_name"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex-1">
                 <FormLabel>{COMMONS_CONST.LAST_NAME}</FormLabel>
                 <FormControl>
                   <Input
-                    className="border border-gray-700"
+                    className="rounded-none border border-x-0 border-t-0 border-stone-400 focus:border-t-0 focus-visible:ring-0"
                     placeholder="A"
                     required
                     {...field}
@@ -86,7 +104,7 @@ const RegisterForm = () => {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  className="border border-gray-700"
+                  className="rounded-none border border-x-0 border-t-0 border-stone-400 focus:border-t-0 focus-visible:ring-0"
                   placeholder="m@example.com"
                   {...field}
                 />
@@ -105,7 +123,8 @@ const RegisterForm = () => {
                 <div className="relative">
                   <Input
                     type={showPassword ? "text" : "password"}
-                    className="border border-gray-700"
+                    placeholder="Password"
+                    className="rounded-none border border-x-0 border-t-0 border-stone-400 focus:border-t-0 focus-visible:ring-0"
                     {...field}
                   />
                   <div className="absolute right-0 top-0 flex h-full w-10 cursor-pointer items-center justify-center">
@@ -130,7 +149,8 @@ const RegisterForm = () => {
                 <div className="relative">
                   <Input
                     type={showConfirmPassword ? "text" : "password"}
-                    className="border border-gray-700"
+                    placeholder="confirm password"
+                    className="rounded-none border border-x-0 border-t-0 border-stone-400 focus:border-t-0 focus-visible:ring-0"
                     {...field}
                   />
                   <div className="absolute right-0 top-0 flex h-full w-10 cursor-pointer items-center justify-center">
@@ -149,7 +169,7 @@ const RegisterForm = () => {
 
         <Button
           type="submit"
-          className="w-full bg-black text-white hover:bg-gray-600"
+          className="w-full bg-sky-500 text-white hover:bg-sky-300"
         >
           Register
         </Button>

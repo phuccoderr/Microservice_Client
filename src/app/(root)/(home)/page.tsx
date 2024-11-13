@@ -7,6 +7,11 @@ export default function HomePage() {
     <div>
       <div className="star-rating-container"></div>
       <main className="flex-1">
+        <div className="bg-banner relative h-[600px] bg-cover bg-center p-36">
+          <h1 className="absolute text-5xl font-semibold">
+            Chào mừng bạn đến với NStore
+          </h1>
+        </div>
         <section className="w-full bg-black py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">

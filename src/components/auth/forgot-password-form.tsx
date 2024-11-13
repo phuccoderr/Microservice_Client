@@ -8,14 +8,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { AUTH_CONST } from "@/constants/auth";
 import { COMMONS_CONST } from "@/constants/commons";
 import { useForgotPassword } from "@/hooks/query-customers/useForgotPassword";
 import useFormEmail from "@/hooks/query-customers/useFormEmail";
 import { useToastMessage } from "@/hooks/useToastMessage";
 import { useState } from "react";
+import { GiHotSpices } from "react-icons/gi";
+import { IoArrowBack } from "react-icons/io5";
 import { z } from "zod";
 
-const ForgotPasswordForm = () => {
+interface ForgotPasswordFormProps {
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ForgotPasswordForm = ({ setActiveTab }: ForgotPasswordFormProps) => {
   const { toastLoading } = useToastMessage();
   const { form, formSchema } = useFormEmail();
 
@@ -32,6 +39,18 @@ const ForgotPasswordForm = () => {
         onSubmit={form.handleSubmit(handleForgotPassword)}
         className="space-y-4"
       >
+        <span className="flex items-center gap-2 text-xl font-semibold">
+          <Button
+            type="button"
+            variant={"ghost"}
+            size={"icon"}
+            onClick={() => setActiveTab("login")}
+            className="hover:bg-transparent hover:text-sky-300"
+          >
+            <IoArrowBack size={20} />
+          </Button>
+          {AUTH_CONST.FORGOT_PASSWORD} <GiHotSpices />
+        </span>
         <FormField
           control={form.control}
           name="email"
@@ -53,7 +72,7 @@ const ForgotPasswordForm = () => {
         />
         <Button
           type="submit"
-          className="w-full bg-black text-white hover:bg-gray-600"
+          className="w-full bg-sky-500 text-white hover:bg-sky-300"
         >
           Reset Password
         </Button>

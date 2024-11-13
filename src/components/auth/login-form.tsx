@@ -15,8 +15,13 @@ import useFormLogin from "@/hooks/useFormLogin";
 import { useToastMessage } from "@/hooks/useToastMessage";
 import { useState } from "react";
 import { z } from "zod";
+import { GiHotSpices } from "react-icons/gi";
 
-const LoginForm = () => {
+interface LoginFormProps {
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const LoginForm = ({ setActiveTab }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const { form, formSchema } = useFormLogin();
   const { toastLoading, toastError } = useToastMessage();
@@ -47,6 +52,9 @@ const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSignIn)} className="space-y-4">
+        <span className="flex items-center gap-2 text-xl font-semibold">
+          Welcome to NStore <GiHotSpices />
+        </span>
         <div className="space-y-2">
           <FormField
             control={form.control}
@@ -56,7 +64,7 @@ const LoginForm = () => {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
-                    className="border border-gray-700"
+                    className="rounded-none border border-x-0 border-t-0 border-stone-400 focus:border-t-0 focus-visible:ring-0"
                     placeholder="m@example.com"
                     {...field}
                   />
@@ -73,8 +81,9 @@ const LoginForm = () => {
                 <FormControl>
                   <div className="relative">
                     <Input
-                      className="border border-gray-700"
+                      className="rounded-none border border-x-0 border-t-0 border-stone-400 focus:border-t-0 focus-visible:ring-0"
                       type={showPassword ? "text" : "password"}
+                      placeholder="Password"
                       {...field}
                     />
                     <ShowHidePassword
@@ -90,12 +99,29 @@ const LoginForm = () => {
 
         <Button
           type="submit"
-          className="w-full bg-black text-white hover:bg-gray-600"
+          className="w-full bg-sky-500 text-white hover:bg-sky-300"
           disabled={mutate.isPending}
         >
           Login
         </Button>
       </form>
+
+      <div className="flex justify-between">
+        <Button
+          variant="link"
+          className="mt-2 p-0 text-black hover:text-sky-500"
+          onClick={() => setActiveTab("register")}
+        >
+          {AUTH_CONST.REGISTER}
+        </Button>
+        <Button
+          variant="link"
+          className="mt-2 p-0 text-black hover:text-sky-500"
+          onClick={() => setActiveTab("forgot-password")}
+        >
+          {AUTH_CONST.FORGOT_PASSWORD}
+        </Button>
+      </div>
     </Form>
   );
 };
