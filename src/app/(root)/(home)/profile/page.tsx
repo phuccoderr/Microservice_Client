@@ -8,18 +8,31 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { useState } from "react";
 
 const ProfilePage = () => {
-  const [activeTab, setActiveTab] = useState<string>("info");
+  const [activeTab, setActiveTab] = useState<string>("account");
   return (
     <div className="w-full p-4">
-      <Tabs className="flex gap-20 p-4" defaultValue="account">
+      <Tabs
+        className="flex gap-20 p-4"
+        defaultValue={activeTab}
+        onValueChange={setActiveTab}
+      >
         <TabsList className="flex h-auto flex-col items-start justify-start gap-4 !bg-transparent text-black">
-          <TabsTrigger className="w-full" value="account">
+          <TabsTrigger
+            className={`w-full ${activeTab === "account" ? "!bg-sky-300" : ""}`}
+            value="account"
+          >
             Account
           </TabsTrigger>
-          <TabsTrigger className="w-full" value="order">
+          <TabsTrigger
+            className={`w-full ${activeTab === "order" ? "!bg-sky-300" : ""}`}
+            value="order"
+          >
             Lịch sử hoá đơn
           </TabsTrigger>
-          <TabsTrigger className="w-full" value="product">
+          <TabsTrigger
+            className={`w-full ${activeTab === "product" ? "!bg-sky-300" : ""}`}
+            value="product"
+          >
             Lịch sử sản phẩm
           </TabsTrigger>
         </TabsList>

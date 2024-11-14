@@ -3,6 +3,7 @@ import URL_CONST from "@/constants/api";
 import { ErrorResponse } from "@/types/error.type";
 import { CookieUtils } from "@/utils/cookie-utils";
 import axios from "axios";
+import { redirect, useRouter } from "next/navigation";
 
 const createAxiosInstance = (
   baseUrl: string,
@@ -34,6 +35,11 @@ const createAxiosInstance = (
 
       if (!originalRequest._retryCount) {
         originalRequest._retryCount = 0;
+      }
+      console.log("error", error);
+
+      if (error.response.status === 403) {
+        window.location.href = "/admin/403";
       }
 
       if (error.response.status === 401 && originalRequest._retryCount < 2) {

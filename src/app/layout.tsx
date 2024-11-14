@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Provider from "@/utils/providers";
-import { Toaster } from "react-hot-toast";
 import { Toaster as ToasterSonner } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
@@ -27,7 +26,6 @@ export default function RootLayout({
         >
           <Provider>{children}</Provider>
         </ThemeProvider>
-        <Toaster />
         <ToasterSonner
           richColors
           expand={false}

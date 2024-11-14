@@ -1,5 +1,4 @@
 import { usersApi } from "@/api/usersApi";
-import { COMMONS_CONST } from "@/constants/commons";
 import { USER_CONST } from "@/constants/users";
 import { useToastMessage } from "@/hooks/useToastMessage";
 import { ErrorResponse } from "@/types/error.type";
@@ -25,7 +24,7 @@ export const useCreateUser = () => {
       if (error.statusCode === 422) {
         toastError(USER_CONST.EMAIL_ALREADY);
       } else {
-        toastError(COMMONS_CONST.ERROR);
+        toastError("Bạn không có quyền truy cập chức năng này");
       }
     },
   });

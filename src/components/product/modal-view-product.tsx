@@ -123,7 +123,7 @@ const ModalViewProduct = () => {
               <div>
                 <h1>{COMMONS_CONST.EXTRA_IMAGES}</h1>
                 <ScrollArea className="h-[200px] w-full border">
-                  <div className="flex flex-wrap items-center justify-between gap-2 p-2">
+                  <div className="flex flex-wrap items-center gap-2 p-2">
                     {data?.extra_images?.map((image) => (
                       <Image
                         key={image.id}

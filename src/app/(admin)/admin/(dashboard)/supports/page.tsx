@@ -23,6 +23,7 @@ import { extractTime } from "@/utils/common";
 import { useQueryClient } from "@tanstack/react-query";
 import { debounce } from "lodash";
 import { Send } from "lucide-react";
+import { BiMessageX } from "react-icons/bi";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 
 const SupportsPage = () => {
@@ -174,63 +175,74 @@ const SupportsPage = () => {
           </ScrollArea>
         </div>
         <div className="flex w-2/3 flex-col">
-          <ScrollArea className="w-full">
-            {messages?.messages.map((message) => (
-              <div
-                key={message._id}
-                className="flex h-full w-full flex-col gap-6 overflow-y-auto p-4"
-              >
-                <ChatBubble
-                  variant={
-                    message.sender.id === user?._id ? "sent" : "received"
-                  }
+          {messages ? (
+            <>
+              <ScrollArea className="w-full">
+                {messages.messages.map((message) => (
+                  <div
+                    key={message._id}
+                    className="flex h-full w-full flex-col gap-6 overflow-y-auto p-4"
+                  >
+                    <ChatBubble
+                      variant={
+                        message.sender.id === user?._id ? "sent" : "received"
+                      }
+                    >
+                      <ChatBubbleAvatar
+                        className="bg-transparent"
+                        fallback={message.sender.id === user?._id ? "👨‍💻" : "🧔‍♀️"}
+                      />
+                      <ChatBubbleMessage className="flex w-full flex-col">
+                        <h1 className="text-sm font-bold">
+                          {message.sender.id === user?._id
+                            ? user?.email
+                            : COMMONS_CONST.EMAIL_ADMIN}
+                        </h1>
+                        <p className="text-xs">{message.message}</p>
+                        <p className="ml-auto text-xs">
+                          {extractTime(message.created_at)}
+                        </p>
+                      </ChatBubbleMessage>
+                    </ChatBubble>
+                  </div>
+                ))}
+                {isTyping && (
+                  <ChatBubble className="p-4">
+                    <ChatBubbleAvatar
+                      className="bg-transparent"
+                      fallback="🧔‍♀️"
+                    ></ChatBubbleAvatar>
+                    <ChatBubbleMessage>
+                      <MessageLoading />
+                    </ChatBubbleMessage>
+                  </ChatBubble>
+                )}
+                <div ref={messagesEndRef} />
+              </ScrollArea>
+              <div className="sticky bottom-0 flex items-center gap-2 bg-slate-200">
+                <ChatInput
+                  value={value}
+                  onChange={handleSetValue}
+                  placeholder="viết tin nhắn ở đây"
+                  className="flex-grow bg-slate-50 text-black"
+                />
+                <Button
+                  className="hover:bg-sky-500"
+                  onClick={handleChat}
+                  size="icon"
                 >
-                  <ChatBubbleAvatar
-                    className="bg-transparent"
-                    fallback={message.sender.id === user?._id ? "👨‍💻" : "🧔‍♀️"}
-                  />
-                  <ChatBubbleMessage className="flex w-full flex-col">
-                    <h1 className="text-sm font-bold">
-                      {message.sender.id === user?._id
-                        ? user?.email
-                        : COMMONS_CONST.EMAIL_ADMIN}
-                    </h1>
-                    <p className="text-xs">{message.message}</p>
-                    <p className="ml-auto text-xs">
-                      {extractTime(message.created_at)}
-                    </p>
-                  </ChatBubbleMessage>
-                </ChatBubble>
+                  <Send className="size-4" />
+                </Button>
               </div>
-            ))}
-            {isTyping && (
-              <ChatBubble className="p-4">
-                <ChatBubbleAvatar
-                  className="bg-transparent"
-                  fallback="🧔‍♀️"
-                ></ChatBubbleAvatar>
-                <ChatBubbleMessage>
-                  <MessageLoading />
-                </ChatBubbleMessage>
-              </ChatBubble>
-            )}
-            <div ref={messagesEndRef} />
-          </ScrollArea>
-          <div className="sticky bottom-0 flex items-center gap-2 bg-slate-200">
-            <ChatInput
-              value={value}
-              onChange={handleSetValue}
-              placeholder="viết tin nhắn ở đây"
-              className="flex-grow bg-slate-50 text-black"
-            />
-            <Button
-              className="hover:bg-sky-500"
-              onClick={handleChat}
-              size="icon"
-            >
-              <Send className="size-4" />
-            </Button>
-          </div>
+            </>
+          ) : (
+            <div className="flex h-full justify-center">
+              <span className="flex items-center gap-2 text-black">
+                Vui lòng chọn hộp thoại của bạn
+                <BiMessageX size={30} />
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </PageContainer>

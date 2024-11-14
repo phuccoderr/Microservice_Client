@@ -391,7 +391,7 @@ const SheetUpdateProduct = () => {
                     </div>
                     <Progress value={progress} />
                     <ScrollArea className="h-[300px] w-full border">
-                      <div className="flex flex-wrap items-center justify-between gap-2 p-2">
+                      <div className="flex flex-wrap items-center gap-2 p-2">
                         {product?.extra_images?.map((image) => (
                           <ImageDeleteIcon
                             key={image.id}

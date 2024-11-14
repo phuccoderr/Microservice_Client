@@ -37,7 +37,7 @@ const BadgeOrder = ({ status, children }: BadgeStatusProps) => {
 
   return status === "complete" ? (
     <div className="flex items-center">
-      <Badge className={`${bgColor} `}>
+      <Badge className={`${bgColor} hover:${bgColor}`}>
         {label} {icon}
       </Badge>
       {children}

@@ -18,7 +18,7 @@ export const useDeleteUser = () => {
       setModalDelete(false);
     },
     onError: (error) => {
-      toastError(error.message);
+      toastError("Bạn không có quyền truy cập chức năng này");
     },
   });
 };

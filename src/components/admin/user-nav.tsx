@@ -15,17 +15,20 @@ import { COMMONS_CONST } from "@/constants/commons";
 import { useGetMeUser } from "@/hooks/query-users/useGetMeUser";
 import { useLogoutUser } from "@/hooks/useLogout";
 import { useToastMessage } from "@/hooks/useToastMessage";
+import { useQueryClient } from "@tanstack/react-query";
 import { CiUser, CiLogout } from "react-icons/ci";
 
 export function UserNav() {
   const mutateLogout = useLogoutUser();
   const { toastLoading } = useToastMessage();
   const { data: user } = useGetMeUser();
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
     toastLoading(COMMONS_CONST.LOADING);
     const rfToken = getRefreshToken();
     mutateLogout.mutate(rfToken);
+    queryClient.clear();
   };
   return (
     <DropdownMenu>
@@ -49,7 +52,7 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
-          Log out
+          Đăng xuất
           <DropdownMenuShortcut>
             <CiLogout />
           </DropdownMenuShortcut>

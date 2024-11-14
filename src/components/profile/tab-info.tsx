@@ -107,7 +107,12 @@ function TabInfo(props: TabInfoProps) {
             )}
           />
 
-          <Button className="self-end">{COMMONS_CONST.SAVE}</Button>
+          <Button
+            disabled={mutation.isPending}
+            className="self-end bg-sky-200 hover:bg-sky-300"
+          >
+            {COMMONS_CONST.SAVE}
+          </Button>
         </form>
       </Form>
     </TabsContent>

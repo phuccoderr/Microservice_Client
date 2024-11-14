@@ -23,6 +23,7 @@ import { Separator } from "@/components/ui/separator";
 import { Breadcrumbs } from "@/components/bread-crums";
 import { UserNav } from "@/components/admin/user-nav";
 import { MdReviews } from "react-icons/md";
+import { usePathname } from "next/navigation";
 
 const menuItems = [
   {
@@ -73,6 +74,7 @@ const menuItems = [
 ];
 
 export function AppSidebar({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
@@ -94,7 +96,10 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
               <SidebarMenu>
                 {menuItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton
+                      isActive={pathname === item.link}
+                      asChild
+                    >
                       <Link href={item.link}>
                         {item.icon}
                         <span>{item.title}</span>

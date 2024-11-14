@@ -42,7 +42,7 @@ const TabOrder = (props: TabOrderProps) => {
       <Table>
         <TableCaption>Danh sách sản phẩm bạn đã mua.</TableCaption>
         <TableHeader>
-          <TableRow>
+          <TableRow className="hover:bg-sky-100">
             <TableHead>Mã hoá đơn</TableHead>
             <TableHead>Địa chỉ</TableHead>
             <TableHead>Số điện thoại</TableHead>
@@ -53,7 +53,7 @@ const TabOrder = (props: TabOrderProps) => {
         </TableHeader>
         <TableBody>
           {orders?.map((item) => (
-            <TableRow key={item.id}>
+            <TableRow className="hover:bg-sky-100" key={item.id}>
               <TableCell
                 onClick={() => handleModalDetail(item.id)}
                 className="cursor-pointer font-medium hover:text-sky-400"
@@ -75,7 +75,7 @@ const TabOrder = (props: TabOrderProps) => {
           ))}
         </TableBody>
         <TableFooter>
-          <TableRow>
+          <TableRow className="bg-sky-200 hover:bg-sky-300">
             <TableCell colSpan={5}>Tổng tiền đã thanh toán</TableCell>
             <TableCell className="text-right">{formatVnd(total)}</TableCell>
           </TableRow>

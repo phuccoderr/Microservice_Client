@@ -1,8 +1,14 @@
 "use client";
-import EmblaCarousel from "@/components/embla-carousel";
+import CarouselImage from "@/components/product/carousel-image";
 import RatingReview from "@/components/rating-review";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useAddToCart } from "@/hooks/query-cart/useAddToCart";
@@ -10,7 +16,7 @@ import { useGetProduct } from "@/hooks/query-products/useGetProduct";
 import { useGetRatings } from "@/hooks/query-reviews/useGetRatings";
 import { calSale, formatDate, formatVnd } from "@/utils/common";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ProductDetailPageProps {
   params: {
@@ -24,6 +30,22 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const [quantity, setQuantity] = useState(1);
   const { data: ratings } = useGetRatings(productId);
   const mutation = useAddToCart();
+  const [listImages, setListImages] = useState<{ id: string; url: string }[]>(
+    [],
+  );
+
+  useEffect(() => {
+    if (product) {
+      setListImages([
+        ...listImages,
+        { id: product.id, url: product.url },
+        ...product.extra_images.map((image) => ({
+          id: image.id,
+          url: image.url,
+        })),
+      ]);
+    }
+  }, [product]);
 
   //carousel
 
@@ -40,15 +62,21 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex gap-8">
-        <div className="flex justify-center md:w-1/2">
-          {product && <EmblaCarousel product={product} />}
+        <div className="flex flex-col items-center md:w-1/2">
+          <CarouselImage listImages={listImages} />
         </div>
 
         <div className="md:w-1/2">
           <h1 className="mb-4 text-3xl font-bold">{product?.name}</h1>
+          <span>số lượng: {product?.stock}</span>
           <p className="mb-4">
-            <RatingReview readonly initialValue={product?.average_rating} />
-            <span className="ml-2 text-gray-400">
+            <RatingReview
+              size={12}
+              readonly
+              initialValue={product?.average_rating}
+            />
+
+            <span className="ml-2 text-xs text-gray-400">
               ({product?.review_count} đánh giá)
             </span>
           </p>
@@ -102,7 +130,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
           <p className="text-sm italic text-zinc-400">{product?.description}</p>
         </div>
       </div>
-      <div className="mx-8 mt-8 flex flex-col gap-4">
+      <div className="mx-36 mt-8 flex flex-col gap-4">
         <h2 className="text-2xl font-bold">Đánh giá khách hàng</h2>
         <div className="flex flex-col rounded-lg border border-b-0 border-stone-300">
           {ratings?.entities?.map((item) => (

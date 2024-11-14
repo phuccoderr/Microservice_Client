@@ -6,7 +6,7 @@ import { GiHotSpices } from "react-icons/gi";
 
 const Header = () => {
   return (
-    <header className="p-4 text-black">
+    <header className="border border-x-0 border-t-0 border-b-stone-300 p-4 text-black">
       <div className="container mx-auto flex items-center justify-between">
         <Button variant="ghost" size="icon" className="md:hidden">
           <MenuIcon className="h-6 w-6" />
@@ -23,7 +23,7 @@ const Header = () => {
               className="text-lg text-black hover:text-sky-300"
               variant="link"
             >
-              Home
+              Trang chủ
             </Button>
           </Link>
           <Link href="/product">
@@ -31,29 +31,29 @@ const Header = () => {
               className="text-lg text-black hover:text-sky-300"
               variant="link"
             >
-              Products
+              Sản phẩm
             </Button>
           </Link>
           <Button
             className="text-lg text-black hover:text-sky-300"
             variant="link"
           >
-            About
+            Chúng tôi
           </Button>
           <Link href="/contact">
             <Button
               className="text-lg text-black hover:text-sky-300"
               variant="link"
             >
-              Contact
+              Liên hệ
             </Button>
           </Link>
         </div>
         <div className="flex items-center space-x-4">
           <Link href={"/cart"}>
             <Button
-              className="bg-transparent text-lg shadow-none"
-              variant="default"
+              className="bg-transparent text-lg shadow-none hover:bg-transparent hover:text-sky-500"
+              variant="ghost"
               size="icon"
             >
               <ShoppingCartIcon className="h-6 w-6" />

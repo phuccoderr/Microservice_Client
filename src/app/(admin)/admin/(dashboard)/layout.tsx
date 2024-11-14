@@ -6,6 +6,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useGetMeUser } from "@/hooks/query-users/useGetMeUser";
 import { useSidebarStore } from "@/store/useSidebarStore";
 import { CookieUtils } from "@/utils/cookie-utils";
+import { useQueryClient } from "@tanstack/react-query";
 import { ReactNode, useEffect } from "react";
 import { FaFileImage } from "react-icons/fa";
 import { toast } from "sonner";
@@ -18,6 +19,7 @@ export default function DashboardLayout({
   children,
 }: Readonly<DashboardLayoutProps>) {
   const { isError } = useGetMeUser();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (isError) {
@@ -34,6 +36,7 @@ export default function DashboardLayout({
         description: data,
         closeButton: true,
       });
+      queryClient.refetchQueries({ queryKey: ["products"] });
     };
     productSocket.on("add-image", notifyUpload);
 

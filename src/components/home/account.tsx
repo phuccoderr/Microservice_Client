@@ -40,16 +40,23 @@ const Account = () => {
   return data ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+        <Button
+          variant="outline"
+          className="relative h-8 w-8 rounded-full border-stone-300 hover:bg-sky-300 hover:text-white"
+        >
           <Avatar className="h-8 w-8">
             <AvatarImage src={data.avatar} alt="@shadcn" />
-            <AvatarFallback>
+            <AvatarFallback className="bg-transparent">
               <FaUser />
             </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent
+        className="w-56 border-stone-300 bg-white text-black shadow-2xl"
+        align="end"
+        forceMount
+      >
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
@@ -60,17 +67,20 @@ const Account = () => {
             </p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-stone-300" />
         <Link href={"/profile"}>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer focus:bg-sky-500 focus:text-white">
             <FaUser className="mr-2 h-4 w-4" />
-            <span>Profile</span>
+            <span>Thông tin</span>
           </DropdownMenuItem>
         </Link>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>
+        <DropdownMenuSeparator className="bg-stone-300" />
+        <DropdownMenuItem
+          className="cursor-pointer focus:bg-sky-500 focus:text-white"
+          onClick={handleLogout}
+        >
           <IoLogOutOutline className="mr-2 h-4 w-4" />
-          <span>Log out</span>
+          <span>Đăng xuất</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

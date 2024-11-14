@@ -34,6 +34,7 @@ import { COMMONS_CONST } from "@/constants/commons";
 import { AUTH_CONST } from "@/constants/auth";
 import { useCreateUser } from "@/hooks/query-users/useCreateUser";
 import ButtonBack from "@/components/button-back";
+import PageContainer from "@/components/admin/page-container";
 
 const CreateUserPage = () => {
   const { formSchema, form } = useFormCreateUser();
@@ -50,31 +51,65 @@ const CreateUserPage = () => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-4 p-4">
-      <h1 className="text-2xl font-bold">{USER_CONST.CREATE_USER}</h1>
+    <PageContainer>
+      <div className="flex w-full flex-col gap-4">
+        <h1 className="text-2xl font-bold">{USER_CONST.CREATE_USER}</h1>
 
-      <ButtonBack url="/admin/users" />
-      <Card className="mx-auto max-w-md">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">
-            {AUTH_CONST.REGISTER}
-          </CardTitle>
-          <CardDescription>{USER_CONST.CREATE_DESCRIPTION}</CardDescription>
-        </CardHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleCreate)}>
-            <CardContent className="space-y-4">
-              <div className="flex gap-4">
+        <ButtonBack url="/admin/users" />
+        <Card className="mx-auto max-w-md">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold">
+              {AUTH_CONST.REGISTER}
+            </CardTitle>
+            <CardDescription>{USER_CONST.CREATE_DESCRIPTION}</CardDescription>
+          </CardHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleCreate)}>
+              <CardContent className="space-y-4">
+                <div className="flex gap-4">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+
+                        <FormControl>
+                          <Input
+                            placeholder={COMMONS_CONST.ENTER_EMAIL}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={COMMONS_CONST.ENTER_NAME}
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
-
+                      <FormLabel>Password</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={COMMONS_CONST.ENTER_EMAIL}
+                          placeholder={COMMONS_CONST.ENTER_PASSWORD}
+                          type="password"
                           {...field}
                         />
                       </FormControl>
@@ -84,89 +119,60 @@ const CreateUserPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="status"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                       <FormControl>
-                        <Input
-                          placeholder={COMMONS_CONST.ENTER_NAME}
-                          {...field}
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
                         />
                       </FormControl>
+                      <div className="space-y-1 leading-none">
+                        <FormLabel>Trạng thái của người dùng</FormLabel>
+                      </div>
                     </FormItem>
                   )}
                 />
-              </div>
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={COMMONS_CONST.ENTER_PASSWORD}
-                        type="password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel>Trạng thái của người dùng</FormLabel>
-                    </div>
-                  </FormItem>
-                )}
-              />
 
-              <FormField
-                control={form.control}
-                name="roles"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-center gap-4">
-                    <FormLabel>Phân Quyền</FormLabel>
-                    <Select onValueChange={handleChange} defaultValue={"USER"}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem key={"ADMIN"} value={"ADMIN"}>
-                          ADMIN
-                        </SelectItem>
-                        <SelectItem key={"USER"} value={"USER"}>
-                          USER
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-            <CardFooter>
-              <Button type="submit" className="w-full">
-                {AUTH_CONST.REGISTER}
-              </Button>
-            </CardFooter>
-          </form>
-        </Form>
-      </Card>
-    </div>
+                <FormField
+                  control={form.control}
+                  name="roles"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-center justify-center gap-4">
+                      <FormLabel>Phân Quyền</FormLabel>
+                      <Select
+                        onValueChange={handleChange}
+                        defaultValue={"USER"}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem key={"ADMIN"} value={"ADMIN"}>
+                            ADMIN
+                          </SelectItem>
+                          <SelectItem key={"USER"} value={"USER"}>
+                            USER
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+              <CardFooter>
+                <Button type="submit" className="w-full">
+                  {AUTH_CONST.REGISTER}
+                </Button>
+              </CardFooter>
+            </form>
+          </Form>
+        </Card>
+      </div>
+    </PageContainer>
   );
 };
 

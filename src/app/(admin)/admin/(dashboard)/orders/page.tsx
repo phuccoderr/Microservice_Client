@@ -21,7 +21,7 @@ const OrdersPage = () => {
   return (
     <PageContainer>
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold">Manager Orders</h1>
+        <h1 className="text-2xl font-bold">Quản lý đơn hàng</h1>
         {isLoading ? (
           <LoadingGlobal />
         ) : (
