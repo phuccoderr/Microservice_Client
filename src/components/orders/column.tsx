@@ -43,15 +43,15 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: "address",
-    header: "Address",
+    header: "Địa chỉ",
   },
   {
     accessorKey: "phone_number",
-    header: "Phone number",
+    header: "Số điện thoại",
   },
   {
     accessorKey: "created_at",
-    header: "Date",
+    header: "Ngày tạo",
     cell: ({ row }) => {
       const { created_at } = row.original;
       return <h1>{formatDate(created_at)}</h1>;
@@ -59,7 +59,7 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "Trạng thái",
     cell: ({ row }) => {
       const { id, status } = row.original;
       const mutation = useUpdateStatusOrder();
@@ -91,7 +91,7 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: "total",
-    header: "Total",
+    header: "Tổng tiền",
     cell: ({ row }) => {
       const { total } = row.original;
       return <h1>{formatVnd(total)}</h1>;

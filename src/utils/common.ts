@@ -38,3 +38,11 @@ export const extractTime = (dateString: string) => {
 const padZero = (number: number) => {
   return number.toString().padStart(2, "0");
 };
+
+// kí tự dài hơn 25 sẽ thành ...
+export const formatText = (text: string) => {
+  if (text.length > 25) {
+    return text.slice(0, 23) + "...";
+  }
+  return text;
+};

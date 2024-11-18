@@ -11,6 +11,7 @@ import Link from "next/link";
 import React from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { LiaPepperHotSolid } from "react-icons/lia";
+import { formatText } from "@/utils/common";
 
 const SectionIndex = () => {
   const { data: products } = useGetAllProductsIndex({
@@ -49,11 +50,15 @@ const SectionIndex = () => {
                   className="h-[200px] w-full object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="mb-2 text-lg font-semibold">{item.name}</h3>
-                  <p className="mb-4 text-gray-600">{item.description}</p>
+                  <h3 className="mb-2 text-lg font-semibold">
+                    {formatText(item.name)}
+                  </h3>
+                  <p className="mb-4 text-gray-600">
+                    {formatText(item.description)}
+                  </p>
                   <Link href={`/product/${item.id}`}>
                     <Button className="w-full bg-sky-500 hover:bg-sky-700">
-                      Add to Cart
+                      Xem chi tiết
                     </Button>
                   </Link>
                 </div>

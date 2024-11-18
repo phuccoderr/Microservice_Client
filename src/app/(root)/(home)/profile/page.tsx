@@ -21,7 +21,7 @@ const ProfilePage = () => {
             className={`w-full ${activeTab === "account" ? "!bg-sky-300" : ""}`}
             value="account"
           >
-            Account
+            Tài khoản
           </TabsTrigger>
           <TabsTrigger
             className={`w-full ${activeTab === "order" ? "!bg-sky-300" : ""}`}

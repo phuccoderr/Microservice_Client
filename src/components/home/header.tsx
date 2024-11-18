@@ -34,12 +34,14 @@ const Header = () => {
               Sản phẩm
             </Button>
           </Link>
-          <Button
-            className="text-lg text-black hover:text-sky-300"
-            variant="link"
-          >
-            Chúng tôi
-          </Button>
+          <Link href="/about">
+            <Button
+              className="text-lg text-black hover:text-sky-300"
+              variant="link"
+            >
+              Về chúng tôi
+            </Button>
+          </Link>
           <Link href="/contact">
             <Button
               className="text-lg text-black hover:text-sky-300"

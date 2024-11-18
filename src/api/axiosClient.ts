@@ -36,7 +36,6 @@ const createAxiosInstance = (
       if (!originalRequest._retryCount) {
         originalRequest._retryCount = 0;
       }
-      console.log("error", error);
 
       if (error.response.status === 403) {
         window.location.href = "/admin/403";

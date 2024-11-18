@@ -6,6 +6,7 @@ export const useGetOrder = (id: string) => {
   return useQuery<Order>({
     queryKey: ["order", id],
     queryFn: async () => {
+      if (!id) return null;
       return (await ordersApi.getOne(id)).data;
     },
     refetchOnMount: false,

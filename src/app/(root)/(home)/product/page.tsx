@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import ImageEmpty from "@/public/images/product-empty.png";
-import { calSale, formatVnd } from "@/utils/common";
+import { calSale, formatText, formatVnd } from "@/utils/common";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 
@@ -31,7 +31,6 @@ const ProductPage = () => {
     cate_id: categoryId,
     sort_field: "",
   });
-  const router = useRouter();
   const { setModalAddCart } = useProductStore();
 
   const handleModalAddCart = (
@@ -56,6 +55,15 @@ const ProductPage = () => {
           />
           <span className="mt-2 text-xl text-stone-300">Danh mục</span>
           <Separator className="bg-stone-300" />
+          <Button
+            variant="ghost"
+            className={`w-full justify-start font-bold text-stone-500 hover:bg-transparent hover:text-gray-950 ${categoryId === "" && "text-gray-950"}`}
+            onClick={() => {
+              setCategoryId("");
+            }}
+          >
+            Tất cả
+          </Button>
           {categories?.map((category) => (
             <CategoryItem
               setCategoryId={setCategoryId}
@@ -89,10 +97,12 @@ const ProductPage = () => {
                     <div className="p-2">
                       <Link href={`/product/${item.id}`}>
                         <h1 className="cursor-pointer font-bold hover:text-sky-500">
-                          {item.name}
+                          {formatText(item.name)}
                         </h1>
                       </Link>
-                      <h1 className="text-xs">{item.description}</h1>
+                      <h1 className="text-xs">
+                        {formatText(item.description)}
+                      </h1>
                       {item.sale > 0 ? (
                         <div className="flex gap-2">
                           <h1 className="font-bold line-through">
